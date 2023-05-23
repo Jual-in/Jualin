@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context=".fragments.LoginFragment">
+    tools:context=".ui.fragments.LoginFragment">
 
     <ImageView
         android:layout_width="wrap_content"
@@ -37,9 +37,9 @@
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="16dp"
         android:inputType="textEmailAddress"
-        android:text="@string/email" />
+        android:hint="@string/email" />
 
-    <EditText
+    <com.jualin.apps.ui.views.PasswordEditText
         android:id="@+id/edit_text_password"
         style="@style/Theme.CustomTextField"
         android:layout_width="match_parent"
@@ -47,7 +47,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:inputType="textVisiblePassword"
-        android:text="@string/password" />
+        android:hint="@string/password" />
 
     <Button
         android:id="@+id/btn_login"
