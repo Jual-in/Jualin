@@ -3,4 +3,6 @@
     <color name="colorPrimaryDark">#FF000000</color>
     <color name="pureWhite">#FFFFFFFF</color>
     <color name="defaultGrey">#979C9E</color>
+
+    <color name="transparent">#00000000</color>
 </resources>

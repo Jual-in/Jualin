@@ -2,12 +2,15 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.JualinLight" parent="Theme.Material3.Light.NoActionBar">
         <!-- Customize your light theme here. -->
-         <item name="colorPrimary">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@color/colorPrimaryDark</item>
         <item name="android:background">@color/pureWhite</item>
+        <item name="colorOnSurfaceVariant">@color/defaultGrey</item>
+
+        <item name="bottomNavigationStyle">@style/Theme.BottomNavigation</item>
     </style>
 
     <style name="Theme.JualinLight" parent="Base.Theme.JualinLight" />
-    
+
     <style name="Theme.CustomTextField" parent="Widget.AppCompat.EditText">
         <item name="android:background">@drawable/text_field_background</item>
         <item name="android:padding">11dp</item>
@@ -16,5 +19,15 @@
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/defaultGrey</item>
         <item name="android:maxLines">1</item>
+    </style>
+
+    <style name="Theme.BottomNavigation" parent="Widget.Material3.BottomNavigationView">
+        <item name="labelVisibilityMode">labeled</item>
+        <item name="itemActiveIndicatorStyle">@style/NavigationBarView.ActiveIndicator</item>
+        <item name="itemRippleColor">@color/transparent</item>
+    </style>
+
+    <style name="NavigationBarView.ActiveIndicator" parent="ShapeAppearance.Material3.NavigationBarView.ActiveIndicator">
+        <item name="android:background">@color/transparent</item>
     </style>
 </resources>

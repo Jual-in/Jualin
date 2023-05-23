@@ -15,4 +15,10 @@
     <string name="alamat">alamat</string>
     <string name="deskripsi">deskripsi</string>
     <string name="lihat_toko">Lihat Toko</string>
+    <string name="home">Home</string>
+    <string name="terdekat">Terdekat</string>
+    <string name="cari_gambar">Cari Gambar</string>
+    <string name="profil">Profil</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
