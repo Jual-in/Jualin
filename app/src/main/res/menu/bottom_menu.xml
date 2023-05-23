@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/ic_home_24dp"
+        android:enabled="true"
+        android:title="@string/home" />
+    <item
+        android:id="@+id/nearbyFragment"
+        android:icon="@drawable/ic_place_24dp"
+        android:enabled="true"
+        android:title="@string/terdekat" />
+
+    <item
+        android:id="@+id/scannerFragment"
+        android:icon="@drawable/ic_image_scanner_24dp"
+        android:enabled="true"
+        android:title="@string/cari_gambar" />
+    <item
+        android:id="@+id/profileFragment"
+        android:icon="@drawable/ic_account_circle_24dp"
+        android:enabled="true"
+        android:title="@string/profil" />
+</menu>
