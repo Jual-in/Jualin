@@ -6,4 +6,7 @@
     <string name="daftar">Daftar</string>
     <string name="informasi_masuk">Masukkan kredensial untuk masuk ke aplikasi</string>
     <string name="belum_punya_akun">Belum punya akun?</string>
+    <string name="format_email">Gunakan Format Email</string>
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
