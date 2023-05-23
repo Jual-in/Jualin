@@ -70,7 +70,7 @@
         android:layout_marginTop="24dp"
         android:paddingHorizontal="80dp"
         android:paddingVertical="7dp"
-        android:text="@string/masuk"
+        android:text="@string/daftar"
         android:textSize="20sp" />
 
     <LinearLayout
