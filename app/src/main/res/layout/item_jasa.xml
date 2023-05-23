@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="220dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="10dp"
+    android:layout_margin="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:padding="15dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_nama_jasa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="@string/nama_jasa"
+            android:textSize="24sp"
+            android:layout_marginBottom="15dp"
+            android:textStyle="bold" />
+        <ImageView
+            android:id="@+id/iv_lokasi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:src="@drawable/baseline_location_on_24"
+            android:contentDescription="@string/icon_lokasi"/>
+        <TextView
+            android:id="@+id/tv_lokasi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="@string/alamat"
+            android:textSize="16sp"
+            android:layout_marginBottom="12dp" />
+        <TextView
+            android:id="@+id/tv_deskripsi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/deskripsi"
+            android:textSize="14sp"/>
+        <Button
+            android:id="@+id/btn_lihat_toko"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:paddingHorizontal="40dp"
+            android:paddingVertical="7dp"
+            android:text="@string/lihat_toko"
+            android:textSize="12sp" />
+
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

@@ -12,4 +12,9 @@
     <string name="konfirmasi_password">konfirmasi password</string>
     <string name="nama_lengkap">Nama Lengkap</string>
     <string name="sudah_punya_akun">sudah punya akun</string>
+    <string name="nama_jasa">nama jasa</string>
+    <string name="icon_lokasi">icon lokasi</string>
+    <string name="alamat">alamat</string>
+    <string name="deskripsi">deskripsi</string>
+    <string name="lihat_toko">Lihat Toko</string>
 </resources>
