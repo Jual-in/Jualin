@@ -9,4 +9,7 @@
     <string name="format_email">Gunakan Format Email</string>
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="konfirmasi_password">konfirmasi password</string>
+    <string name="nama_lengkap">Nama Lengkap</string>
+    <string name="sudah_punya_akun">sudah punya akun</string>
 </resources>
