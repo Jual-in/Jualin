@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.jualin.apps.R
 import com.jualin.apps.databinding.FragmentLoginBinding
 
@@ -35,11 +35,11 @@ class LoginFragment : Fragment() {
 
     private fun setupAction() {
         binding.btnLogin.setOnClickListener {
-            it.findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+            findNavController().navigate(R.id.homeFragment)
         }
 
         binding.linkToRegister.setOnClickListener {
-            it.findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+            findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
     }
 }
