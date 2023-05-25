@@ -3,7 +3,7 @@
     <style name="Base.Theme.JualinLight" parent="Theme.Material3.Light.NoActionBar">
         <!-- Customize your light theme here. -->
         <item name="colorPrimary">@color/colorPrimaryDark</item>
-        <item name="android:background">@color/pureWhite</item>
+        <item name="android:windowBackground">@color/pureWhite</item>
         <item name="colorOnSurfaceVariant">@color/defaultGrey</item>
 
         <item name="bottomNavigationStyle">@style/Theme.BottomNavigation</item>
@@ -23,6 +23,7 @@
 
     <style name="Theme.BottomNavigation" parent="Widget.Material3.BottomNavigationView">
         <item name="labelVisibilityMode">labeled</item>
+        <item name="backgroundTint">@color/pureWhite</item>
         <item name="itemActiveIndicatorStyle">@style/NavigationBarView.ActiveIndicator</item>
         <item name="itemRippleColor">@color/transparent</item>
         <item name="itemPaddingTop">16dp</item>
