@@ -23,4 +23,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="produk">Produk</string>
     <string name="jasa">Jasa</string>
+    <string name="scan_gambar">Scan gambar</string>
+    <string name="ambil_dari_galeri">Ambil dari Galeri</string>
 </resources>
