@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="220dp"
         android:padding="15dp"
+        android:background="@drawable/bg_border"
         android:orientation="vertical">
 
         <TextView
@@ -48,7 +49,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:paddingHorizontal="40dp"
-            android:paddingVertical="7dp"
             android:text="@string/lihat_toko"
             android:textSize="12sp" />
 
