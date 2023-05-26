@@ -28,6 +28,8 @@ class LoginFragment : Fragment() {
         setupAction()
     }
 
+
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null // Avoid memory leak
