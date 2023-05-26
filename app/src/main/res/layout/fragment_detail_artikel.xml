@@ -1,0 +1,66 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="null"
+            android:layout_marginBottom="15dp"
+            android:scaleType="centerCrop"
+            android:layout_gravity="start"
+            android:src="@drawable/back_button"/>
+
+        <TextView
+            android:id="@+id/tv_article_author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="segoBakar - May 16, 2023"
+            />
+
+
+        <TextView
+            android:id="@+id/tv_article_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Judul artikel"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:paddingTop="16dp"
+            android:paddingBottom="8dp" />
+
+        <ImageView
+            android:id="@+id/iv_article_image"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/product_logo" />
+
+
+        <TextView
+            android:id="@+id/tv_desc_photo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="photo by yahaha"
+            android:textAlignment="center"
+            android:textSize="12sp"
+            android:paddingBottom="20dp" />
+
+        <TextView
+            android:id="@+id/tv_article_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/lorem_ipsum"
+            android:textSize="16sp"
+            android:lineSpacingExtra="8dp" />
+
+    </LinearLayout>
+</ScrollView>
