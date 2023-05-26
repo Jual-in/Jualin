@@ -1,4 +1,4 @@
-package com.jualin.apps.adapter
+package com.jualin.apps.ui.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
