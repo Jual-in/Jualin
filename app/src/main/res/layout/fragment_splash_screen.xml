@@ -6,8 +6,10 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginStart="104dp"
+        android:layout_marginTop="276dp"
         android:contentDescription="@string/logo_jualin"
         android:foregroundGravity="center"
         app:layout_constraintStart_toStartOf="parent"
