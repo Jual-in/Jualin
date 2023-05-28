@@ -12,7 +12,7 @@
         android:layout_height="306dp">
 
         <ImageView
-            android:id="@+id/iv_bussiness"
+            android:id="@+id/iv_business"
             android:layout_width="0dp"
             android:layout_height="175dp"
             android:scaleType="centerCrop"
@@ -30,10 +30,10 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_bussiness" />
+            app:layout_constraintTop_toBottomOf="@id/iv_business" />
 
         <TextView
-            android:id="@+id/tv_bussiness_name"
+            android:id="@+id/tv_business_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="12dp"
@@ -48,28 +48,28 @@
             tools:text="Nama Toko" />
 
         <ImageView
-            android:id="@+id/ic_bussiness_location"
+            android:id="@+id/ic_business_location"
             android:layout_width="14dp"
             android:layout_height="14dp"
             android:layout_marginTop="5dp"
-            app:layout_constraintStart_toStartOf="@id/tv_bussiness_name"
-            app:layout_constraintTop_toBottomOf="@id/tv_bussiness_name"
+            app:layout_constraintStart_toStartOf="@id/tv_business_name"
+            app:layout_constraintTop_toBottomOf="@id/tv_business_name"
             app:srcCompat="@drawable/ic_place_24dp" />
 
         <TextView
-            android:id="@+id/tv_bussiness_address"
+            android:id="@+id/tv_business_address"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:textSize="11sp"
-            app:layout_constraintBottom_toBottomOf="@+id/ic_bussiness_location"
-            app:layout_constraintEnd_toEndOf="@+id/tv_bussiness_name"
-            app:layout_constraintStart_toEndOf="@+id/ic_bussiness_location"
-            app:layout_constraintTop_toTopOf="@+id/ic_bussiness_location"
+            app:layout_constraintBottom_toBottomOf="@+id/ic_business_location"
+            app:layout_constraintEnd_toEndOf="@+id/tv_business_name"
+            app:layout_constraintStart_toEndOf="@+id/ic_business_location"
+            app:layout_constraintTop_toTopOf="@+id/ic_business_location"
             tools:text="Ngawi" />
 
         <TextView
-            android:id="@+id/tv_bussiness_desc"
+            android:id="@+id/tv_business_desc"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="8dp"
@@ -78,9 +78,9 @@
             android:maxLines="5"
             android:textSize="11sp"
             app:layout_constraintBottom_toBottomOf="@id/text_container"
-            app:layout_constraintEnd_toEndOf="@id/tv_bussiness_name"
-            app:layout_constraintStart_toStartOf="@id/tv_bussiness_name"
-            app:layout_constraintTop_toBottomOf="@id/tv_bussiness_address"
+            app:layout_constraintEnd_toEndOf="@id/tv_business_name"
+            app:layout_constraintStart_toStartOf="@id/tv_business_name"
+            app:layout_constraintTop_toBottomOf="@id/tv_business_address"
             tools:text="Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum has been the" />
 
 

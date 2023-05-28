@@ -9,4 +9,5 @@
     <color name="light_blue_900">#FF01579B</color>
     <color name="light_blue_A200">#FF40C4FF</color>
     <color name="black_overlay">#66000000</color>
+    <color name="softBlue">#F2F4F5</color>
 </resources>
