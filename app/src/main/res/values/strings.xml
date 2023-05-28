@@ -27,4 +27,9 @@
     <string name="ambil_dari_galeri">Ambil dari Galeri</string>
     <string name="gambar_produk">gambar sebuah produk</string>
     <string name="logo_jualin">logo jualin</string>
+    <string name="discount_up_to">DISCOUNT UP TO %d%%</string>
+    <string name="lihat_semua">Lihat semua</string>
+    <string name="artikel">Artikel</string>
+    <string name="rekomendasi_terbaik">Rekomendasi Terbaik</string>
+    <string name="promo_untukmu">Promo Untukmu</string>
 </resources>
