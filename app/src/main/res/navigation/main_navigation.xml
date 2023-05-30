@@ -39,7 +39,11 @@
         android:id="@+id/homeFragment"
         android:name="com.jualin.apps.ui.fragments.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_businessDetailFragment"
+            app:destination="@id/businessDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/nearbyFragment"
         android:name="com.jualin.apps.ui.fragments.NearbyFragment"
@@ -60,5 +64,15 @@
             app:destination="@id/loginFragment"
             app:popUpTo="@id/main_navigation"
             app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/businessDetailFragment"
+        android:name="com.jualin.apps.ui.fragments.BusinessDetailFragment"
+        android:label="fragment_business_detail"
+        tools:layout="@layout/fragment_business_detail" >
+        <argument
+            android:name="businessId"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
 </navigation>
