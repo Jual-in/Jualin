@@ -1,10 +1,9 @@
 package com.jualin.apps.ui.views
 
 import android.content.Context
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatEditText
+import androidx.core.widget.doOnTextChanged
 import com.jualin.apps.R
 
 class EmailEditText : AppCompatEditText {
@@ -16,29 +15,23 @@ class EmailEditText : AppCompatEditText {
         init()
     }
 
-    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
+    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(
+        context,
+        attrs,
+        defStyleAttr
+    ) {
         init()
     }
 
     private fun init() {
-        addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                //
+        doOnTextChanged { text, _, _, _ ->
+            if (!isValidEmail(text ?: "")) {
+                error = context.getString(R.string.format_email)
             }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                //
-            }
-
-            override fun afterTextChanged(s: Editable) {
-                if (!isValidEmail(s)) {
-                    error = context.getString(R.string.format_email)
-                }
-            }
-        })
+        }
     }
 
-    private fun isValidEmail(email: CharSequence) : Boolean {
+    private fun isValidEmail(email: CharSequence): Boolean {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
 }
