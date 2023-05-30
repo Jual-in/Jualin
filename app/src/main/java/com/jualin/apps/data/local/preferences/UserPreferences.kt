@@ -1,25 +1,12 @@
 package com.jualin.apps.data.local.preferences
 
-import android.content.Context
 import com.jualin.apps.data.local.entity.User
+import kotlinx.coroutines.flow.Flow
 
-internal class UserPreferences(context: Context) {
-    private val preferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-
-    fun setUser(value: User){
-        val editor = preferences.edit()
-        editor.putString(TOKEN, value.token)
-        editor.apply()
-    }
-
-    fun getUser(): User {
-        val model = User()
-        model.token = preferences.getString(TOKEN, "")
-        return model
-    }
-
-    companion object {
-        private const val PREFS_NAME = "user_pref"
-        private const val TOKEN = "token"
-    }
+interface UserPreferences {
+    fun getUser(): Flow<User>
+    suspend fun getToken(): String
+    suspend fun login(user: User)
+    suspend fun logout()
+    suspend fun storeToken(token: String)
 }

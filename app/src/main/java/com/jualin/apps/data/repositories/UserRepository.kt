@@ -4,15 +4,19 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.jualin.apps.data.Result
+import com.jualin.apps.data.local.entity.User
+import com.jualin.apps.data.local.preferences.UserPreferencesImpl
 import com.jualin.apps.data.remote.response.LoginResponse
 import com.jualin.apps.data.remote.response.RegisterResponse
 import com.jualin.apps.data.remote.retrofit.ApiService
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class Repository @Inject constructor(
-    private val apiService: ApiService
+class UserRepository @Inject constructor(
+    private val apiService: ApiService,
+    private val userPreferences: UserPreferencesImpl,
 ) {
 
     fun login(
@@ -22,6 +26,8 @@ class Repository @Inject constructor(
         emit(Result.Loading)
         try {
             val response = apiService.login(email, password)
+            userPreferences.storeToken(response.token)
+            userPreferences.login(User(response.name, true))
             emit(Result.Success(response))
         } catch (e: Exception) {
             Log.d("login", e.message.toString())
@@ -44,5 +50,10 @@ class Repository @Inject constructor(
         }
     }
 
+    fun getUser(): Flow<User> = userPreferences.getUser()
+
+    suspend fun logout() {
+        userPreferences.logout()
+    }
 
 }
