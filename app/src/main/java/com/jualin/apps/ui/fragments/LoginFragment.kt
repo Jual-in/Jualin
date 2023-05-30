@@ -10,21 +10,22 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.jualin.apps.R
-import com.jualin.apps.databinding.FragmentLoginBinding
-import com.jualin.apps.ui.viewmodel.LoginViewModel
 import com.jualin.apps.data.Result
 import com.jualin.apps.data.local.entity.User
 import com.jualin.apps.data.local.preferences.UserPreferences
-import com.jualin.apps.utils.ViewModelFactory
+import com.jualin.apps.databinding.FragmentLoginBinding
+import com.jualin.apps.ui.viewmodel.LoginViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LoginFragment : Fragment() {
 
     private var _binding: FragmentLoginBinding? = null
-    private lateinit var factory: ViewModelFactory
-    private val loginViewModel: LoginViewModel by viewModels{factory}
+    private val binding get() = _binding!!
+
+    private val loginViewModel: LoginViewModel by viewModels()
     private val userModel: User = User()
     private lateinit var userPreferences: UserPreferences
-    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,7 +37,6 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        factory = ViewModelFactory.getInstance(requireContext())
         userPreferences = UserPreferences(requireContext())
 
         login()

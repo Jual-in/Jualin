@@ -2,28 +2,28 @@ package com.jualin.apps.ui.fragments
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider.NewInstanceFactory.Companion.instance
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.jualin.apps.R
 import com.jualin.apps.data.Result
 import com.jualin.apps.databinding.FragmentRegisterBinding
 import com.jualin.apps.ui.viewmodel.RegisterViewModel
-import com.jualin.apps.utils.ViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class RegisterFragment : Fragment() {
 
     private var _binding: FragmentRegisterBinding? = null
     private val binding get() = _binding!!
-    private lateinit var factory: ViewModelFactory
-    private val registerViewModel: RegisterViewModel by viewModels{factory}
+
+    private val registerViewModel: RegisterViewModel by viewModels()
 
 
     override fun onCreateView(
@@ -36,7 +36,6 @@ class RegisterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        factory = ViewModelFactory.getInstance(requireContext())
 
         setupAction()
         register()

@@ -1,16 +1,19 @@
-package com.jualin.apps.data
+package com.jualin.apps.data.repositories
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
+import com.jualin.apps.data.Result
 import com.jualin.apps.data.remote.response.LoginResponse
 import com.jualin.apps.data.remote.response.RegisterResponse
 import com.jualin.apps.data.remote.retrofit.ApiService
+import javax.inject.Inject
+import javax.inject.Singleton
 
-
-class Repository constructor(
+@Singleton
+class Repository @Inject constructor(
     private val apiService: ApiService
-    ){
+) {
 
     fun login(
         email: String,
@@ -20,11 +23,12 @@ class Repository constructor(
         try {
             val response = apiService.login(email, password)
             emit(Result.Success(response))
-        } catch(e : Exception) {
+        } catch (e: Exception) {
             Log.d("login", e.message.toString())
             emit(Result.Error(e.toString()))
         }
     }
+
     fun register(
         name: String,
         email: String,
@@ -34,7 +38,7 @@ class Repository constructor(
         try {
             val response = apiService.register(name, email, password)
             emit(Result.Success(response))
-        } catch(e : Exception) {
+        } catch (e: Exception) {
             Log.d("register", e.message.toString())
             emit(Result.Error(e.toString()))
         }
