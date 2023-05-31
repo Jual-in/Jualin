@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.jualin.apps.R
@@ -48,9 +49,18 @@ class HomeFragment : Fragment() {
                 .load("https://picsum.photos/300/180")
                 .into(carouselView)
 
-            rvRecommended.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            rvRecommended.adapter = RecommendedBusinessAdapter(FakeData.business)
+            rvRecommended.layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+
+            rvRecommended.adapter = RecommendedBusinessAdapter(
+                FakeData.business,
+                object : RecommendedBusinessAdapter.OnBusinessClickListener {
+                    override fun onBusinessClick(businessId: Int) {
+                        val action = HomeFragmentDirections.actionHomeFragmentToBusinessDetailFragment(businessId)
+                        findNavController().navigate(action)
+                    }
+                },
+            )
         }
     }
-
 }

@@ -4,6 +4,7 @@ import android.content.Context
 import com.jualin.apps.data.local.preferences.UserPreferencesImpl
 import com.jualin.apps.data.repositories.UserRepository
 import com.jualin.apps.data.remote.retrofit.ApiService
+import com.jualin.apps.data.repositories.BusinessRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -28,6 +29,12 @@ object AppModule {
         userPreferences: UserPreferencesImpl
     ): UserRepository {
         return UserRepository(apiService, userPreferences)
+    }
+
+    @Singleton
+    @Provides
+    fun provideBusinessRepository(): BusinessRepository {
+        return BusinessRepository()
     }
 
 }
