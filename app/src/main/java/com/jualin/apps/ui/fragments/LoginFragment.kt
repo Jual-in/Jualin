@@ -10,21 +10,18 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.jualin.apps.R
-import com.jualin.apps.databinding.FragmentLoginBinding
-import com.jualin.apps.ui.viewmodel.LoginViewModel
 import com.jualin.apps.data.Result
-import com.jualin.apps.data.local.entity.User
-import com.jualin.apps.data.local.preferences.UserPreferences
-import com.jualin.apps.utils.ViewModelFactory
+import com.jualin.apps.databinding.FragmentLoginBinding
+import com.jualin.apps.ui.viewmodel.AuthViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LoginFragment : Fragment() {
 
     private var _binding: FragmentLoginBinding? = null
-    private lateinit var factory: ViewModelFactory
-    private val loginViewModel: LoginViewModel by viewModels{factory}
-    private val userModel: User = User()
-    private lateinit var userPreferences: UserPreferences
     private val binding get() = _binding!!
+
+    private val viewModel: AuthViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,48 +33,8 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        factory = ViewModelFactory.getInstance(requireContext())
-        userPreferences = UserPreferences(requireContext())
-
-        login()
 
         setupAction()
-    }
-    private fun login(){
-        binding.btnLogin.setOnClickListener{
-            val email = binding.editTextEmail.text.toString().trim()
-            val password = binding.editTextPassword.text.toString().trim()
-            if (email.isEmpty() || password.isEmpty()){
-                Toast.makeText(requireContext(), "Data tidak boleh kosong", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-            loginViewModel.login(
-                email,
-                password
-            ).observe(viewLifecycleOwner) { result ->
-                when (result) {
-                    is Result.Success -> {
-                        val response = result.data
-                        saveToken(response.token)
-                        Toast.makeText(requireContext(), "Login Success", Toast.LENGTH_SHORT).show()
-                        findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
-                        Log.d("LoginFragment", "Success")
-                    }
-                    is Result.Error -> {
-                        Toast.makeText(requireContext(), "Login Gagal", Toast.LENGTH_SHORT).show()
-                        Log.d("LoginFragment", "Error")
-                    }
-                    is Result.Loading -> {
-                        Log.d("LoginFragment", "Loading")
-                    }
-                }
-            }
-        }
-    }
-
-    private fun saveToken(token: String) {
-        userModel.token = token
-        userPreferences.setUser(userModel)
     }
 
     override fun onDestroyView() {
@@ -88,6 +45,34 @@ class LoginFragment : Fragment() {
     private fun setupAction() {
         binding.linkToRegister.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+        }
+
+        binding.btnLogin.setOnClickListener {
+            val email = binding.editTextEmail.text.toString().trim()
+            val password = binding.editTextPassword.text.toString().trim()
+            if (email.isEmpty() || password.isEmpty()) {
+                Toast.makeText(requireContext(), "Data tidak boleh kosong", Toast.LENGTH_SHORT)
+                    .show()
+                return@setOnClickListener
+            }
+            viewModel.login(
+                email,
+                password
+            ).observe(viewLifecycleOwner) { result ->
+                when (result) {
+                    is Result.Success -> {
+                        Toast.makeText(requireContext(), "Login Success", Toast.LENGTH_SHORT).show()
+                    }
+
+                    is Result.Error -> {
+                        Toast.makeText(requireContext(), "Login Gagal", Toast.LENGTH_SHORT).show()
+                    }
+
+                    is Result.Loading -> {
+                        Log.d("LoginFragment", "Loading")
+                    }
+                }
+            }
         }
     }
 }
