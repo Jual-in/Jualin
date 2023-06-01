@@ -37,7 +37,7 @@ class NearbyProductFragment : Fragment() {
             rvNearbyProduct.layoutManager = layoutManager
             rvNearbyProduct.adapter = NearbyProductAdapter(FakeData.products, requireContext())
 
-            tvNearbyProduct.text = getString(R.string.jasa_di_sekitar_s, "Ngawi")
+            tvNearbyProduct.text = getString(R.string.produk_di_sekitar_s, "Ngawi")
         }
     }
 }
