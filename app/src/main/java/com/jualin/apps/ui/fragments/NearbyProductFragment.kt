@@ -35,7 +35,7 @@ class NearbyProductFragment : Fragment() {
         binding.apply {
             val layoutManager = GridLayoutManager(requireContext(), 2)
             rvNearbyProduct.layoutManager = layoutManager
-            rvNearbyProduct.adapter = NearbyProductAdapter(FakeData.products)
+            rvNearbyProduct.adapter = NearbyProductAdapter(FakeData.products, requireContext())
 
             tvNearbyProduct.text = getString(R.string.jasa_di_sekitar_s, "Ngawi")
         }
