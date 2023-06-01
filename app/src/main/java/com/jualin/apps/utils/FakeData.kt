@@ -5,7 +5,7 @@ import com.jualin.apps.data.local.entity.Product
 import com.jualin.apps.data.local.entity.Service
 
 object FakeData {
-    private val products = listOf(
+    val products = listOf(
         Product(
             id = 1,
             name = "Kopi Susu",
@@ -50,7 +50,7 @@ object FakeData {
         ),
     )
 
-    private val services = listOf(
+    val services = listOf(
         Service(
             id = 1,
             name = "Service AC",
