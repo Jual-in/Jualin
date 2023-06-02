@@ -1,16 +1,14 @@
 package com.jualin.apps.ui.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.jualin.apps.R
 import com.jualin.apps.data.local.entity.Service
 import com.jualin.apps.databinding.ItemJasaBinding
+import com.jualin.apps.utils.StringUtils
 
 class NearbyServiceAdapter(
-    private val list: List<Service>,
-    private val context: Context
+    private val list: List<Service>
 ) : RecyclerView.Adapter<NearbyServiceAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -31,7 +29,7 @@ class NearbyServiceAdapter(
         fun bind(service: Service) {
             binding.apply {
                 binding.tvNamaJasa.text = service.name
-                binding.tvServicePrice.text = context.getString(R.string.rupiah, service.price)
+                binding.tvServicePrice.text = StringUtils.formatCurrency(service.price)
             }
         }
 

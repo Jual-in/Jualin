@@ -35,6 +35,6 @@ class NearbyServiceFragment : Fragment() {
 
         binding.tvNearbyService.text = getString(R.string.jasa_di_sekitar_s, "Ngawi")
         binding.rvNearbyService.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvNearbyService.adapter = NearbyServiceAdapter(FakeData.services, requireContext())
+        binding.rvNearbyService.adapter = NearbyServiceAdapter(FakeData.services)
     }
 }
