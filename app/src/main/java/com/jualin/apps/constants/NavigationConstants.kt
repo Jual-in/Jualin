@@ -7,5 +7,6 @@ object NavigationConstants {
         R.id.loginFragment,
         R.id.registerFragment,
         R.id.businessDetailFragment,
+        R.id.searchFragment,
     )
 }
