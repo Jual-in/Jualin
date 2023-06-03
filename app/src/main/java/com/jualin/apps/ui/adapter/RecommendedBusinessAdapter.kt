@@ -1,6 +1,5 @@
 package com.jualin.apps.ui.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -15,7 +14,6 @@ class RecommendedBusinessAdapter(
     RecyclerView.Adapter<RecommendedBusinessAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        Log.d("TAG1", "onCreateViewHolder: ${items.size}")
         val binding = ItemRecommendedBusinessBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
