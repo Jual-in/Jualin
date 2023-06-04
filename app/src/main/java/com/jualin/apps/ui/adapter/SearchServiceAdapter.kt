@@ -7,9 +7,9 @@ import com.jualin.apps.data.local.entity.Service
 import com.jualin.apps.databinding.ItemJasaBinding
 import com.jualin.apps.utils.StringUtils
 
-class NearbyServiceAdapter(
+class SearchServiceAdapter(
     private val list: List<Service>
-) : RecyclerView.Adapter<NearbyServiceAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<SearchServiceAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemJasaBinding.inflate(LayoutInflater.from(parent.context), parent, false)

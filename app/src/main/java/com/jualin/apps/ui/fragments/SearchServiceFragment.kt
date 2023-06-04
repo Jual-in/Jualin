@@ -6,14 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.jualin.apps.R
-import com.jualin.apps.databinding.FragmentNearbyServiceBinding
-import com.jualin.apps.ui.adapter.NearbyServiceAdapter
+import com.jualin.apps.databinding.FragmentSearchServiceBinding
+import com.jualin.apps.ui.adapter.SearchServiceAdapter
 import com.jualin.apps.utils.FakeData
 
-class NearbyServiceFragment : Fragment() {
+class SearchServiceFragment : Fragment() {
 
-    private var _binding: FragmentNearbyServiceBinding? = null
+    private var _binding: FragmentSearchServiceBinding? = null
     private val binding get() = _binding!!
 
 
@@ -21,7 +20,7 @@ class NearbyServiceFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentNearbyServiceBinding.inflate(inflater, container, false)
+        _binding = FragmentSearchServiceBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -33,8 +32,7 @@ class NearbyServiceFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.tvNearbyService.text = getString(R.string.jasa_di_sekitar_s, "Ngawi")
         binding.rvNearbyService.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvNearbyService.adapter = NearbyServiceAdapter(FakeData.services)
+        binding.rvNearbyService.adapter = SearchServiceAdapter(FakeData.services)
     }
 }

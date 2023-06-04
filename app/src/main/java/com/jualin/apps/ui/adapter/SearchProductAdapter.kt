@@ -8,9 +8,9 @@ import com.jualin.apps.data.local.entity.Product
 import com.jualin.apps.databinding.ItemProductBinding
 import com.jualin.apps.utils.StringUtils
 
-class NearbyProductAdapter(
+class SearchProductAdapter(
     private val list: List<Product>,
-) : RecyclerView.Adapter<NearbyProductAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<SearchProductAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemProductBinding.inflate(LayoutInflater.from(parent.context), parent, false)
