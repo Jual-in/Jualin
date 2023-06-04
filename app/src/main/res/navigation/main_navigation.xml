@@ -9,7 +9,7 @@
         android:id="@+id/loginFragment"
         android:name="com.jualin.apps.ui.fragments.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
             app:destination="@id/registerFragment"
@@ -27,7 +27,7 @@
         android:id="@+id/registerFragment"
         android:name="com.jualin.apps.ui.fragments.RegisterFragment"
         android:label="fragment_register"
-        tools:layout="@layout/fragment_register" >
+        tools:layout="@layout/fragment_register">
         <action
             android:id="@+id/action_registerFragment_to_loginFragment"
             app:destination="@id/loginFragment"
@@ -39,10 +39,13 @@
         android:id="@+id/homeFragment"
         android:name="com.jualin.apps.ui.fragments.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_businessDetailFragment"
             app:destination="@id/businessDetailFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
     </fragment>
     <fragment
         android:id="@+id/nearbyFragment"
@@ -58,7 +61,7 @@
         android:id="@+id/profileFragment"
         android:name="com.jualin.apps.ui.fragments.ProfileFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" >
+        tools:layout="@layout/fragment_profile">
         <action
             android:id="@+id/action_profileFragment_to_loginFragment"
             app:destination="@id/loginFragment"
@@ -69,10 +72,24 @@
         android:id="@+id/businessDetailFragment"
         android:name="com.jualin.apps.ui.fragments.BusinessDetailFragment"
         android:label="fragment_business_detail"
-        tools:layout="@layout/fragment_business_detail" >
+        tools:layout="@layout/fragment_business_detail">
         <argument
             android:name="businessId"
-            app:argType="integer"
-            android:defaultValue="0" />
+            android:defaultValue="0"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.jualin.apps.ui.fragments.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search">
+        <argument
+            android:name="query"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_searchFragment_self"
+            app:destination="@id/searchFragment"
+            app:popUpTo="@id/searchFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

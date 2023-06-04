@@ -48,6 +48,13 @@ object FakeData {
             discount = 0.0,
             photoUrl = "https://picsum.photos/300/180",
         ),
+        Product(
+            id = 7,
+            name = "Jamu",
+            price = "10000.00",
+            discount = 0.0,
+            photoUrl = "https://picsum.photos/300/180",
+        ),
     )
 
     val services = listOf(

@@ -5,16 +5,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.jualin.apps.data.local.entity.Business
-import com.jualin.apps.databinding.ItemRecommendedBusinessBinding
+import com.jualin.apps.databinding.ItemNearbyBusinessBinding
 
-class RecommendedBusinessAdapter(
+class NearbyBusinessAdapter(
     private val items: List<Business>,
     private val listener: OnBusinessClickListener
 ) :
-    RecyclerView.Adapter<RecommendedBusinessAdapter.ViewHolder>() {
+    RecyclerView.Adapter<NearbyBusinessAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemRecommendedBusinessBinding.inflate(
+        val binding = ItemNearbyBusinessBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
@@ -29,13 +29,12 @@ class RecommendedBusinessAdapter(
         holder.bind(item)
     }
 
-    inner class ViewHolder(private val binding: ItemRecommendedBusinessBinding) :
+    inner class ViewHolder(private val binding: ItemNearbyBusinessBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Business) {
             binding.apply {
                 tvBusinessName.text = item.name
                 tvBusinessDesc.text = item.description
-                tvBusinessAddress.text = "Ngawi"
                 Glide.with(itemView.context)
                     .load(item.imageUrl)
                     .into(ivBusiness)

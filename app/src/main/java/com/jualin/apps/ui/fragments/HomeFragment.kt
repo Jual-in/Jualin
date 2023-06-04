@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -56,11 +57,31 @@ class HomeFragment : Fragment() {
                 FakeData.business,
                 object : RecommendedBusinessAdapter.OnBusinessClickListener {
                     override fun onBusinessClick(businessId: Int) {
-                        val action = HomeFragmentDirections.actionHomeFragmentToBusinessDetailFragment(businessId)
+                        val action =
+                            HomeFragmentDirections.actionHomeFragmentToBusinessDetailFragment(
+                                businessId
+                            )
                         findNavController().navigate(action)
                     }
                 },
             )
+
+            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    if (query!=null) {
+                        performSearch(query)
+                        searchView.setQuery("", false)
+                    }
+                    return true
+                }
+
+                override fun onQueryTextChange(newText: String): Boolean = true
+            })
         }
+    }
+
+    private fun performSearch(query: String) {
+        val action = HomeFragmentDirections.actionHomeFragmentToSearchFragment(query)
+        findNavController().navigate(action)
     }
 }

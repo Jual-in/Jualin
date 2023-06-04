@@ -8,13 +8,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.jualin.apps.data.Result
 import com.jualin.apps.data.local.entity.Business
 import com.jualin.apps.databinding.FragmentBusinessDetailBinding
 import com.jualin.apps.ui.adapter.BusinessDetailProductAdapter
-import com.jualin.apps.ui.adapter.GridListAdapter
+import com.jualin.apps.ui.adapter.BusinessDetailServiceAdapter
 import com.jualin.apps.ui.viewmodel.BusinessDetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
@@ -78,15 +79,21 @@ class BusinessDetailFragment : Fragment() {
         if (!data.products.isNullOrEmpty()) {
             binding.tvProductTitle.visibility = View.VISIBLE
             binding.rvProductList.visibility = View.VISIBLE
-            binding.rvProductList.layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+
+            binding.rvProductList.layoutManager = object : GridLayoutManager(requireContext(), 2) {
+                override fun canScrollVertically(): Boolean = false
+            }
             binding.rvProductList.adapter = BusinessDetailProductAdapter(data.products)
         }
 
         if (!data.services.isNullOrEmpty()) {
             binding.tvServiceTitle.visibility = View.VISIBLE
             binding.rvServiceList.visibility = View.VISIBLE
-            binding.rvServiceList.adapter = GridListAdapter(data.services)
+
+            binding.rvServiceList.layoutManager = object : LinearLayoutManager(requireContext()) {
+                override fun canScrollVertically(): Boolean = false
+            }
+            binding.rvServiceList.adapter = BusinessDetailServiceAdapter(data.services)
         }
     }
 }

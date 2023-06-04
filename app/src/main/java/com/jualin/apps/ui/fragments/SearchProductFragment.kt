@@ -6,21 +6,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import com.jualin.apps.R
-import com.jualin.apps.databinding.FragmentNearbyProductBinding
-import com.jualin.apps.ui.adapter.NearbyProductAdapter
+import com.jualin.apps.databinding.FragmentSearchProductBinding
+import com.jualin.apps.ui.adapter.SearchProductAdapter
 import com.jualin.apps.utils.FakeData
 
-class NearbyProductFragment : Fragment() {
+class SearchProductFragment : Fragment() {
 
-    private var _binding: FragmentNearbyProductBinding? = null
+    private var _binding: FragmentSearchProductBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentNearbyProductBinding.inflate(inflater, container, false)
+        _binding = FragmentSearchProductBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -35,9 +34,7 @@ class NearbyProductFragment : Fragment() {
         binding.apply {
             val layoutManager = GridLayoutManager(requireContext(), 2)
             rvNearbyProduct.layoutManager = layoutManager
-            rvNearbyProduct.adapter = NearbyProductAdapter(FakeData.products, requireContext())
-
-            tvNearbyProduct.text = getString(R.string.produk_di_sekitar_s, "Ngawi")
+            rvNearbyProduct.adapter = SearchProductAdapter(FakeData.products)
         }
     }
 }

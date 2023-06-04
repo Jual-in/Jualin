@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.jualin.apps.data.local.entity.Product
 import com.jualin.apps.databinding.ItemBusinessProductBinding
+import com.jualin.apps.utils.StringUtils
 
 class BusinessDetailProductAdapter(
     private val items: List<Product>
@@ -36,7 +37,7 @@ class BusinessDetailProductAdapter(
         fun bind(item: Product) {
             binding.apply {
                 tvProductName.text = item.name
-                tvProductPrice.text = item.price
+                tvProductPrice.text = StringUtils.formatCurrency(item.price)
 
                 Glide.with(itemView.context)
                     .load(item.photoUrl)
