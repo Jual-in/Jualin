@@ -84,24 +84,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="@string/layanan"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/tv_layanan"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="15dp"
-            android:text="@string/produk"
-            android:textSize="20sp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:text="@string/alamat"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp"
@@ -115,12 +97,24 @@
             android:text="@string/las_vegas"
             android:textSize="20sp" />
 
+        <Button
+            android:id="@+id/btn_edit_bussiness_profile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/bg_white"
+            android:minHeight="0dp"
+            android:text="@string/edit_data_umkm"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
 
         <Button
             android:id="@+id/btn_edit_profile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="12dp"
             android:background="@drawable/bg_white"
             android:minHeight="0dp"
             android:text="@string/edit_profile"
