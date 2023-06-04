@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.jualin.apps.data.Result
 import com.jualin.apps.data.local.entity.User
-import com.jualin.apps.data.local.preferences.UserPreferencesImpl
+import com.jualin.apps.data.local.preferences.UserPreferences
 import com.jualin.apps.data.remote.response.LoginResponse
 import com.jualin.apps.data.remote.response.RegisterResponse
 import com.jualin.apps.data.remote.retrofit.ApiService
@@ -16,7 +16,7 @@ import javax.inject.Singleton
 @Singleton
 class UserRepository @Inject constructor(
     private val apiService: ApiService,
-    private val userPreferences: UserPreferencesImpl,
+    private val userPreferences: UserPreferences,
 ) {
 
     fun login(
