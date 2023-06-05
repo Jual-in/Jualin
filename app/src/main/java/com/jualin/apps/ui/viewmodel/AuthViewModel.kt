@@ -22,8 +22,8 @@ class AuthViewModel @Inject constructor(
 
     fun login(email: String, password: String) = userRepository.login(email, password)
 
-    fun register(name: String, email: String, password: String) =
-        userRepository.register(name, email, password)
+    fun register(name: String, email: String, password: String, role: String) =
+        userRepository.register(name, email, password, role)
 
     fun logout() {
         viewModelScope.launch {
