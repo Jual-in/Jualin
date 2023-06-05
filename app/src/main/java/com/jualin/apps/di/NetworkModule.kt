@@ -1,6 +1,8 @@
 package com.jualin.apps.di
 
+import com.jualin.apps.data.local.preferences.UserPreferencesImpl
 import com.jualin.apps.data.remote.retrofit.ApiService
+import com.jualin.apps.data.remote.retrofit.AuthInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,12 +19,23 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideHttpClient(): OkHttpClient {
+    fun provideAuthInterceptor(
+        userPreference: UserPreferencesImpl
+    ): AuthInterceptor {
+        return AuthInterceptor(userPreference)
+    }
+
+    @Singleton
+    @Provides
+    fun provideHttpClient(
+        authInterceptor: AuthInterceptor
+    ): OkHttpClient {
         val loggingInterceptor =
             HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
 
         return OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
+            .addInterceptor(authInterceptor)
             .build()
     }
 

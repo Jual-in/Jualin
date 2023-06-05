@@ -2,9 +2,8 @@ package com.jualin.apps.data.remote.response
 
 import com.google.gson.annotations.SerializedName
 
-data class LoginResponse(
-
-    @field:SerializedName("id")
+data class DetailUserResponse(
+    @field:SerializedName("id_user")
     val id: Int,
 
     @field:SerializedName("name")
@@ -16,6 +15,9 @@ data class LoginResponse(
     @field:SerializedName("role")
     val role: String,
 
-    @field:SerializedName("token")
-    val token: String
+    @field:SerializedName("alamat")
+    val address: String,
+
+    @field:SerializedName("photo")
+    val photoUrl: String
 )

@@ -9,6 +9,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.jualin.apps.R
+import com.jualin.apps.data.Result
 import com.jualin.apps.databinding.FragmentProfileBinding
 import com.jualin.apps.ui.viewmodel.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,11 +34,24 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        logout()
-
+        setupView()
     }
 
-    private fun logout() {
+    private fun setupView() {
+
+        viewModel.getUserDetail().observe(viewLifecycleOwner) {
+            when (it) {
+                is Result.Success -> {
+                    binding.tvName.text = it.data.name
+                    binding.tvEmail.text = it.data.email
+                    binding.tvAddress.text = it.data.alamat ?: "-"
+                }
+
+                is Result.Error -> {}
+                is Result.Loading -> {}
+            }
+        }
+
         binding.btnLogout.setOnClickListener {
             val alertLogout = AlertDialog.Builder(requireContext())
             alertLogout.setIcon(R.drawable.product_logo)

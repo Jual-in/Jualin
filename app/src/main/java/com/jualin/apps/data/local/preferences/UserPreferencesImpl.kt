@@ -3,9 +3,11 @@ package com.jualin.apps.data.local.preferences
 import android.content.Context
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.jualin.apps.data.local.entity.User
+import com.jualin.apps.data.remote.response.LoginResponse
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
@@ -23,8 +25,8 @@ class UserPreferencesImpl @Inject constructor(
     override fun getUser(): Flow<User> {
         return context.dataStore.data.map { preferences ->
             User(
-                preferences[USER_NAME_KEY] ?: "",
-                preferences[STATE_KEY] ?: false
+                preferences[STATE_KEY] ?: false,
+                preferences[USER_ID_KEY] ?: 0
             )
         }
     }
@@ -35,10 +37,10 @@ class UserPreferencesImpl @Inject constructor(
         }.first()
     }
 
-    override suspend fun login(user: User) {
+    override suspend fun login(response: LoginResponse) {
         context.dataStore.edit { preferences ->
-            preferences[USER_NAME_KEY] = user.name
             preferences[STATE_KEY] = true
+            preferences[USER_ID_KEY] = response.id
         }
     }
 
@@ -55,7 +57,8 @@ class UserPreferencesImpl @Inject constructor(
     }
 
     companion object {
-        private val USER_NAME_KEY = stringPreferencesKey("user_name")
+        private val USER_ID_KEY = intPreferencesKey("user_id")
+
         private val STATE_KEY = booleanPreferencesKey("state")
         private val TOKEN_KEY = stringPreferencesKey("token")
     }

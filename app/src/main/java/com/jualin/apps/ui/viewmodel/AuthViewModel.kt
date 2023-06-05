@@ -1,7 +1,10 @@
 package com.jualin.apps.ui.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.jualin.apps.data.Result
+import com.jualin.apps.data.local.entity.User
 import com.jualin.apps.data.repositories.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,8 +22,8 @@ class AuthViewModel @Inject constructor(
 
     fun login(email: String, password: String) = userRepository.login(email, password)
 
-    fun register(name: String, email: String, password: String) =
-        userRepository.register(name, email, password)
+    fun register(name: String, email: String, password: String, role: String) =
+        userRepository.register(name, email, password, role)
 
     fun logout() {
         viewModelScope.launch {
@@ -34,5 +37,9 @@ class AuthViewModel @Inject constructor(
                 _isLoggedIn.value = it.isLogin
             }
         }
+    }
+
+    fun getUserDetail(): LiveData<Result<User>> {
+        return userRepository.getDetailUser()
     }
 }

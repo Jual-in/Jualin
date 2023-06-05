@@ -17,7 +17,6 @@ import com.jualin.apps.ui.viewmodel.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 
-@Suppress("UNUSED_EXPRESSION")
 @AndroidEntryPoint
 class RegisterFragment : Fragment() {
 
