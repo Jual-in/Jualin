@@ -67,6 +67,14 @@
             app:destination="@id/loginFragment"
             app:popUpTo="@id/main_navigation"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_profileFragment_to_EditProfile"
+            app:destination="@id/EditProfile"
+            app:popUpTo="@id/profileFragment"/>
+        <action
+            android:id="@+id/action_profileFragment_to_TambahUmkm"
+            app:destination="@id/TambahUmkm"
+            app:popUpTo="@id/profileFragment"/>
     </fragment>
     <fragment
         android:id="@+id/businessDetailFragment"
@@ -92,4 +100,14 @@
             app:popUpTo="@id/searchFragment"
             app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/EditProfile"
+        android:name="com.jualin.apps.ui.fragments.EditProfileFragment"
+        android:label="Fragment Edit Profile"
+        tools:layout="@layout/fragment_edit_profile"/>
+    <fragment
+        android:id="@+id/TambahUmkm"
+        android:name="com.jualin.apps.ui.fragments.AddUmkmFragment"
+        android:label="Tambah UMKM"
+        tools:layout="@layout/fragment_umkm"/>
 </navigation>
