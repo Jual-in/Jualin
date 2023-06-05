@@ -17,6 +17,7 @@ import com.jualin.apps.ui.viewmodel.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 
+@Suppress("UNUSED_EXPRESSION")
 @AndroidEntryPoint
 class RegisterFragment : Fragment() {
 
@@ -52,10 +53,20 @@ class RegisterFragment : Fragment() {
         }
 
         binding.btnRegister.setOnClickListener {
+            val seller = "Sellers"
+            val customer = "Customers"
             val name = binding.editTextNama.text.toString()
             val email = binding.editTextEmail.text.toString().trim()
             val passwordEntry = binding.editTextPassword.text.toString().trim()
             val confirmPassword = binding.editTextPasswordConfirm.text.toString().trim()
+            val isChecked = binding.switchUser.isChecked
+            val role = if (isChecked) {
+                seller
+            } else {
+                customer
+            }
+
+
             if (passwordEntry!=confirmPassword) {
                 Toast.makeText(requireContext(), "Password tidak sama", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
@@ -70,7 +81,7 @@ class RegisterFragment : Fragment() {
                     .show()
                 return@setOnClickListener
             }
-            viewModel.register(name, email, passwordEntry)
+            viewModel.register(name, email, passwordEntry, role)
                 .observe(viewLifecycleOwner) { result ->
                     when (result) {
                         is Result.Success -> {

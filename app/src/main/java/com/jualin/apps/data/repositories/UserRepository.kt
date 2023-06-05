@@ -6,8 +6,9 @@ import androidx.lifecycle.liveData
 import com.jualin.apps.data.Result
 import com.jualin.apps.data.local.entity.User
 import com.jualin.apps.data.local.preferences.UserPreferencesImpl
-import com.jualin.apps.data.remote.response.LoginResponse
-import com.jualin.apps.data.remote.response.RegisterResponse
+import com.jualin.apps.data.remote.response.auth.LoginResponse
+import com.jualin.apps.data.remote.response.auth.RegisterResponse
+import com.jualin.apps.data.remote.response.profile.ProfileResponse
 import com.jualin.apps.data.remote.retrofit.ApiService
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -38,11 +39,12 @@ class UserRepository @Inject constructor(
     fun register(
         name: String,
         email: String,
-        password: String
+        password: String,
+        role: String
     ): LiveData<Result<RegisterResponse>> = liveData {
         emit(Result.Loading)
         try {
-            val response = apiService.register(name, email, password)
+            val response = apiService.register(name, email, password,role)
             emit(Result.Success(response))
         } catch (e: Exception) {
             Log.d("register", e.message.toString())
