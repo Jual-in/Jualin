@@ -47,4 +47,5 @@
     <string name="jasa_di_sekitar_s">UMKM Jasa di sekitar %s</string>
     <string name="produk_di_sekitar_s">UMKM Produk di sekitar %s</string>
     <string name="edit_data_umkm">Edit Data UMKM</string>
+    <string name="item_tidak_ditemukan">Item tidak ditemukan</string>
 </resources>
