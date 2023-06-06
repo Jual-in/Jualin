@@ -5,16 +5,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.jualin.apps.data.Result
 import com.jualin.apps.databinding.FragmentSearchServiceBinding
 import com.jualin.apps.ui.adapter.SearchServiceAdapter
-import com.jualin.apps.utils.FakeData
+import com.jualin.apps.ui.viewmodel.SearchViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SearchServiceFragment : Fragment() {
 
     private var _binding: FragmentSearchServiceBinding? = null
     private val binding get() = _binding!!
 
+    private val viewModel: SearchViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,7 +37,19 @@ class SearchServiceFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.rvNearbyService.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvNearbyService.adapter = SearchServiceAdapter(FakeData.services)
+        val query = arguments?.getString("query") ?: ""
+
+        viewModel.searchService(query).observe(viewLifecycleOwner) {
+            when (it) {
+                is Result.Success -> {
+                    binding.rvNearbyService.visibility = View.VISIBLE
+                    binding.rvNearbyService.layoutManager = LinearLayoutManager(requireContext())
+                    binding.rvNearbyService.adapter = SearchServiceAdapter(it.data)
+                }
+
+                is Result.Loading -> {}
+                is Result.Error -> {}
+            }
+        }
     }
 }

@@ -5,6 +5,7 @@ import androidx.lifecycle.liveData
 import com.jualin.apps.data.Result
 import com.jualin.apps.data.local.entity.Business
 import com.jualin.apps.data.local.entity.Product
+import com.jualin.apps.data.local.entity.Service
 import com.jualin.apps.data.remote.retrofit.ApiService
 import com.jualin.apps.utils.FakeData
 import kotlinx.coroutines.flow.Flow
@@ -35,6 +36,24 @@ class BusinessRepository @Inject constructor(
                 )
             }
             emit(Result.Success(products))
+        } catch (e: Exception) {
+            emit(Result.Error(e.message))
+        }
+    }
+
+    fun searchService(query: String): LiveData<Result<List<Service>>> = liveData {
+        emit(Result.Loading)
+        try {
+            val response = apiService.searchService(query)
+            val services = response.map {
+                Service(
+                    id = it.id,
+                    name = it.name,
+                    price = it.price,
+                    discount = it.discount,
+                )
+            }
+            emit(Result.Success(services))
         } catch (e: Exception) {
             emit(Result.Error(e.message))
         }

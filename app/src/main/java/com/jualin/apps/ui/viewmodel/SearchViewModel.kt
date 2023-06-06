@@ -12,4 +12,6 @@ class SearchViewModel @Inject constructor(
 
     fun searchProduct(query: String) = businessRepository.searchProduct(query)
 
+    fun searchService(query: String) = businessRepository.searchService(query)
+
 }

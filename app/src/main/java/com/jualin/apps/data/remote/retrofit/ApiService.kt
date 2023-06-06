@@ -3,6 +3,7 @@ package com.jualin.apps.data.remote.retrofit
 import com.jualin.apps.data.remote.response.DetailUserResponse
 import com.jualin.apps.data.remote.response.LoginResponse
 import com.jualin.apps.data.remote.response.ProductResponse
+import com.jualin.apps.data.remote.response.ServiceResponse
 import com.jualin.apps.data.remote.response.auth.RegisterResponse
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -38,4 +39,9 @@ interface ApiService {
     suspend fun searchProduct(
         @Query("type") query: String
     ): List<ProductResponse>
+
+    @GET("search/service")
+    suspend fun searchService(
+        @Query("type") query: String
+    ): List<ServiceResponse>
 }
