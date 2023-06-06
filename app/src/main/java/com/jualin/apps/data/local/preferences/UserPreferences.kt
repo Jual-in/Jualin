@@ -1,7 +1,7 @@
 package com.jualin.apps.data.local.preferences
 
 import com.jualin.apps.data.local.entity.User
-import com.jualin.apps.data.remote.response.LoginResponse
+import com.jualin.apps.data.remote.response.auth.LoginResponse
 import kotlinx.coroutines.flow.Flow
 
 interface UserPreferences {

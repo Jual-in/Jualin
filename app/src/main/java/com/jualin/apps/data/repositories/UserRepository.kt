@@ -6,7 +6,8 @@ import androidx.lifecycle.liveData
 import com.jualin.apps.data.Result
 import com.jualin.apps.data.local.entity.User
 import com.jualin.apps.data.local.preferences.UserPreferences
-import com.jualin.apps.data.remote.response.LoginResponse
+import com.jualin.apps.data.remote.response.UpdateUserResponse
+import com.jualin.apps.data.remote.response.auth.LoginResponse
 import com.jualin.apps.data.remote.response.auth.RegisterResponse
 import com.jualin.apps.data.remote.retrofit.ApiService
 import kotlinx.coroutines.flow.Flow
@@ -68,6 +69,25 @@ class UserRepository @Inject constructor(
                 emit(Result.Success(newUser))
             } catch (e: Exception) {
                 Log.d("getDetailUser", e.message.toString())
+                emit(Result.Error(e.toString()))
+            }
+        }
+    }
+
+    fun updaterUser(
+        name: String,
+        email: String,
+        password: String,
+        alamat: String
+    ): LiveData<Result<UpdateUserResponse>> {
+        return liveData {
+            val currentUser = userPreferences.getUser().first()
+            emit(Result.Loading)
+            try {
+                val response = apiService.updateUser(currentUser.id, name, email, password, alamat)
+                emit(Result.Success(response))
+            } catch (e: Exception) {
+                Log.d("updateUser", e.message.toString())
                 emit(Result.Error(e.toString()))
             }
         }
