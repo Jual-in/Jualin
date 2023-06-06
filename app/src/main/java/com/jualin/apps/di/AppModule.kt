@@ -33,8 +33,10 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideBusinessRepository(): BusinessRepository {
-        return BusinessRepository()
+    fun provideBusinessRepository(
+        apiService: ApiService
+    ): BusinessRepository {
+        return BusinessRepository(apiService)
     }
 
 }

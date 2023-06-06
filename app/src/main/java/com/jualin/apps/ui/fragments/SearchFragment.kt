@@ -58,7 +58,7 @@ class SearchFragment : Fragment() {
                 override fun onQueryTextChange(p0: String?): Boolean = true
             })
 
-            viewPager.adapter = PagerAdapter(this@SearchFragment)
+            viewPager.adapter = PagerAdapter(this@SearchFragment, query)
 
             TabLayoutMediator(tabLayout, viewPager) { tab, position ->
                 tab.text = when (position) {
@@ -70,15 +70,22 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private inner class PagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
+    private inner class PagerAdapter(
+        fragment: Fragment,
+        private val query: String
+    ) : FragmentStateAdapter(fragment) {
         override fun getItemCount(): Int = 2
 
         override fun createFragment(position: Int): Fragment {
+            val bundle = Bundle().apply {
+                putString("query", query)
+            }
             val fragment = when (position) {
                 0 -> SearchProductFragment()
                 1 -> SearchServiceFragment()
                 else -> throw IllegalStateException("Invalid position $position")
             }
+            fragment.arguments = bundle
             return fragment
         }
     }
