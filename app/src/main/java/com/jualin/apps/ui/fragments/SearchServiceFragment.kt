@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jualin.apps.data.Result
+import com.jualin.apps.data.local.entity.Service
 import com.jualin.apps.databinding.FragmentSearchServiceBinding
 import com.jualin.apps.ui.adapter.SearchServiceAdapter
 import com.jualin.apps.ui.viewmodel.SearchViewModel
@@ -42,13 +43,26 @@ class SearchServiceFragment : Fragment() {
         viewModel.searchService(query).observe(viewLifecycleOwner) {
             when (it) {
                 is Result.Success -> {
-                    binding.rvNearbyService.visibility = View.VISIBLE
-                    binding.rvNearbyService.layoutManager = LinearLayoutManager(requireContext())
-                    binding.rvNearbyService.adapter = SearchServiceAdapter(it.data)
+                    setupSuccessView(it.data)
                 }
 
                 is Result.Loading -> {}
                 is Result.Error -> {}
+            }
+        }
+    }
+
+    private fun setupSuccessView(data: List<Service>) {
+        binding.apply {
+            if (data.isNotEmpty()) {
+                rvNearbyService.visibility = View.VISIBLE
+                pageNotFound.root.visibility = View.GONE
+
+                rvNearbyService.layoutManager = LinearLayoutManager(requireContext())
+                rvNearbyService.adapter = SearchServiceAdapter(data)
+            } else {
+                pageNotFound.root.visibility = View.VISIBLE
+                rvNearbyService.visibility = View.GONE
             }
         }
     }
