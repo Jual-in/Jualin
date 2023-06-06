@@ -5,10 +5,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jualin.apps.data.Result
 import com.jualin.apps.data.local.entity.User
+import com.jualin.apps.data.remote.response.UpdateUserResponse
 import com.jualin.apps.data.repositories.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -42,4 +44,10 @@ class AuthViewModel @Inject constructor(
     fun getUserDetail(): LiveData<Result<User>> {
         return userRepository.getDetailUser()
     }
+
+    fun updateUser(name: String, email: String, password: String, alamat: String, )
+    : LiveData<Result<UpdateUserResponse>> {
+        return userRepository.updaterUser(name, email, password, alamat)
+    }
+
 }

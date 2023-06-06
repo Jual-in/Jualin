@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.jualin.apps.R
 import com.jualin.apps.data.Result
 import com.jualin.apps.databinding.FragmentProfileBinding
@@ -35,9 +36,19 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupView()
+
+
+
     }
 
     private fun setupView() {
+
+        binding.btnEditProfile.setOnClickListener {
+            findNavController().navigate(R.id.action_profileFragment_to_EditProfile)
+        }
+        binding.btnEditBussinessProfile.setOnClickListener {
+            findNavController().navigate(R.id.action_profileFragment_to_TambahUmkm)
+        }
 
         viewModel.getUserDetail().observe(viewLifecycleOwner) {
             when (it) {

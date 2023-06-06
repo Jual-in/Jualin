@@ -89,7 +89,6 @@ class RegisterFragment : Fragment() {
                                 .show()
                             findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
                         }
-
                         is Result.Error -> {
                             Log.d("RegisterFragment", "Error")
                             Toast.makeText(requireContext(), "Register Gagal", Toast.LENGTH_SHORT)

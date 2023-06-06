@@ -1,14 +1,16 @@
 package com.jualin.apps.data.remote.retrofit
 
 import com.jualin.apps.data.remote.response.DetailUserResponse
-import com.jualin.apps.data.remote.response.LoginResponse
+import com.jualin.apps.data.remote.response.auth.LoginResponse
 import com.jualin.apps.data.remote.response.ProductResponse
 import com.jualin.apps.data.remote.response.ServiceResponse
+import com.jualin.apps.data.remote.response.UpdateUserResponse
 import com.jualin.apps.data.remote.response.auth.RegisterResponse
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -44,4 +46,14 @@ interface ApiService {
     suspend fun searchService(
         @Query("type") query: String
     ): List<ServiceResponse>
+
+    @FormUrlEncoded
+    @PUT("user/update/{userid}")
+    suspend fun updateUser(
+        @Path("userid") userid: Int,
+        @Field("name") name: String,
+        @Field("email") email: String,
+        @Field("password") password: String,
+        @Field("alamat") alamat: String
+    ): UpdateUserResponse
 }

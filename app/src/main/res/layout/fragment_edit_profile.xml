@@ -16,7 +16,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
             android:text="Edit Profile"
             android:textColor="@color/colorPrimaryDark"
@@ -65,6 +65,18 @@
             android:layout_marginBottom="16dp"
             android:inputType="textEmailAddress"
             android:hint="@string/email" />
+
+        <EditText
+            android:id="@+id/edit_text_alamat"
+            style="@style/Theme.CustomTextField"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:inputType="text"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginBottom="16dp"
+            android:hint="@string/alamat"
+            android:autofillHints="no" />
 
         <com.jualin.apps.ui.views.PasswordEditText
             android:id="@+id/edit_text_password"

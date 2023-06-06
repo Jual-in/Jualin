@@ -104,10 +104,27 @@
         android:id="@+id/EditProfile"
         android:name="com.jualin.apps.ui.fragments.EditProfileFragment"
         android:label="Fragment Edit Profile"
-        tools:layout="@layout/fragment_edit_profile"/>
+        tools:layout="@layout/fragment_edit_profile">
+        <action
+            android:id="@+id/action_EditProfile_to_profileFragment"
+            app:destination="@id/profileFragment"
+            app:popUpTo="@id/profileFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/TambahUmkm"
         android:name="com.jualin.apps.ui.fragments.AddUmkmFragment"
         android:label="Tambah UMKM"
-        tools:layout="@layout/fragment_umkm"/>
+        tools:layout="@layout/fragment_umkm" >
+        <action
+            android:id="@+id/action_TambahUmkm_to_map"
+            app:destination="@id/map"
+            app:popUpTo="@id/profileFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/map"
+        android:name="com.jualin.apps.ui.fragments.MapsFragment"
+        android:label="Detail UMKM"
+        tools:layout="@layout/fragment_maps"/>
 </navigation>
