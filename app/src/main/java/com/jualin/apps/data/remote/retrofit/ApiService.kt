@@ -1,30 +1,33 @@
 package com.jualin.apps.data.remote.retrofit
 
 import com.jualin.apps.data.remote.response.DetailUserResponse
-import com.jualin.apps.data.remote.response.auth.LoginResponse
 import com.jualin.apps.data.remote.response.ProductResponse
 import com.jualin.apps.data.remote.response.ServiceResponse
 import com.jualin.apps.data.remote.response.UpdateUserResponse
+import com.jualin.apps.data.remote.response.auth.LoginResponse
 import com.jualin.apps.data.remote.response.auth.RegisterResponse
+import okhttp3.MultipartBody
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
+import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.PUT
+import retrofit2.http.Part
 import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiService {
 
     @FormUrlEncoded
-    @POST("user/login")
+    @POST("api/user/login")
     suspend fun login(
         @Field("email") email: String,
         @Field("password") password: String
     ): LoginResponse
 
     @FormUrlEncoded
-    @POST("user/register")
+    @POST("api/user/register")
     suspend fun register(
         @Field("name") name: String,
         @Field("email") email: String,
@@ -32,23 +35,23 @@ interface ApiService {
         @Field("role") role: String
     ): RegisterResponse
 
-    @GET("user/{userid}")
+    @GET("api/user/{userid}")
     suspend fun getDetailUser(
         @Path("userid") userid: Int
     ): DetailUserResponse
 
-    @GET("search/product")
+    @GET("api/search/product")
     suspend fun searchProduct(
         @Query("type") query: String
     ): List<ProductResponse>
 
-    @GET("search/service")
+    @GET("api/search/service")
     suspend fun searchService(
         @Query("type") query: String
     ): List<ServiceResponse>
 
     @FormUrlEncoded
-    @PUT("user/update/{userid}")
+    @PUT("api/user/update/{userid}")
     suspend fun updateUser(
         @Path("userid") userid: Int,
         @Field("name") name: String,
@@ -56,4 +59,10 @@ interface ApiService {
         @Field("password") password: String,
         @Field("alamat") alamat: String
     ): UpdateUserResponse
+
+    @Multipart
+    @POST("predict")
+    suspend fun predictImage(
+        @Part image: MultipartBody.Part
+    ): String
 }
