@@ -8,6 +8,7 @@ import com.jualin.apps.data.local.entity.Product
 import com.jualin.apps.data.local.entity.Service
 import com.jualin.apps.data.remote.retrofit.ApiService
 import com.jualin.apps.utils.FakeData
+import com.jualin.apps.utils.reduceFileImage
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -66,7 +67,8 @@ class BusinessRepository @Inject constructor(
     fun predictImage(image: File): LiveData<Result<String>> = liveData {
         emit(Result.Loading)
         try {
-            val requestImageFile = image.asRequestBody("image/jpeg".toMediaTypeOrNull())
+            val reducedImage = reduceFileImage(image)
+            val requestImageFile = reducedImage.asRequestBody("image/jpeg".toMediaTypeOrNull())
             val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
                 "imagefile",
                 image.name,
