@@ -1,9 +1,11 @@
 package com.jualin.apps.ui.fragments
 
 import android.Manifest
+import android.app.Activity.RESULT_OK
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,6 +23,7 @@ import com.jualin.apps.data.Result
 import com.jualin.apps.databinding.FragmentScannerBinding
 import com.jualin.apps.ui.viewmodel.ScannerViewModel
 import com.jualin.apps.utils.createFile
+import com.jualin.apps.utils.uriToFile
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -39,6 +42,18 @@ class ScannerFragment : Fragment() {
             startCamera()
         } else {
             Toast.makeText(requireContext(), "Permission not granted", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private val launcherIntentGallery = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) {
+        if (it.resultCode==RESULT_OK) {
+            val selectedImage = it.data?.data as Uri
+            selectedImage.let { uri ->
+                val myFile = uriToFile(uri, requireContext())
+                viewModel.predictImage(myFile)
+            }
         }
     }
 
@@ -61,6 +76,7 @@ class ScannerFragment : Fragment() {
         if (allPermissionsGranted()) {
             startCamera()
             binding.captureButton.setOnClickListener { takePhoto() }
+            binding.btnOpenGallery.setOnClickListener { openGallery() }
         } else {
             requestPermissionLauncher.launch(Manifest.permission.CAMERA)
         }
@@ -68,7 +84,7 @@ class ScannerFragment : Fragment() {
         viewModel.predictResult.observe(viewLifecycleOwner) {
             when (it) {
                 is Result.Success -> {
-                    Log.d("TAG", "onImageSaved: ${it.data}")
+                    Toast.makeText(requireContext(), it.data, Toast.LENGTH_SHORT).show()
                 }
 
                 is Result.Error -> {}
@@ -134,6 +150,14 @@ class ScannerFragment : Fragment() {
 
             }
         )
+    }
+
+    private fun openGallery() {
+        val intent = Intent()
+        intent.action = Intent.ACTION_GET_CONTENT
+        intent.type = "image/*"
+        val chooser = Intent.createChooser(intent, "Choose a Picture")
+        launcherIntentGallery.launch(chooser)
     }
 
     companion object {
