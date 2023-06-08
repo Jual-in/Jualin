@@ -2,6 +2,7 @@ package com.jualin.apps.ui.fragments
 
 import android.Manifest
 import android.app.Activity.RESULT_OK
+import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -19,12 +20,15 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.jualin.apps.R
 import com.jualin.apps.data.Result
 import com.jualin.apps.databinding.FragmentScannerBinding
 import com.jualin.apps.ui.viewmodel.ScannerViewModel
 import com.jualin.apps.utils.createFile
 import com.jualin.apps.utils.uriToFile
 import dagger.hilt.android.AndroidEntryPoint
+import java.io.File
 
 @AndroidEntryPoint
 class ScannerFragment : Fragment() {
@@ -34,6 +38,7 @@ class ScannerFragment : Fragment() {
 
     private var imageCapture: ImageCapture? = null
     private val viewModel: ScannerViewModel by viewModels()
+    private lateinit var loader: AlertDialog
 
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
@@ -52,7 +57,7 @@ class ScannerFragment : Fragment() {
             val selectedImage = it.data?.data as Uri
             selectedImage.let { uri ->
                 val myFile = uriToFile(uri, requireContext())
-                viewModel.predictImage(myFile)
+                predict(myFile)
             }
         }
     }
@@ -73,24 +78,19 @@ class ScannerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        loader = AlertDialog.Builder(requireContext()).apply {
+            setView(R.layout.loader)
+            setCancelable(false)
+        }.create()
+
         if (allPermissionsGranted()) {
             startCamera()
-            binding.captureButton.setOnClickListener { takePhoto() }
-            binding.btnOpenGallery.setOnClickListener { openGallery() }
         } else {
             requestPermissionLauncher.launch(Manifest.permission.CAMERA)
         }
 
-        viewModel.predictResult.observe(viewLifecycleOwner) {
-            when (it) {
-                is Result.Success -> {
-                    Toast.makeText(requireContext(), it.data, Toast.LENGTH_SHORT).show()
-                }
-
-                is Result.Error -> {}
-                is Result.Loading -> {}
-            }
-        }
+        binding.captureButton.setOnClickListener { takePhoto() }
+        binding.btnOpenGallery.setOnClickListener { openGallery() }
 
     }
 
@@ -137,7 +137,7 @@ class ScannerFragment : Fragment() {
             ContextCompat.getMainExecutor(requireContext()),
             object : ImageCapture.OnImageSavedCallback {
                 override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
-                    viewModel.predictImage(photoFile)
+                    predict(photoFile)
                 }
 
                 override fun onError(exception: ImageCaptureException) {
@@ -152,12 +152,44 @@ class ScannerFragment : Fragment() {
         )
     }
 
+    private fun predict(image: File) {
+        viewModel.predictImage(image).observe(viewLifecycleOwner) {
+            when (it) {
+                is Result.Loading -> {
+                    setLoadingState(true)
+                }
+
+                is Result.Success -> {
+                    setLoadingState(false)
+                    val action =
+                        ScannerFragmentDirections.actionScannerFragmentToSearchFragment(it.data)
+                    findNavController().navigate(action)
+                }
+
+                is Result.Error -> {
+                    setLoadingState(false)
+                    Toast.makeText(requireContext(), it.error, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
     private fun openGallery() {
         val intent = Intent()
         intent.action = Intent.ACTION_GET_CONTENT
         intent.type = "image/*"
         val chooser = Intent.createChooser(intent, "Choose a Picture")
         launcherIntentGallery.launch(chooser)
+    }
+
+    private fun setLoadingState(isLoading: Boolean) {
+        if (isLoading) {
+            loader.show()
+            binding.parentLayout.isEnabled = false
+        } else {
+            loader.dismiss()
+            binding.parentLayout.isEnabled = true
+        }
     }
 
     companion object {
