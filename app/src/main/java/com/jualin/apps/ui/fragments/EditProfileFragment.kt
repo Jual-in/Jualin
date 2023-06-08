@@ -1,10 +1,15 @@
 package com.jualin.apps.ui.fragments
 
+import android.content.Intent
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -12,7 +17,14 @@ import com.jualin.apps.R
 import com.jualin.apps.databinding.FragmentEditProfileBinding
 import com.jualin.apps.ui.viewmodel.AuthViewModel
 import com.jualin.apps.data.Result
+import com.jualin.apps.utils.reduceFileImage
+import com.jualin.apps.utils.rotateFile
+import com.jualin.apps.utils.uriToFile
 import dagger.hilt.android.AndroidEntryPoint
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import java.io.File
 
 
 @AndroidEntryPoint
@@ -21,6 +33,7 @@ class EditProfileFragment : Fragment(){
     private val binding get() = _binding!!
 
     private val viewModel: AuthViewModel by viewModels()
+    private var getFile: File? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,6 +47,7 @@ class EditProfileFragment : Fragment(){
         super.onViewCreated(view, savedInstanceState)
 
         setupView()
+        uploadImage()
 
     }
 
@@ -85,6 +99,67 @@ class EditProfileFragment : Fragment(){
             }
         }
     }
+
+    private fun uploadImage() {
+        binding.civProfile.setOnClickListener{
+            startGallery()
+        }
+        binding.btnEditPhoto.setOnClickListener {
+            if (getFile != null) {
+                val file = reduceFileImage(getFile as File)
+                val requestImageFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
+                val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
+                    "photo",
+                    file.name,
+                    requestImageFile
+                )
+                viewModel.uploadPhotoUser(imageMultipart).observe(viewLifecycleOwner) {
+                    when (it) {
+                        is Result.Success -> {
+                            Toast.makeText(requireContext(), "Berhasil upload gambar", Toast.LENGTH_SHORT).show()
+                        }
+                        is Result.Error -> {
+                            Toast.makeText(requireContext(), "Gagal upload gambar", Toast.LENGTH_SHORT).show()
+                        }
+                        is Result.Loading -> {}
+                    }
+                }
+            }else{
+                Toast.makeText(requireContext(), "Pilih gambar terlebih dahulu", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+    }
+
+
+    private val launcherIntentGallery = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == AppCompatActivity.RESULT_OK) {
+            val selectedImg: Uri = result.data?.data as Uri
+            val myFile = uriToFile(selectedImg, requireContext())
+
+            myFile.let { file ->
+                rotateFile(file, false)
+                getFile = file
+                binding.civProfile.setImageBitmap(BitmapFactory.decodeFile(file.path))
+            }
+
+            getFile = myFile
+
+            binding.civProfile.setImageURI(selectedImg)
+        }
+    }
+
+    private fun startGallery() {
+        val intent = Intent()
+        intent.action = Intent.ACTION_GET_CONTENT
+        intent.type = "image/*"
+        val chooser = Intent.createChooser(intent, "Choose a Picture")
+        launcherIntentGallery.launch(chooser)
+    }
+
+
 
 
     override fun onDestroyView() {
