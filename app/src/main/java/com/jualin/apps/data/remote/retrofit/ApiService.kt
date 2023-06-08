@@ -12,7 +12,6 @@ import okhttp3.MultipartBody
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
-import retrofit2.http.Header
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.PUT
@@ -70,9 +69,8 @@ interface ApiService {
     ): String
   
     @FormUrlEncoded
-    @POST("umkm/create/users/{id_user}")
+    @POST("api/umkm/create/users/{id_user}")
     suspend fun addUMKM(
-        @Header("Authorization") auth: String,
         @Path("id_user") idUser: Int,
         @Field("Nama_usaha") namaUsaha: String,
         @Field("Kategori") kategori: String,
@@ -83,9 +81,8 @@ interface ApiService {
     ): AddUMKMResponse
 
     @Multipart
-    @POST("user/upload-photo/{id_user}")
+    @POST("api/user/upload-photo/{id_user}")
     suspend fun uploadPhoto(
-        @Header("Authorization") auth: String,
         @Path("id_user") idUser: Int,
         @Part photo: MultipartBody.Part
     ): UploadPhotoUserResponse
