@@ -5,13 +5,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jualin.apps.data.Result
 import com.jualin.apps.data.local.entity.User
-import com.jualin.apps.data.remote.response.UpdateUserResponse
+import com.jualin.apps.data.remote.response.user.UpdateUserResponse
+import com.jualin.apps.data.remote.response.user.UploadPhotoUserResponse
 import com.jualin.apps.data.repositories.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import okhttp3.MultipartBody
 import javax.inject.Inject
 
 @HiltViewModel
@@ -48,6 +49,11 @@ class AuthViewModel @Inject constructor(
     fun updateUser(name: String, email: String, password: String, alamat: String, )
     : LiveData<Result<UpdateUserResponse>> {
         return userRepository.updaterUser(name, email, password, alamat)
+    }
+
+    fun uploadPhotoUser(file: MultipartBody.Part)
+    : LiveData<Result<UploadPhotoUserResponse>> {
+        return userRepository.addPhotoUser(file)
     }
 
 }

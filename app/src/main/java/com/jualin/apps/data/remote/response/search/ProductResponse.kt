@@ -1,4 +1,4 @@
-package com.jualin.apps.data.remote.response
+package com.jualin.apps.data.remote.response.search
 
 import com.google.gson.annotations.SerializedName
 

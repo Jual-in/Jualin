@@ -123,6 +123,11 @@
         <action
             android:id="@+id/action_TambahUmkm_to_map"
             app:destination="@id/map"
+            app:popUpTo="@id/TambahUmkm"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_TambahUmkm_to_profileFragment"
+            app:destination="@id/profileFragment"
             app:popUpTo="@id/profileFragment"
             app:popUpToInclusive="true" />
     </fragment>

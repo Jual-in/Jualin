@@ -87,7 +87,7 @@
             android:layout_marginTop="30dp"
             android:background="@drawable/bg_white"
             android:minHeight="0dp"
-            android:text="@string/edit_data_umkm"
+            android:text="@string/tambah_umkm"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="14sp"
             android:textStyle="bold" />
