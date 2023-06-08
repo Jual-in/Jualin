@@ -57,7 +57,6 @@ class ProfileFragment : Fragment() {
                     binding.tvEmail.text = it.data.email
                     binding.tvAddress.text = it.data.alamat ?: "-"
                 }
-
                 is Result.Error -> {}
                 is Result.Loading -> {}
             }

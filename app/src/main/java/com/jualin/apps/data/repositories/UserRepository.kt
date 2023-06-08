@@ -6,12 +6,15 @@ import androidx.lifecycle.liveData
 import com.jualin.apps.data.Result
 import com.jualin.apps.data.local.entity.User
 import com.jualin.apps.data.local.preferences.UserPreferences
-import com.jualin.apps.data.remote.response.UpdateUserResponse
+import com.jualin.apps.data.remote.response.umkm.AddUMKMResponse
+import com.jualin.apps.data.remote.response.user.UpdateUserResponse
 import com.jualin.apps.data.remote.response.auth.LoginResponse
 import com.jualin.apps.data.remote.response.auth.RegisterResponse
+import com.jualin.apps.data.remote.response.user.UploadPhotoUserResponse
 import com.jualin.apps.data.remote.retrofit.ApiService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
+import okhttp3.MultipartBody
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -88,6 +91,45 @@ class UserRepository @Inject constructor(
                 emit(Result.Success(response))
             } catch (e: Exception) {
                 Log.d("updateUser", e.message.toString())
+                emit(Result.Error(e.toString()))
+            }
+        }
+    }
+
+    fun addPhotoUser(
+        photoUrl: MultipartBody.Part
+    ): LiveData<Result<UploadPhotoUserResponse>> {
+        return liveData {
+            val currentUser = userPreferences.getUser().first()
+            val token = userPreferences.getToken()
+            emit(Result.Loading)
+            try {
+                val response = apiService.uploadPhoto(token,currentUser.id, photoUrl)
+                emit(Result.Success(response))
+            } catch (e: Exception) {
+                Log.d("addPhotoUser", e.message.toString())
+                emit(Result.Error(e.toString()))
+            }
+        }
+    }
+
+    fun addUMKM(
+        name: String,
+        kategori: String,
+        noTelp: String,
+        Deskripsi: String,
+        latitude: Double,
+        longitude: Double,
+    ): LiveData<Result<AddUMKMResponse>> {
+        return liveData {
+            val currentUser = userPreferences.getUser().first()
+            val token = userPreferences.getToken()
+            emit(Result.Loading)
+            try {
+                val response = apiService.addUMKM(token,currentUser.id, name, kategori, noTelp, Deskripsi, latitude, longitude)
+                emit(Result.Success(response))
+            } catch (e: Exception) {
+                Log.d("addUMKM", e.message.toString())
                 emit(Result.Error(e.toString()))
             }
         }
