@@ -23,14 +23,14 @@ import retrofit2.http.Query
 interface ApiService {
 
     @FormUrlEncoded
-    @POST("user/login")
+    @POST("api/user/login")
     suspend fun login(
         @Field("email") email: String,
         @Field("password") password: String
     ): LoginResponse
 
     @FormUrlEncoded
-    @POST("user/register")
+    @POST("api/user/register")
     suspend fun register(
         @Field("name") name: String,
         @Field("email") email: String,
@@ -38,23 +38,23 @@ interface ApiService {
         @Field("role") role: String
     ): RegisterResponse
 
-    @GET("user/{userid}")
+    @GET("api/user/{userid}")
     suspend fun getDetailUser(
         @Path("userid") userid: Int
     ): DetailUserResponse
 
-    @GET("search/product")
+    @GET("api/search/product")
     suspend fun searchProduct(
         @Query("type") query: String
     ): List<ProductResponse>
 
-    @GET("search/service")
+    @GET("api/search/service")
     suspend fun searchService(
         @Query("type") query: String
     ): List<ServiceResponse>
 
     @FormUrlEncoded
-    @PUT("user/update/{userid}")
+    @PUT("api/user/update/{userid}")
     suspend fun updateUser(
         @Path("userid") userid: Int,
         @Field("name") name: String,
@@ -63,6 +63,12 @@ interface ApiService {
         @Field("alamat") alamat: String
     ): UpdateUserResponse
 
+    @Multipart
+    @POST("predict")
+    suspend fun predictImage(
+        @Part image: MultipartBody.Part
+    ): String
+  
     @FormUrlEncoded
     @POST("umkm/create/users/{id_user}")
     suspend fun addUMKM(
@@ -83,7 +89,5 @@ interface ApiService {
         @Path("id_user") idUser: Int,
         @Part photo: MultipartBody.Part
     ): UploadPhotoUserResponse
-
-
 
 }
