@@ -1,12 +1,12 @@
 package com.jualin.apps.data.remote.retrofit
 
-import com.jualin.apps.data.remote.response.umkm.AddUMKMResponse
-import com.jualin.apps.data.remote.response.user.DetailUserResponse
 import com.jualin.apps.data.remote.response.auth.LoginResponse
+import com.jualin.apps.data.remote.response.auth.RegisterResponse
 import com.jualin.apps.data.remote.response.search.ProductResponse
 import com.jualin.apps.data.remote.response.search.ServiceResponse
+import com.jualin.apps.data.remote.response.umkm.AddUMKMResponse
+import com.jualin.apps.data.remote.response.user.DetailUserResponse
 import com.jualin.apps.data.remote.response.user.UpdateUserResponse
-import com.jualin.apps.data.remote.response.auth.RegisterResponse
 import com.jualin.apps.data.remote.response.user.UploadPhotoUserResponse
 import okhttp3.MultipartBody
 import retrofit2.http.Field
