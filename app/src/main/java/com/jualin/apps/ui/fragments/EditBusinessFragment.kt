@@ -143,6 +143,14 @@ class EditBusinessFragment : Fragment() {
         val businessId = EditBusinessFragmentArgs.fromBundle(requireArguments()).businessId
 
         binding.apply {
+            btnEditContent.visibility = View.VISIBLE
+            btnEditContent.setOnClickListener {
+                findNavController().navigate(
+                    EditBusinessFragmentDirections.actionEditBusinessFragmentToEditBusinessContentFragment(
+                        businessId
+                    )
+                )
+            }
             pageTitle.text = getString(R.string.edit_data_umkm)
             btnSubmit.text = getString(R.string.simpan)
 

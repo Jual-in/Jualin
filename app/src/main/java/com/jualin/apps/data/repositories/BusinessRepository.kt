@@ -98,11 +98,48 @@ class BusinessRepository @Inject constructor(
     fun getUmkmNearby(
         latitude: Double?,
         longitude: Double?,
-    ):LiveData<Result<List<NearbyUmkmResponseItem>>> = liveData {
+    ): LiveData<Result<List<NearbyUmkmResponseItem>>> = liveData {
         emit(Result.Loading)
         try {
             val response = apiService.getNearbyUMKM(latitude, longitude)
             emit(Result.Success(response))
+        } catch (e: Exception) {
+            emit(Result.Error(e.message))
+        }
+    }
+
+    fun getProductsByBusinessId(businessId: Int): LiveData<Result<List<Product>>> = liveData {
+        emit(Result.Loading)
+        try {
+            val response = apiService.getProductsByBusinessId(businessId)
+            val products = response.map {
+                Product(
+                    id = it.id,
+                    name = it.name,
+                    price = it.price,
+                    discount = it.discount,
+                    photoUrl = it.photoUrl ?: "",
+                )
+            }
+            emit(Result.Success(products))
+        } catch (e: Exception) {
+            emit(Result.Error(e.message))
+        }
+    }
+
+    fun getServicesByBusinessId(businessId: Int): LiveData<Result<List<Service>>> = liveData {
+        emit(Result.Loading)
+        try {
+            val response = apiService.getServicesByBusinessId(businessId)
+            val services = response.map {
+                Service(
+                    id = it.id,
+                    name = it.name,
+                    price = it.price,
+                    discount = it.discount,
+                )
+            }
+            emit(Result.Success(services))
         } catch (e: Exception) {
             emit(Result.Error(e.message))
         }

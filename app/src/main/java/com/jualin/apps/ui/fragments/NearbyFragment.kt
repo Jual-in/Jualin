@@ -20,7 +20,7 @@ import com.jualin.apps.R
 import com.jualin.apps.data.Result
 import com.jualin.apps.data.remote.response.nearby.NearbyUmkmResponseItem
 import com.jualin.apps.databinding.FragmentNearbyBinding
-import com.jualin.apps.ui.adapter.NearbyUmkmAdapter
+import com.jualin.apps.ui.adapter.NearbyBusinessAdapter
 import com.jualin.apps.ui.viewmodel.NearbyViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -123,7 +123,7 @@ class NearbyFragment : Fragment() {
         binding.apply {
             rvNearbyUmkm.visibility = View.VISIBLE
             rvNearbyUmkm.layoutManager = LinearLayoutManager(requireContext())
-            rvNearbyUmkm.adapter = NearbyUmkmAdapter(data)
+            rvNearbyUmkm.adapter = NearbyBusinessAdapter(data)
         }
     }
 

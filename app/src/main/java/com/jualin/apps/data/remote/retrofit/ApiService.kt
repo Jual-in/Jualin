@@ -113,5 +113,13 @@ interface ApiService {
         @Query("longitude") longitude: Double?
     ): List<NearbyUmkmResponseItem>
 
+    @GET("api/umkm/{businessid}/product")
+    suspend fun getProductsByBusinessId(
+        @Path("businessid") businessId: Int
+    ): List<ProductResponse>
 
+    @GET("api/umkm/{businessid}/service")
+    suspend fun getServicesByBusinessId(
+        @Path("businessid") businessId: Int
+    ): List<ServiceResponse>
 }

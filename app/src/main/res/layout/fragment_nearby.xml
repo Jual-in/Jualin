@@ -7,12 +7,20 @@
     android:orientation="vertical"
     tools:context=".ui.fragments.NearbyFragment">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:text="@string/umkm_di_sekitar_anda"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_nearby_umkm"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingHorizontal="15dp"
         android:visibility="gone"
-        tools:listitem="@layout/item_nearby_umkm" />
+        tools:listitem="@layout/item_nearby_business" />
 
 </LinearLayout>

@@ -40,8 +40,7 @@
     <string name="telp">Telp</string>
     <string name="layanan">Layanan</string>
     <string name="hubungi_sekarang">Hubungi Sekarang</string>
-    <string name="jasa_di_sekitar_s">UMKM Jasa di sekitar %s</string>
-    <string name="produk_di_sekitar_s">UMKM Produk di sekitar %s</string>
+    <string name="umkm_di_sekitar_anda">UMKM di sekitar anda</string>
     <string name="edit_data_umkm">Edit Data UMKM</string>
     <string name="item_tidak_ditemukan">Item tidak ditemukan</string>
     <string name="buka_galeri">Buka Galeri</string>
@@ -53,4 +52,6 @@
     <string name="nama_usaha">Nama Usaha</string>
     <string name="kategori">Kategori</string>
     <string name="lokasi_anda">Lokasi Anda</string>
+    <string name="edit_etalase">Edit Etalase</string>
+    <string name="hapus">Hapus</string>
 </resources>

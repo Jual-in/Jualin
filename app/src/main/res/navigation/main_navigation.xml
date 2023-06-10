@@ -77,8 +77,7 @@
             app:popUpTo="@id/profileFragment" />
         <action
             android:id="@+id/action_profileFragment_to_editBusinessFragment"
-            app:destination="@id/editBusinessFragment"
-            app:popUpTo="@id/profileFragment" />
+            app:destination="@id/editBusinessFragment" />
     </fragment>
     <fragment
         android:id="@+id/businessDetailFragment"
@@ -124,6 +123,19 @@
             android:defaultValue="false" />
         <argument
             android:name="business_id"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <action
+            android:id="@+id/action_editBusinessFragment_to_editBusinessContentFragment"
+            app:destination="@id/editBusinessContentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editBusinessContentFragment"
+        android:name="com.jualin.apps.ui.fragments.EditBusinessContentFragment"
+        android:label="fragment_edit_business_content"
+        tools:layout="@layout/fragment_edit_business_content" >
+        <argument
+            android:name="businessId"
             app:argType="integer"
             android:defaultValue="0" />
     </fragment>
