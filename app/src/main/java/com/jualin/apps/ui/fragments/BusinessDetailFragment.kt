@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,8 +17,6 @@ import com.jualin.apps.ui.adapter.BusinessDetailProductAdapter
 import com.jualin.apps.ui.adapter.BusinessDetailServiceAdapter
 import com.jualin.apps.ui.viewmodel.BusinessDetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 
 @AndroidEntryPoint
 class BusinessDetailFragment : Fragment() {
@@ -47,18 +44,16 @@ class BusinessDetailFragment : Fragment() {
 
         val businessId = BusinessDetailFragmentArgs.fromBundle(requireArguments()).businessId
 
-        viewModel.dataStateFlow.onEach { dataState ->
-            when (dataState) {
+        viewModel.getBusinessById(businessId).observe(viewLifecycleOwner) {
+            when (it) {
                 is Result.Success -> {
-                    setupView(dataState.data)
+                    setupView(it.data)
                 }
 
                 is Result.Error -> {}
                 is Result.Loading -> {}
             }
-        }.launchIn(viewLifecycleOwner.lifecycleScope)
-
-        viewModel.getBusinessById(businessId)
+        }
     }
 
     private fun setupView(data: Business) {
@@ -67,7 +62,7 @@ class BusinessDetailFragment : Fragment() {
                 findNavController().navigateUp()
             }
 
-            tvAddress.text = data.address
+            tvAddress.text = "NGAWI (TEMP)"
             tvBusinessName.text = data.name
             tvDescription.text = data.description
 

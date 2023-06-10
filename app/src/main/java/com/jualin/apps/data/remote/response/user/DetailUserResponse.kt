@@ -19,5 +19,8 @@ data class DetailUserResponse(
     val address: String,
 
     @field:SerializedName("photo")
-    val photoUrl: String
+    val photoUrl: String,
+
+    @field:SerializedName("umkm_id")
+    val businessId: Int?
 )

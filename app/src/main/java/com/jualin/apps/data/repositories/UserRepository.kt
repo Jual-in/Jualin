@@ -6,10 +6,10 @@ import androidx.lifecycle.liveData
 import com.jualin.apps.data.Result
 import com.jualin.apps.data.local.entity.User
 import com.jualin.apps.data.local.preferences.UserPreferences
-import com.jualin.apps.data.remote.response.umkm.AddUMKMResponse
-import com.jualin.apps.data.remote.response.user.UpdateUserResponse
 import com.jualin.apps.data.remote.response.auth.LoginResponse
 import com.jualin.apps.data.remote.response.auth.RegisterResponse
+import com.jualin.apps.data.remote.response.umkm.AddUMKMResponse
+import com.jualin.apps.data.remote.response.user.UpdateUserResponse
 import com.jualin.apps.data.remote.response.user.UploadPhotoUserResponse
 import com.jualin.apps.data.remote.retrofit.ApiService
 import kotlinx.coroutines.flow.Flow
@@ -67,7 +67,8 @@ class UserRepository @Inject constructor(
                     email = response.email,
                     role = response.role,
                     alamat = response.address,
-                    photoUrl = response.photoUrl
+                    photoUrl = response.photoUrl,
+                    businessId = response.businessId
                 )
                 emit(Result.Success(newUser))
             } catch (e: Exception) {
@@ -101,10 +102,9 @@ class UserRepository @Inject constructor(
     ): LiveData<Result<UploadPhotoUserResponse>> {
         return liveData {
             val currentUser = userPreferences.getUser().first()
-            val token = userPreferences.getToken()
             emit(Result.Loading)
             try {
-                val response = apiService.uploadPhoto(token,currentUser.id, photoUrl)
+                val response = apiService.uploadPhoto(currentUser.id, photoUrl)
                 emit(Result.Success(response))
             } catch (e: Exception) {
                 Log.d("addPhotoUser", e.message.toString())
@@ -123,10 +123,17 @@ class UserRepository @Inject constructor(
     ): LiveData<Result<AddUMKMResponse>> {
         return liveData {
             val currentUser = userPreferences.getUser().first()
-            val token = userPreferences.getToken()
             emit(Result.Loading)
             try {
-                val response = apiService.addUMKM(token,currentUser.id, name, kategori, noTelp, Deskripsi, latitude, longitude)
+                val response = apiService.addUMKM(
+                    currentUser.id,
+                    name,
+                    kategori,
+                    noTelp,
+                    Deskripsi,
+                    latitude,
+                    longitude
+                )
                 emit(Result.Success(response))
             } catch (e: Exception) {
                 Log.d("addUMKM", e.message.toString())
@@ -139,6 +146,32 @@ class UserRepository @Inject constructor(
 
     suspend fun logout() {
         userPreferences.logout()
+    }
+
+    fun editBusiness(
+        nama: String,
+        kategori: String,
+        noTelp: String,
+        deskripsi: String,
+        lat: Double,
+        long: Double
+    ): LiveData<Result<String>> = liveData {
+        emit(Result.Loading)
+        try {
+            val currentUser = userPreferences.getUser().first()
+            val response = apiService.editBusiness(
+                currentUser.id,
+                nama,
+                deskripsi,
+                kategori,
+                noTelp,
+                lat,
+                long
+            )
+            emit(Result.Success(response.message))
+        } catch (e: Exception) {
+            emit(Result.Error(e.toString()))
+        }
     }
 
 }

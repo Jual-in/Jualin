@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.jualin.apps.R
 import com.jualin.apps.data.local.entity.Business
 import com.jualin.apps.databinding.ItemRecommendedBusinessBinding
 
@@ -37,7 +38,7 @@ class RecommendedBusinessAdapter(
                 tvBusinessDesc.text = item.description
                 tvBusinessAddress.text = "Ngawi"
                 Glide.with(itemView.context)
-                    .load(item.imageUrl)
+                    .load(R.drawable.default_business)
                     .into(ivBusiness)
             }
             itemView.setOnClickListener {

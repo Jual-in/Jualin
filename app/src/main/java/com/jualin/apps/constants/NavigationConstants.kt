@@ -8,5 +8,7 @@ object NavigationConstants {
         R.id.registerFragment,
         R.id.businessDetailFragment,
         R.id.searchFragment,
+        R.id.editProfileFragment,
+        R.id.editBusinessFragment,
     )
 }
