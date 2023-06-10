@@ -30,7 +30,9 @@ class NearbyUmkmAdapter(
                 tvDeskripsi.text = item.deskripsi
                 tvKategori.text = item.kategori
                 tvNoTelp.text = item.noHp
-
+                tvcat.text = "Kategori"
+                tvDeskripsii.text = "Deskripsi"
+                tvnotelp.text = "No Telp"
             }
         }
     }
