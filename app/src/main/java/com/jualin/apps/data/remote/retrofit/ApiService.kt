@@ -109,7 +109,6 @@ interface ApiService {
 
     @POST("api/umkm/nearby")
     suspend fun getNearbyUMKM(
-        @Header("Authorization") auth: String,
         @Query("latitude") latitude: Double?,
         @Query("longitude") longitude: Double?
     ): List<NearbyUmkmResponseItem>

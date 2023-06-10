@@ -6,7 +6,6 @@ import com.jualin.apps.data.Result
 import com.jualin.apps.data.local.entity.Business
 import com.jualin.apps.data.local.entity.Product
 import com.jualin.apps.data.local.entity.Service
-import com.jualin.apps.data.local.preferences.UserPreferences
 import com.jualin.apps.data.remote.response.nearby.NearbyUmkmResponseItem
 import com.jualin.apps.data.remote.retrofit.ApiService
 import com.jualin.apps.utils.reduceFileImage
@@ -20,7 +19,6 @@ import javax.inject.Singleton
 @Singleton
 class BusinessRepository @Inject constructor(
     private val apiService: ApiService,
-    private val userPreferences: UserPreferences,
 ) {
 
     fun getBusinessById(id: Int): LiveData<Result<Business>> = liveData {
@@ -103,8 +101,7 @@ class BusinessRepository @Inject constructor(
     ):LiveData<Result<List<NearbyUmkmResponseItem>>> = liveData {
         emit(Result.Loading)
         try {
-            val token = userPreferences.getToken()
-            val response = apiService.getNearbyUMKM(token, latitude, longitude)
+            val response = apiService.getNearbyUMKM(latitude, longitude)
             emit(Result.Success(response))
         } catch (e: Exception) {
             emit(Result.Error(e.message))

@@ -35,9 +35,8 @@ object AppModule {
     @Provides
     fun provideBusinessRepository(
         apiService: ApiService,
-        userPreferences: UserPreferencesImpl
     ): BusinessRepository {
-        return BusinessRepository(apiService,userPreferences)
+        return BusinessRepository(apiService)
     }
 
 }
