@@ -153,8 +153,8 @@ class UserRepository @Inject constructor(
         kategori: String,
         noTelp: String,
         deskripsi: String,
-        lat: Double,
-        long: Double
+        lat: Double?,
+        long: Double?
     ): LiveData<Result<String>> = liveData {
         emit(Result.Loading)
         try {

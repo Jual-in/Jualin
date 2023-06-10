@@ -20,8 +20,8 @@ class UmkmViewModel @Inject constructor(
         kategori: String,
         noTelp: String,
         deskripsi: String,
-        lat: Double,
-        lng: Double,
+        lat: Double?,
+        lng: Double?,
     ): LiveData<Result<AddUMKMResponse>> {
         return userRepository.addUMKM(nama, kategori, noTelp, deskripsi, lat, lng)
     }
@@ -31,8 +31,8 @@ class UmkmViewModel @Inject constructor(
         kategori: String,
         noTelp: String,
         deskripsi: String,
-        lat: Double,
-        long: Double
+        lat: Double?,
+        long: Double?
     ): LiveData<Result<String>> {
         return userRepository.editBusiness(nama, kategori, noTelp, deskripsi, lat, long)
     }

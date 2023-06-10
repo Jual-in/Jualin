@@ -103,8 +103,8 @@ interface ApiService {
         @Field("Deskripsi") deskripsi: String,
         @Field("Kategori") kategori: String,
         @Field("No_hp") noHp: String,
-        @Field("latitude") latitude: Double,
-        @Field("longitude") longitude: Double
+        @Field("latitude") latitude: Double?,
+        @Field("longitude") longitude: Double?
     ): GeneralResponse
 
     @POST("api/umkm/nearby")
