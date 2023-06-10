@@ -72,13 +72,13 @@
             app:popUpTo="@id/main_navigation"
             app:popUpToInclusive="true" />
         <action
-            android:id="@+id/action_profileFragment_to_EditProfile"
-            app:destination="@id/EditProfile"
-            app:popUpTo="@id/profileFragment"/>
+            android:id="@+id/action_profileFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment"
+            app:popUpTo="@id/profileFragment" />
         <action
-            android:id="@+id/action_profileFragment_to_TambahUmkm"
-            app:destination="@id/TambahUmkm"
-            app:popUpTo="@id/profileFragment"/>
+            android:id="@+id/action_profileFragment_to_editBusinessFragment"
+            app:destination="@id/editBusinessFragment"
+            app:popUpTo="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/businessDetailFragment"
@@ -105,35 +105,26 @@
             app:popUpToInclusive="true" />
     </fragment>
     <fragment
-        android:id="@+id/EditProfile"
+        android:id="@+id/editProfileFragment"
         android:name="com.jualin.apps.ui.fragments.EditProfileFragment"
-        android:label="Fragment Edit Profile"
-        tools:layout="@layout/fragment_edit_profile">
+        android:label="fragment_edit_profile"
+        tools:layout="@layout/fragment_edit_profile" >
         <action
-            android:id="@+id/action_EditProfile_to_profileFragment"
-            app:destination="@id/profileFragment"
-            app:popUpTo="@id/profileFragment"
-            app:popUpToInclusive="true" />
+            android:id="@+id/action_editProfileFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
-        android:id="@+id/TambahUmkm"
-        android:name="com.jualin.apps.ui.fragments.AddUmkmFragment"
-        android:label="Tambah UMKM"
-        tools:layout="@layout/fragment_umkm" >
-        <action
-            android:id="@+id/action_TambahUmkm_to_map"
-            app:destination="@id/map"
-            app:popUpTo="@id/TambahUmkm"
-            app:popUpToInclusive="true" />
-        <action
-            android:id="@+id/action_TambahUmkm_to_profileFragment"
-            app:destination="@id/profileFragment"
-            app:popUpTo="@id/profileFragment"
-            app:popUpToInclusive="true" />
+        android:id="@+id/editBusinessFragment"
+        android:name="com.jualin.apps.ui.fragments.EditBusinessFragment"
+        android:label="fragment_edit_business"
+        tools:layout="@layout/fragment_edit_business" >
+        <argument
+            android:name="isNewBusiness"
+            app:argType="boolean"
+            android:defaultValue="false" />
+        <argument
+            android:name="business_id"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
-    <fragment
-        android:id="@+id/map"
-        android:name="com.jualin.apps.ui.fragments.MapsFragment"
-        android:label="Detail UMKM"
-        tools:layout="@layout/fragment_maps"/>
 </navigation>

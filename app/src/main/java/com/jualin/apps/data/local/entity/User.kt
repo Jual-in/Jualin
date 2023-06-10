@@ -9,4 +9,6 @@ data class User(
     var role: String? = null,
     var alamat: String? = null,
     var photoUrl: String? = null,
+
+    var businessId: Int? = null,
 )

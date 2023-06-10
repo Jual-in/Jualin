@@ -67,7 +67,8 @@ class UserRepository @Inject constructor(
                     email = response.email,
                     role = response.role,
                     alamat = response.address,
-                    photoUrl = response.photoUrl
+                    photoUrl = response.photoUrl,
+                    businessId = response.businessId
                 )
                 emit(Result.Success(newUser))
             } catch (e: Exception) {
@@ -145,6 +146,32 @@ class UserRepository @Inject constructor(
 
     suspend fun logout() {
         userPreferences.logout()
+    }
+
+    fun editBusiness(
+        nama: String,
+        kategori: String,
+        noTelp: String,
+        deskripsi: String,
+        lat: Double,
+        long: Double
+    ): LiveData<Result<String>> = liveData {
+        emit(Result.Loading)
+        try {
+            val currentUser = userPreferences.getUser().first()
+            val response = apiService.editBusiness(
+                currentUser.id,
+                nama,
+                deskripsi,
+                kategori,
+                noTelp,
+                lat,
+                long
+            )
+            emit(Result.Success(response.message))
+        } catch (e: Exception) {
+            emit(Result.Error(e.toString()))
+        }
     }
 
 }

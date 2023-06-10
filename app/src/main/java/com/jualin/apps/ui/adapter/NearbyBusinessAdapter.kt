@@ -36,7 +36,7 @@ class NearbyBusinessAdapter(
                 tvBusinessName.text = item.name
                 tvBusinessDesc.text = item.description
                 Glide.with(itemView.context)
-                    .load(item.imageUrl)
+                    .load("https://picsum.photos/300/180")
                     .into(ivBusiness)
             }
             itemView.setOnClickListener {

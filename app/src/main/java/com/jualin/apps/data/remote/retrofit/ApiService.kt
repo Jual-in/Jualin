@@ -1,10 +1,12 @@
 package com.jualin.apps.data.remote.retrofit
 
+import com.jualin.apps.data.remote.response.GeneralResponse
 import com.jualin.apps.data.remote.response.auth.LoginResponse
 import com.jualin.apps.data.remote.response.auth.RegisterResponse
 import com.jualin.apps.data.remote.response.search.ProductResponse
 import com.jualin.apps.data.remote.response.search.ServiceResponse
 import com.jualin.apps.data.remote.response.umkm.AddUMKMResponse
+import com.jualin.apps.data.remote.response.umkm.BusinessDetailResponse
 import com.jualin.apps.data.remote.response.user.DetailUserResponse
 import com.jualin.apps.data.remote.response.user.UpdateUserResponse
 import com.jualin.apps.data.remote.response.user.UploadPhotoUserResponse
@@ -67,7 +69,7 @@ interface ApiService {
     suspend fun predictImage(
         @Part image: MultipartBody.Part
     ): String
-  
+
     @FormUrlEncoded
     @POST("api/umkm/create/users/{id_user}")
     suspend fun addUMKM(
@@ -87,4 +89,20 @@ interface ApiService {
         @Part photo: MultipartBody.Part
     ): UploadPhotoUserResponse
 
+    @GET("api/umkm/{businessid}")
+    suspend fun getBusinessById(
+        @Path("businessid") id: Int
+    ): BusinessDetailResponse
+
+    @FormUrlEncoded
+    @PUT("api/umkm/update/users/{id_user}")
+    suspend fun editBusiness(
+        @Path("id_user") idUser: Int,
+        @Field("Nama_usaha") namaUsaha: String,
+        @Field("Deskripsi") deskripsi: String,
+        @Field("Kategori") kategori: String,
+        @Field("No_hp") noHp: String,
+        @Field("latitude") latitude: Double,
+        @Field("longitude") longitude: Double
+    ): GeneralResponse
 }

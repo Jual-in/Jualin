@@ -28,7 +28,7 @@ import java.io.File
 
 
 @AndroidEntryPoint
-class EditProfileFragment : Fragment(){
+class EditProfileFragment : Fragment() {
     private var _binding: FragmentEditProfileBinding? = null
     private val binding get() = _binding!!
 
@@ -38,7 +38,7 @@ class EditProfileFragment : Fragment(){
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ):View {
+    ): View {
         _binding = FragmentEditProfileBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -51,7 +51,7 @@ class EditProfileFragment : Fragment(){
 
     }
 
-    private fun setupView(){
+    private fun setupView() {
         viewModel.getUserDetail().observe(viewLifecycleOwner) {
             when (it) {
                 is Result.Success -> {
@@ -59,6 +59,7 @@ class EditProfileFragment : Fragment(){
                     binding.editTextEmail.setText(it.data.email)
                     binding.editTextAlamat.setText(it.data.alamat ?: "-")
                 }
+
                 is Result.Error -> {}
                 is Result.Loading -> {}
             }
@@ -81,19 +82,27 @@ class EditProfileFragment : Fragment(){
                 return@setOnClickListener
             }
             if (name.isEmpty() || email.isEmpty() || passwordEntry.isEmpty() || confirmPassword.isEmpty()) {
-                Toast.makeText(requireContext(), "Data tidak boleh kosong", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Data tidak boleh kosong", Toast.LENGTH_SHORT)
+                    .show()
                 return@setOnClickListener
             }
 
             viewModel.updateUser(name, email, passwordEntry, alamat).observe(viewLifecycleOwner) {
                 when (it) {
                     is Result.Success -> {
-                        Toast.makeText(requireContext(), "Berhasil edit Profile", Toast.LENGTH_SHORT).show()
-                        findNavController().navigate(R.id.action_EditProfile_to_profileFragment)
+                        Toast.makeText(
+                            requireContext(),
+                            "Berhasil edit Profile",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        findNavController().navigate(R.id.action_editProfileFragment_to_profileFragment)
                     }
+
                     is Result.Error -> {
-                        Toast.makeText(requireContext(), "Gagal edit Profile", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), "Gagal edit Profile", Toast.LENGTH_SHORT)
+                            .show()
                     }
+
                     is Result.Loading -> {}
                 }
             }
@@ -101,11 +110,11 @@ class EditProfileFragment : Fragment(){
     }
 
     private fun uploadImage() {
-        binding.civProfile.setOnClickListener{
+        binding.civProfile.setOnClickListener {
             startGallery()
         }
         binding.btnEditPhoto.setOnClickListener {
-            if (getFile != null) {
+            if (getFile!=null) {
                 val file = reduceFileImage(getFile as File)
                 val requestImageFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
                 val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
@@ -116,16 +125,27 @@ class EditProfileFragment : Fragment(){
                 viewModel.uploadPhotoUser(imageMultipart).observe(viewLifecycleOwner) {
                     when (it) {
                         is Result.Success -> {
-                            Toast.makeText(requireContext(), "Berhasil upload gambar", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                requireContext(),
+                                "Berhasil upload gambar",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
+
                         is Result.Error -> {
-                            Toast.makeText(requireContext(), "Gagal upload gambar", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                requireContext(),
+                                "Gagal upload gambar",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
+
                         is Result.Loading -> {}
                     }
                 }
-            }else{
-                Toast.makeText(requireContext(), "Pilih gambar terlebih dahulu", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(requireContext(), "Pilih gambar terlebih dahulu", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
 
@@ -135,7 +155,7 @@ class EditProfileFragment : Fragment(){
     private val launcherIntentGallery = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
-        if (result.resultCode == AppCompatActivity.RESULT_OK) {
+        if (result.resultCode==AppCompatActivity.RESULT_OK) {
             val selectedImg: Uri = result.data?.data as Uri
             val myFile = uriToFile(selectedImg, requireContext())
 
@@ -158,8 +178,6 @@ class EditProfileFragment : Fragment(){
         val chooser = Intent.createChooser(intent, "Choose a Picture")
         launcherIntentGallery.launch(chooser)
     }
-
-
 
 
     override fun onDestroyView() {

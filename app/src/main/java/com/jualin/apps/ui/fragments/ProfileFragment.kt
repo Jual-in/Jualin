@@ -36,18 +36,12 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupView()
-
-
-
     }
 
     private fun setupView() {
 
         binding.btnEditProfile.setOnClickListener {
-            findNavController().navigate(R.id.action_profileFragment_to_EditProfile)
-        }
-        binding.btnEditBussinessProfile.setOnClickListener {
-            findNavController().navigate(R.id.action_profileFragment_to_TambahUmkm)
+            findNavController().navigate(R.id.action_profileFragment_to_editProfileFragment)
         }
 
         viewModel.getUserDetail().observe(viewLifecycleOwner) {
@@ -56,7 +50,28 @@ class ProfileFragment : Fragment() {
                     binding.tvName.text = it.data.name
                     binding.tvEmail.text = it.data.email
                     binding.tvAddress.text = it.data.alamat ?: "-"
+
+                    if (it.data.role=="Customers") {
+                        binding.btnEditBussinessProfile.visibility = View.GONE
+                    } else {
+                        val isNewBusiness = it.data.businessId==null
+                        binding.btnEditBussinessProfile.visibility = View.VISIBLE
+
+                        binding.btnEditBussinessProfile.text = if (isNewBusiness)
+                            getString(R.string.tambah_umkm)
+                        else
+                            getString(R.string.edit_data_umkm)
+
+                        binding.btnEditBussinessProfile.setOnClickListener { _ ->
+                            val action =
+                                ProfileFragmentDirections.actionProfileFragmentToEditBusinessFragment(
+                                    it.data.businessId==null, it.data.businessId ?: 0
+                                )
+                            findNavController().navigate(action)
+                        }
+                    }
                 }
+
                 is Result.Error -> {}
                 is Result.Loading -> {}
             }

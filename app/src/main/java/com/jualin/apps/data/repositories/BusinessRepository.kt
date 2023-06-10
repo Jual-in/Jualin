@@ -7,10 +7,7 @@ import com.jualin.apps.data.local.entity.Business
 import com.jualin.apps.data.local.entity.Product
 import com.jualin.apps.data.local.entity.Service
 import com.jualin.apps.data.remote.retrofit.ApiService
-import com.jualin.apps.utils.FakeData
 import com.jualin.apps.utils.reduceFileImage
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -23,8 +20,23 @@ class BusinessRepository @Inject constructor(
     private val apiService: ApiService
 ) {
 
-    fun getBusinessById(id: Int): Flow<Business> = flow {
-        emit(FakeData.business.first { it.id==id })
+    fun getBusinessById(id: Int): LiveData<Result<Business>> = liveData {
+        emit(Result.Loading)
+        try {
+            val response = apiService.getBusinessById(id)
+            val business = Business(
+                id = response.id,
+                name = response.name,
+                description = response.description,
+                category = response.category,
+                phone = response.phone,
+                latitude = response.latitude,
+                longitude = response.longitude,
+            )
+            emit(Result.Success(business))
+        } catch (e: Exception) {
+            emit(Result.Error(e.message))
+        }
     }
 
     fun searchProduct(query: String): LiveData<Result<List<Product>>> = liveData {
