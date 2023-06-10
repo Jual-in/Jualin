@@ -64,12 +64,12 @@ class AddUmkmFragment : Fragment(){
             val noTelp = binding.edNoHp.text.toString()
             val deskripsi = binding.edDeskripsi.text.toString()
 
-            val lat : Double
-            val lng : Double
+            val lat : Double?
+            val lng : Double?
 
             if (location != null) {
-                lat = location!!.latitude
-                lng = location!!.longitude
+                lat = location?.latitude
+                lng = location?.longitude
             } else {
                 lat = 0.0
                 lng = 0.0
@@ -110,7 +110,11 @@ class AddUmkmFragment : Fragment(){
         if(ContextCompat.checkSelfPermission(requireContext(),Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
             ContextCompat.checkSelfPermission(requireContext(),Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
             fusedLocationClient?.lastLocation?.addOnSuccessListener {
-                location = it
+                if(it != null) {
+                    location = it
+                } else {
+                    Toast.makeText(requireContext(), "Please check your location", Toast.LENGTH_SHORT).show()
+                }
             }
         } else {
             requestPermissionMaps.launch(
