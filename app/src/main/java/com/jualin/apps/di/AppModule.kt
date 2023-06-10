@@ -34,9 +34,10 @@ object AppModule {
     @Singleton
     @Provides
     fun provideBusinessRepository(
-        apiService: ApiService
+        apiService: ApiService,
+        userPreferences: UserPreferencesImpl
     ): BusinessRepository {
-        return BusinessRepository(apiService)
+        return BusinessRepository(apiService,userPreferences)
     }
 
 }

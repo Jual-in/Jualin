@@ -3,6 +3,7 @@ package com.jualin.apps.data.remote.retrofit
 import com.jualin.apps.data.remote.response.GeneralResponse
 import com.jualin.apps.data.remote.response.auth.LoginResponse
 import com.jualin.apps.data.remote.response.auth.RegisterResponse
+import com.jualin.apps.data.remote.response.nearby.NearbyUmkmResponseItem
 import com.jualin.apps.data.remote.response.search.ProductResponse
 import com.jualin.apps.data.remote.response.search.ServiceResponse
 import com.jualin.apps.data.remote.response.umkm.AddUMKMResponse
@@ -78,8 +79,8 @@ interface ApiService {
         @Field("Kategori") kategori: String,
         @Field("No_hp") noHp: String,
         @Field("Deskripsi") deskripsi: String,
-        @Field("latitude") latitude: Double,
-        @Field("longitude") longitude: Double
+        @Field("latitude") latitude: Double?,
+        @Field("longitude") longitude: Double?
     ): AddUMKMResponse
 
     @Multipart
@@ -105,4 +106,13 @@ interface ApiService {
         @Field("latitude") latitude: Double,
         @Field("longitude") longitude: Double
     ): GeneralResponse
+
+    @POST("api/umkm/nearby")
+    suspend fun getNearbyUMKM(
+        @Header("Authorization") auth: String,
+        @Query("latitude") latitude: Double?,
+        @Query("longitude") longitude: Double?
+    ): List<NearbyUmkmResponseItem>
+
+
 }

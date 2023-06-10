@@ -63,7 +63,6 @@ class LoginFragment : Fragment() {
                     is Result.Success -> {
                         Toast.makeText(requireContext(), "Login Success", Toast.LENGTH_SHORT).show()
                     }
-
                     is Result.Error -> {
                         Toast.makeText(requireContext(), "Login Gagal", Toast.LENGTH_SHORT).show()
                     }

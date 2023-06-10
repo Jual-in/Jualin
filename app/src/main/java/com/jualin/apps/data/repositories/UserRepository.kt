@@ -118,8 +118,8 @@ class UserRepository @Inject constructor(
         kategori: String,
         noTelp: String,
         Deskripsi: String,
-        latitude: Double,
-        longitude: Double,
+        latitude: Double?,
+        longitude: Double?,
     ): LiveData<Result<AddUMKMResponse>> {
         return liveData {
             val currentUser = userPreferences.getUser().first()
