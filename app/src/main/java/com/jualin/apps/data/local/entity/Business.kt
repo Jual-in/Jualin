@@ -15,7 +15,9 @@ data class Product(
     val name: String,
     val price: String,
     val discount: Double,
-    val photoUrl: String
+    val photoUrl: String,
+
+    val businessId: Int? = 0,
 )
 
 data class Service(
@@ -23,4 +25,6 @@ data class Service(
     val name: String,
     val price: String,
     val discount: Double,
+
+    val businessId: Int? = 0,
 )

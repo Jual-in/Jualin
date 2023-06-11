@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.jualin.apps.data.Result
 import com.jualin.apps.data.local.entity.Product
@@ -60,7 +61,13 @@ class SearchProductFragment : Fragment() {
 
                 val layoutManager = GridLayoutManager(requireContext(), 2)
                 rvNearbyProduct.layoutManager = layoutManager
-                rvNearbyProduct.adapter = SearchProductAdapter(data)
+                rvNearbyProduct.adapter = SearchProductAdapter(data) { businessId ->
+                    val action =
+                        SearchFragmentDirections.actionSearchFragmentToBusinessDetailFragment(
+                            businessId
+                        )
+                    findNavController().navigate(action)
+                }
             } else {
                 pageNotFound.root.visibility = View.VISIBLE
                 rvNearbyProduct.visibility = View.GONE

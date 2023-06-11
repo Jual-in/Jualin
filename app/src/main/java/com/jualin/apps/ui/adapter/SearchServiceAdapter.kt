@@ -8,7 +8,8 @@ import com.jualin.apps.databinding.ItemJasaBinding
 import com.jualin.apps.utils.StringUtils
 
 class SearchServiceAdapter(
-    private val list: List<Service>
+    private val list: List<Service>,
+    private val listener: (businessId: Int) -> Unit
 ) : RecyclerView.Adapter<SearchServiceAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -28,8 +29,9 @@ class SearchServiceAdapter(
 
         fun bind(service: Service) {
             binding.apply {
-                binding.tvNamaJasa.text = service.name
-                binding.tvServicePrice.text = StringUtils.formatCurrency(service.price)
+                tvNamaJasa.text = service.name
+                tvServicePrice.text = StringUtils.formatCurrency(service.price)
+                btnLihatToko.setOnClickListener { listener(service.businessId ?: 0) }
             }
         }
 

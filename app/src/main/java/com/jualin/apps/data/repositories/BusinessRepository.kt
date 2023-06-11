@@ -51,6 +51,7 @@ class BusinessRepository @Inject constructor(
                     price = it.price,
                     discount = it.discount,
                     photoUrl = it.photoUrl ?: "",
+                    businessId = it.businessId,
                 )
             }
             emit(Result.Success(products))
@@ -69,6 +70,7 @@ class BusinessRepository @Inject constructor(
                     name = it.name,
                     price = it.price,
                     discount = it.discount,
+                    businessId = it.businessId,
                 )
             }
             emit(Result.Success(services))

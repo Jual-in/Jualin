@@ -10,6 +10,7 @@ import com.jualin.apps.utils.StringUtils
 
 class SearchProductAdapter(
     private val list: List<Product>,
+    private val listener: (businessId: Int) -> Unit
 ) : RecyclerView.Adapter<SearchProductAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -35,6 +36,9 @@ class SearchProductAdapter(
                 Glide.with(itemView.context)
                     .load(product.photoUrl)
                     .into(ivProduct)
+            }
+            itemView.setOnClickListener {
+                listener(product.businessId ?: 0)
             }
         }
     }

@@ -106,6 +106,9 @@
             app:destination="@id/searchFragment"
             app:popUpTo="@id/searchFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_searchFragment_to_businessDetailFragment"
+            app:destination="@id/businessDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/editProfileFragment"
