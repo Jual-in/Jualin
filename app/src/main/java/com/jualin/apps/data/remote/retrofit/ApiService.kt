@@ -103,8 +103,8 @@ interface ApiService {
         @Field("Deskripsi") deskripsi: String,
         @Field("Kategori") kategori: String,
         @Field("No_hp") noHp: String,
-        @Field("latitude") latitude: Double,
-        @Field("longitude") longitude: Double
+        @Field("latitude") latitude: Double?,
+        @Field("longitude") longitude: Double?
     ): GeneralResponse
 
     @POST("api/umkm/nearby")
@@ -113,5 +113,13 @@ interface ApiService {
         @Query("longitude") longitude: Double?
     ): List<NearbyUmkmResponseItem>
 
+    @GET("api/umkm/{businessid}/product")
+    suspend fun getProductsByBusinessId(
+        @Path("businessid") businessId: Int
+    ): List<ProductResponse>
 
+    @GET("api/umkm/{businessid}/service")
+    suspend fun getServicesByBusinessId(
+        @Path("businessid") businessId: Int
+    ): List<ServiceResponse>
 }

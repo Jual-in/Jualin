@@ -1,6 +1,7 @@
 package com.jualin.apps.ui.fragments
 
 import android.Manifest
+import android.app.AlertDialog
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
@@ -28,6 +29,7 @@ class EditBusinessFragment : Fragment() {
     private var _binding: FragmentEditBusinessBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var loader: AlertDialog
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private var location: Location? = null
 
@@ -76,6 +78,12 @@ class EditBusinessFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        loader = AlertDialog.Builder(requireContext()).apply {
+            setView(R.layout.loader)
+            setCancelable(false)
+        }.create()
+
+        setLoadingState(true)
         getMyLastLocation()
 
         val isNewBusiness = EditBusinessFragmentArgs.fromBundle(requireArguments()).isNewBusiness
@@ -100,8 +108,8 @@ class EditBusinessFragment : Fragment() {
                 val noTelp = edNoHp.text.toString()
                 val deskripsi = edDeskripsi.text.toString()
 
-                val lat = location?.latitude ?: 0.0
-                val long = location?.longitude ?: 0.0
+                val lat = location?.latitude
+                val long = location?.longitude
 
                 viewModel.addUMKM(
                     nama,
@@ -135,6 +143,14 @@ class EditBusinessFragment : Fragment() {
         val businessId = EditBusinessFragmentArgs.fromBundle(requireArguments()).businessId
 
         binding.apply {
+            btnEditContent.visibility = View.VISIBLE
+            btnEditContent.setOnClickListener {
+                findNavController().navigate(
+                    EditBusinessFragmentDirections.actionEditBusinessFragmentToEditBusinessContentFragment(
+                        businessId
+                    )
+                )
+            }
             pageTitle.text = getString(R.string.edit_data_umkm)
             btnSubmit.text = getString(R.string.simpan)
 
@@ -144,8 +160,8 @@ class EditBusinessFragment : Fragment() {
                 val noTelp = edNoHp.text.toString()
                 val deskripsi = edDeskripsi.text.toString()
 
-                val lat = location?.latitude ?: 0.0
-                val long = location?.longitude ?: 0.0
+                val lat = location?.latitude
+                val long = location?.longitude
 
                 viewModel.editBusiness(
                     nama,
@@ -205,6 +221,7 @@ class EditBusinessFragment : Fragment() {
                             location.latitude.toString(),
                             location.longitude.toString()
                         )
+                        setLoadingState(false)
                     } else {
                         Toast.makeText(
                             requireContext(),
@@ -221,6 +238,16 @@ class EditBusinessFragment : Fragment() {
                     Manifest.permission.ACCESS_COARSE_LOCATION
                 )
             )
+        }
+    }
+
+    private fun setLoadingState(isLoading: Boolean) {
+        if (isLoading) {
+            loader.show()
+            binding.parentLayout.isEnabled = false
+        } else {
+            loader.dismiss()
+            binding.parentLayout.isEnabled = true
         }
     }
 
