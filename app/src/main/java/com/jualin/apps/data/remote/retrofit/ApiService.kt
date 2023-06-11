@@ -107,7 +107,7 @@ interface ApiService {
         @Field("longitude") longitude: Double?
     ): GeneralResponse
 
-    @POST("api/umkm/nearby")
+    @GET("api/umkm/nearby")
     suspend fun getNearbyUMKM(
         @Query("latitude") latitude: Double?,
         @Query("longitude") longitude: Double?

@@ -110,6 +110,7 @@
             android:gravity="top"
             android:hint="@string/deskripsi"
             android:inputType="textMultiLine"
+            android:maxLines="6"
             android:minLines="6" />
 
         <TextView

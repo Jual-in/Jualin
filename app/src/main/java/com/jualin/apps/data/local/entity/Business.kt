@@ -8,8 +8,6 @@ data class Business(
     val phone: String,
     val latitude: Double? = null,
     val longitude: Double? = null,
-    val products: List<Product>? = null,
-    val services: List<Service>? = null,
 )
 
 data class Product(

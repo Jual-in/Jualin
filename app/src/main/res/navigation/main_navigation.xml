@@ -51,7 +51,11 @@
         android:id="@+id/nearbyFragment"
         android:name="com.jualin.apps.ui.fragments.NearbyFragment"
         android:label="fragment_nearby"
-        tools:layout="@layout/fragment_nearby" />
+        tools:layout="@layout/fragment_nearby" >
+        <action
+            android:id="@+id/action_nearbyFragment_to_businessDetailFragment"
+            app:destination="@id/businessDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/scannerFragment"
         android:name="com.jualin.apps.ui.fragments.ScannerFragment"

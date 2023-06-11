@@ -1,5 +1,7 @@
 package com.jualin.apps.ui.fragments
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.jualin.apps.R
 import com.jualin.apps.data.Result
 import com.jualin.apps.data.local.entity.Business
 import com.jualin.apps.databinding.FragmentBusinessDetailBinding
@@ -62,33 +65,59 @@ class BusinessDetailFragment : Fragment() {
                 findNavController().navigateUp()
             }
 
-            tvAddress.text = "NGAWI (TEMP)"
             tvBusinessName.text = data.name
             tvDescription.text = data.description
 
             Glide.with(requireContext())
-                .load("https://picsum.photos/300/180")
+                .load(R.drawable.default_business)
                 .into(ivBusinessImage)
+
+            btnCall.setOnClickListener {
+                val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:${data.phone}"))
+                startActivity(intent)
+            }
         }
 
-        if (!data.products.isNullOrEmpty()) {
-            binding.tvProductTitle.visibility = View.VISIBLE
-            binding.rvProductList.visibility = View.VISIBLE
+        fetchProductsAndServices(data.id)
+    }
 
-            binding.rvProductList.layoutManager = object : GridLayoutManager(requireContext(), 2) {
-                override fun canScrollVertically(): Boolean = false
+    private fun fetchProductsAndServices(businessId: Int) {
+        viewModel.getProductsByBusinessId(businessId).observe(viewLifecycleOwner) {
+            when (it) {
+                is Result.Success -> {
+                    if (it.data.isNotEmpty()) {
+                        binding.tvProductTitle.visibility = View.VISIBLE
+                        binding.rvProductList.visibility = View.VISIBLE
+
+                        binding.rvProductList.layoutManager = object : GridLayoutManager(requireContext(), 2) {
+                            override fun canScrollVertically(): Boolean = false
+                        }
+                        binding.rvProductList.adapter = BusinessDetailProductAdapter(it.data)
+                    }
+                }
+
+                is Result.Error -> {}
+                is Result.Loading -> {}
             }
-            binding.rvProductList.adapter = BusinessDetailProductAdapter(data.products)
         }
 
-        if (!data.services.isNullOrEmpty()) {
-            binding.tvServiceTitle.visibility = View.VISIBLE
-            binding.rvServiceList.visibility = View.VISIBLE
+        viewModel.getServicesByBusinessId(businessId).observe(viewLifecycleOwner) {
+            when (it) {
+                is Result.Success -> {
+                    if (it.data.isNotEmpty()) {
+                        binding.tvServiceTitle.visibility = View.VISIBLE
+                        binding.rvServiceList.visibility = View.VISIBLE
 
-            binding.rvServiceList.layoutManager = object : LinearLayoutManager(requireContext()) {
-                override fun canScrollVertically(): Boolean = false
+                        binding.rvServiceList.layoutManager = object : LinearLayoutManager(requireContext()) {
+                            override fun canScrollVertically(): Boolean = false
+                        }
+                        binding.rvServiceList.adapter = BusinessDetailServiceAdapter(it.data)
+                    }
+                }
+
+                is Result.Error -> {}
+                is Result.Loading -> {}
             }
-            binding.rvServiceList.adapter = BusinessDetailServiceAdapter(data.services)
         }
     }
 }

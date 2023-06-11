@@ -36,7 +36,6 @@ class RecommendedBusinessAdapter(
             binding.apply {
                 tvBusinessName.text = item.name
                 tvBusinessDesc.text = item.description
-                tvBusinessAddress.text = "Ngawi"
                 Glide.with(itemView.context)
                     .load(R.drawable.default_business)
                     .into(ivBusiness)

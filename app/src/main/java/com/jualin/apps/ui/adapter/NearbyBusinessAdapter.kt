@@ -7,7 +7,8 @@ import com.jualin.apps.data.remote.response.nearby.NearbyUmkmResponseItem
 import com.jualin.apps.databinding.ItemNearbyBusinessBinding
 
 class NearbyBusinessAdapter(
-    private val items: List<NearbyUmkmResponseItem>
+    private val items: List<NearbyUmkmResponseItem>,
+    private val listener: (Int) -> Unit
 ) : RecyclerView.Adapter<NearbyBusinessAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -32,6 +33,7 @@ class NearbyBusinessAdapter(
                 tvKategori.text = item.kategori
                 tvNoTelp.text = item.noHp
             }
+            itemView.setOnClickListener { listener(item.id) }
         }
     }
 }
