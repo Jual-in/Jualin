@@ -1,7 +1,6 @@
 package com.jualin.apps.ui.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,24 +34,17 @@ class ListProductBusinessContentFragment : Fragment() {
         _binding = null
     }
 
-    override fun onResume() {
-        super.onResume()
-        val businessId = arguments?.getInt("businessId") ?: 0
-        Log.d("TAG", "onResume: $businessId")
-        viewModel.getProductsByBusinessId(businessId)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val adapter = BusinessContentProductAdapter(
             emptyList(),
             object : BusinessContentProductAdapter.OnBusinessClickListener {
-                override fun onBusinessRemoveClick(businessId: Int) {
+                override fun onBusinessProductRemoveClick(businessId: Int) {
                     //
                 }
 
-                override fun onBusinessAddClick() {
+                override fun onBusinessProductAddClick() {
                     //
                 }
             },
@@ -71,5 +63,8 @@ class ListProductBusinessContentFragment : Fragment() {
                 is Result.Error -> {}
             }
         }
+
+        val businessId = arguments?.getInt("businessId") ?: 0
+        viewModel.getProductsByBusinessId(businessId)
     }
 }

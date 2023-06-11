@@ -4,19 +4,18 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.jualin.apps.data.local.entity.Product
+import com.jualin.apps.data.local.entity.Service
 import com.jualin.apps.databinding.ItemAddContentBinding
-import com.jualin.apps.databinding.ItemProductContentBinding
+import com.jualin.apps.databinding.ItemServiceContentBinding
 import com.jualin.apps.utils.StringUtils
 
-class BusinessContentProductAdapter(
-    private var items: List<Product>,
+class BusinessContentServiceAdapter(
+    private var items: List<Service>,
     private val listener: OnBusinessClickListener
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    fun updateItems(newItems: List<Product>) {
+    fun updateItems(newItems: List<Service>) {
         val diffCallback = ItemDiffCallback(items, newItems)
         val diffResult = DiffUtil.calculateDiff(diffCallback)
         items = newItems
@@ -30,7 +29,7 @@ class BusinessContentProductAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         when (viewType) {
             0 -> {
-                val binding = ItemProductContentBinding.inflate(
+                val binding = ItemServiceContentBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false
@@ -58,19 +57,15 @@ class BusinessContentProductAdapter(
         }
     }
 
-    inner class ItemViewHolder(private val binding: ItemProductContentBinding) :
+    inner class ItemViewHolder(private val binding: ItemServiceContentBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Product) {
+        fun bind(item: Service) {
             binding.apply {
-                tvProductName.text = item.name
-                tvProductPrice.text = StringUtils.formatCurrency(item.price)
-                tvProductDiscount.text = item.discount.toString()
+                tvServiceName.text = item.name
+                tvServicePrice.text = StringUtils.formatCurrency(item.price)
+                tvServiceDiscount.text = item.discount.toString()
 
-                Glide.with(itemView.context)
-                    .load(item.photoUrl)
-                    .into(ivProductImage)
-
-                btnDeleteProduct.setOnClickListener { listener.onBusinessProductRemoveClick(item.id) }
+                btnRemove.setOnClickListener { listener.onBusinessServiceRemoveClick(item.id) }
             }
         }
     }
@@ -78,13 +73,13 @@ class BusinessContentProductAdapter(
     inner class AddViewHolder(private val binding: ItemAddContentBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind() {
-            binding.btnAddItem.setOnClickListener { listener.onBusinessProductAddClick() }
+            binding.btnAddItem.setOnClickListener { listener.onBusinessServiceAddClick() }
         }
     }
 
     private inner class ItemDiffCallback(
-        private val oldItems: List<Product>,
-        private val newItems: List<Product>
+        private val oldItems: List<Service>,
+        private val newItems: List<Service>
     ) : DiffUtil.Callback() {
 
         override fun getOldListSize(): Int {
@@ -106,7 +101,7 @@ class BusinessContentProductAdapter(
 
 
     interface OnBusinessClickListener {
-        fun onBusinessProductRemoveClick(businessId: Int)
-        fun onBusinessProductAddClick()
+        fun onBusinessServiceRemoveClick(businessId: Int)
+        fun onBusinessServiceAddClick()
     }
 }
