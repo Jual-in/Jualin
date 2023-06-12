@@ -2,9 +2,11 @@ package com.jualin.apps.di
 
 import android.content.Context
 import com.jualin.apps.data.local.preferences.UserPreferencesImpl
-import com.jualin.apps.data.repositories.UserRepository
+import com.jualin.apps.data.local.room.CategoryDao
 import com.jualin.apps.data.remote.retrofit.ApiService
 import com.jualin.apps.data.repositories.BusinessRepository
+import com.jualin.apps.data.repositories.CategoryRepository
+import com.jualin.apps.data.repositories.UserRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -39,4 +41,11 @@ object AppModule {
         return BusinessRepository(apiService)
     }
 
+    @Singleton
+    @Provides
+    fun provideCategoryRepository(
+        categoryDao: CategoryDao
+    ): CategoryRepository {
+        return CategoryRepository(categoryDao)
+    }
 }

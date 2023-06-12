@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             viewModel.isLoggedIn.collect { isLoggedIn ->
                 if (isLoggedIn) {
-                    navController.navigate(R.id.action_loginFragment_to_homeFragment)
+                    checkCategorySelected()
                 } else {
                     if (navController.currentDestination?.id==R.id.profileFragment) {
                         navController.navigate(R.id.action_profileFragment_to_loginFragment)
@@ -53,6 +53,23 @@ class MainActivity : AppCompatActivity() {
             }
         }
         setupBottomNavigation()
+    }
+
+    private fun checkCategorySelected() {
+        viewModel.checkCategorySelected()
+        lifecycleScope.launch {
+            viewModel.hasCategorySelected.collect {
+                if (it) {
+                    if (navController.currentDestination?.id==R.id.inputCategoryFragment) {
+                        navController.navigate(R.id.action_inputCategoryFragment_to_homeFragment)
+                    } else {
+                        navController.navigate(R.id.action_loginFragment_to_homeFragment)
+                    }
+                } else {
+                    navController.navigate(R.id.action_loginFragment_to_inputCategoryFragment)
+                }
+            }
+        }
     }
 
     private fun setupBottomNavigation() {
