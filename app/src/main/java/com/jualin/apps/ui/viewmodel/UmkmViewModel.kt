@@ -3,8 +3,10 @@ package com.jualin.apps.ui.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.jualin.apps.data.Result
+import com.jualin.apps.data.local.entity.Category
 import com.jualin.apps.data.remote.response.umkm.AddUMKMResponse
 import com.jualin.apps.data.repositories.BusinessRepository
+import com.jualin.apps.data.repositories.CategoryRepository
 import com.jualin.apps.data.repositories.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -12,7 +14,8 @@ import javax.inject.Inject
 @HiltViewModel
 class UmkmViewModel @Inject constructor(
     private val userRepository: UserRepository,
-    private val businessRepository: BusinessRepository
+    private val businessRepository: BusinessRepository,
+    private val categoryRepository: CategoryRepository
 ) : ViewModel() {
 
     fun addUMKM(
@@ -38,5 +41,13 @@ class UmkmViewModel @Inject constructor(
     }
 
     fun getBusinessById(businessId: Int) = businessRepository.getBusinessById(businessId)
+
+    fun getAllCategories(callback: (List<Category>) -> Unit) {
+        categoryRepository.getAllCategories().observeForever {
+            if (it is Result.Success) {
+                callback(it.data)
+            }
+        }
+    }
 
 }

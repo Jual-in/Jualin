@@ -8,6 +8,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
@@ -19,6 +21,7 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
 import com.jualin.apps.R
 import com.jualin.apps.data.Result
+import com.jualin.apps.data.local.entity.Category
 import com.jualin.apps.databinding.FragmentEditBusinessBinding
 import com.jualin.apps.ui.viewmodel.UmkmViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,7 +34,9 @@ class EditBusinessFragment : Fragment() {
 
     private lateinit var loader: AlertDialog
     private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private lateinit var categories: List<Category>
     private var location: Location? = null
+    private var category: String = ""
 
     private val viewModel: UmkmViewModel by viewModels()
 
@@ -94,6 +99,28 @@ class EditBusinessFragment : Fragment() {
             setupViewForEditBusiness()
         }
 
+        viewModel.getAllCategories { categories ->
+            this.categories = categories
+            val catName = categories.map { it.name }
+            ArrayAdapter(
+                requireContext(),
+                android.R.layout.simple_dropdown_item_1line,
+                catName
+            ).also { adapter ->
+                binding.spKategori.adapter = adapter
+            }
+        }
+
+        binding.spKategori.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
+                category = categories[pos].name
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                // NOT IMPLEMENTED
+            }
+        }
+
         binding.tvLocation.text = getString(R.string.memuat)
     }
 
@@ -104,7 +131,7 @@ class EditBusinessFragment : Fragment() {
 
             btnSubmit.setOnClickListener {
                 val nama = edNamaUsaha.text.toString()
-                val kategori = edKategori.text.toString()
+                val kategori = category
                 val noTelp = edNoHp.text.toString()
                 val deskripsi = edDeskripsi.text.toString()
 
@@ -156,7 +183,7 @@ class EditBusinessFragment : Fragment() {
 
             btnSubmit.setOnClickListener {
                 val nama = edNamaUsaha.text.toString()
-                val kategori = edKategori.text.toString()
+                val kategori = category
                 val noTelp = edNoHp.text.toString()
                 val deskripsi = edDeskripsi.text.toString()
 
@@ -193,10 +220,16 @@ class EditBusinessFragment : Fragment() {
                 when (it) {
                     is Result.Success -> {
                         val business = it.data
+                        category = business.category
                         edNamaUsaha.setText(business.name)
-                        edKategori.setText(business.category)
                         edNoHp.setText(business.phone)
                         edDeskripsi.setText(business.description)
+
+                        spKategori.setSelection(
+                            categories.indexOfFirst { category ->
+                                category.name==business.category
+                            },
+                        )
                     }
 
                     is Result.Loading -> {}
