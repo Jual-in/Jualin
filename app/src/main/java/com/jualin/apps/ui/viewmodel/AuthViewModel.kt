@@ -25,10 +25,6 @@ class AuthViewModel @Inject constructor(
     private val _isLoggedIn = MutableStateFlow(false)
     val isLoggedIn: StateFlow<Boolean> get() = _isLoggedIn
 
-    private val _hasCategorySelected = MutableStateFlow(false)
-    val hasCategorySelected: StateFlow<Boolean> get() = _hasCategorySelected
-
-
     fun login(email: String, password: String) = userRepository.login(email, password)
 
     fun register(name: String, email: String, password: String, role: String) =
@@ -62,11 +58,9 @@ class AuthViewModel @Inject constructor(
         return userRepository.addPhotoUser(file)
     }
 
-    fun checkCategorySelected() {
+    fun checkCategorySelected(callback: (Boolean) -> Unit) {
         viewModelScope.launch {
-            categoryRepository.hasCategories().collect {
-                _hasCategorySelected.value = it
-            }
+            callback(categoryRepository.hasCategories())
         }
     }
 }

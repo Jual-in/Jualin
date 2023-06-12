@@ -56,18 +56,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun checkCategorySelected() {
-        viewModel.checkCategorySelected()
-        lifecycleScope.launch {
-            viewModel.hasCategorySelected.collect {
-                if (it) {
-                    if (navController.currentDestination?.id==R.id.inputCategoryFragment) {
-                        navController.navigate(R.id.action_inputCategoryFragment_to_homeFragment)
-                    } else {
-                        navController.navigate(R.id.action_loginFragment_to_homeFragment)
-                    }
-                } else {
-                    navController.navigate(R.id.action_loginFragment_to_inputCategoryFragment)
-                }
+        viewModel.checkCategorySelected { hasCategory ->
+            if (hasCategory) {
+                navController.navigate(R.id.action_loginFragment_to_homeFragment)
+            } else {
+                navController.navigate(R.id.action_loginFragment_to_inputCategoryFragment)
             }
         }
     }
