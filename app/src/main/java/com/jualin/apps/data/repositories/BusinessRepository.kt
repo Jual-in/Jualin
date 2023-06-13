@@ -6,6 +6,7 @@ import com.jualin.apps.data.Result
 import com.jualin.apps.data.local.entity.Business
 import com.jualin.apps.data.local.entity.Product
 import com.jualin.apps.data.local.entity.Service
+import com.jualin.apps.data.local.room.CategoryDao
 import com.jualin.apps.data.remote.retrofit.ApiService
 import com.jualin.apps.utils.reduceFileImage
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -19,6 +20,7 @@ import javax.inject.Singleton
 @Singleton
 class BusinessRepository @Inject constructor(
     private val apiService: ApiService,
+    private val categoryDao: CategoryDao,
 ) {
 
     fun getBusinessById(id: Int): LiveData<Result<Business>> = liveData {
@@ -35,6 +37,28 @@ class BusinessRepository @Inject constructor(
                 longitude = response.longitude,
             )
             emit(Result.Success(business))
+        } catch (e: Exception) {
+            emit(Result.Error(e.message))
+        }
+    }
+
+    fun getRecommendedBusiness(): LiveData<Result<List<Business>>> = liveData {
+        emit(Result.Loading)
+        try {
+            val selectedCategory = categoryDao.getSelectedCategory().joinToString(separator = ",")
+            val response = apiService.getRecommendedBusiness(selectedCategory)
+            val businesses = response.map {
+                Business(
+                    id = it.id,
+                    name = it.name,
+                    description = it.description,
+                    category = it.category,
+                    phone = it.phone,
+                    latitude = it.latitude,
+                    longitude = it.longitude,
+                )
+            }
+            emit(Result.Success(businesses))
         } catch (e: Exception) {
             emit(Result.Error(e.message))
         }

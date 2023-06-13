@@ -26,6 +26,8 @@ class HomeFragment : Fragment() {
 
     private val viewModel: HomeViewModel by viewModels()
 
+    val businesses: MutableList<Business> = mutableListOf()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,7 +44,21 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        businesses.addAll(FakeData.business)
         setupView()
+//        viewModel.getRecommendedBusiness().observe(viewLifecycleOwner) {
+//            when (it) {
+//                is Result.Success -> {
+//                    businesses.addAll(it.data)
+//                    setupView()
+//                }
+//
+//                is Result.Loading -> {}
+//                is Result.Error -> {
+//                    Log.d("HomeFragment", "onViewCreated: ${it.error}")
+//                }
+//            }
+//        }
     }
 
     private fun setupView() {
@@ -56,11 +72,12 @@ class HomeFragment : Fragment() {
                 .load("https://picsum.photos/300/180")
                 .into(carouselView)
 
+            rvRecommended.visibility = View.VISIBLE
             rvRecommended.layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
             rvRecommended.adapter = RecommendedBusinessAdapter(
-                FakeData.business,
+                businesses,
                 object : RecommendedBusinessAdapter.OnBusinessClickListener {
                     override fun onBusinessClick(business: Business) {
                         val action =

@@ -37,8 +37,9 @@ object AppModule {
     @Provides
     fun provideBusinessRepository(
         apiService: ApiService,
+        categoryDao: CategoryDao
     ): BusinessRepository {
-        return BusinessRepository(apiService)
+        return BusinessRepository(apiService, categoryDao)
     }
 
     @Singleton

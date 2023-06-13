@@ -184,4 +184,9 @@ interface ApiService {
     suspend fun deleteService(
         @Path("serviceId") serviceId: Int
     ): GeneralResponse
+
+    @GET("api/umkm/rekomendasi")
+    suspend fun getRecommendedBusiness(
+        @Query("category") category: String
+    ): List<BusinessDetailResponse>
 }
