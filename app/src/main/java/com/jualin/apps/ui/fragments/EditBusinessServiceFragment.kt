@@ -22,6 +22,7 @@ class EditBusinessServiceFragment : Fragment() {
     private val viewModel: UmkmViewModel by viewModels()
 
     private var businessId: Int = 0
+    private var serviceId: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,10 +42,60 @@ class EditBusinessServiceFragment : Fragment() {
 
         val isNewService =
             EditBusinessServiceFragmentArgs.fromBundle(requireArguments()).isNewService
-        businessId = EditBusinessServiceFragmentArgs.fromBundle(requireArguments()).businessId
 
         if (isNewService) {
+            businessId = EditBusinessServiceFragmentArgs.fromBundle(requireArguments()).businessId
             setupForAddService()
+        } else {
+            serviceId = EditBusinessServiceFragmentArgs.fromBundle(requireArguments()).serviceId
+            setupForEditService()
+        }
+    }
+
+    private fun setupForEditService() {
+        binding.pageTitle.text = "Edit Jasa"
+        binding.btnSubmit.text = "Ubah Jasa"
+
+        viewModel.getServiceById(serviceId).observe(viewLifecycleOwner) {
+            when (it) {
+                is Result.Success -> {
+                    val service = it.data
+                    binding.edNamaJasa.setText(service.name)
+                    binding.edPrice.setText(service.price.toString())
+                    binding.edDiscount.setText(service.discount.toString())
+                }
+
+                is Result.Loading -> {}
+                is Result.Error -> {
+                    Toast.makeText(requireContext(), it.error, Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+        }
+
+        binding.btnSubmit.setOnClickListener {
+            val name = binding.edNamaJasa.text.toString()
+            val price = binding.edPrice.text.toString().toInt()
+            val discount = binding.edDiscount.text.toString().toInt()
+
+            viewModel.editService(serviceId, name, price, discount).observe(viewLifecycleOwner) {
+                when (it) {
+                    is Result.Success -> {
+                        Toast.makeText(
+                            requireContext(),
+                            "Berhasil Mengubah Jasa",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        findNavController().navigateUp()
+                    }
+
+                    is Result.Loading -> {}
+                    is Result.Error -> {
+                        Toast.makeText(requireContext(), it.error, Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                }
+            }
         }
     }
 
@@ -64,6 +115,7 @@ class EditBusinessServiceFragment : Fragment() {
                         ).show()
                         findNavController().navigateUp()
                     }
+
                     is Result.Loading -> {}
                     is Result.Error -> {
                         Toast.makeText(requireContext(), it.error, Toast.LENGTH_SHORT)

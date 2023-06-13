@@ -144,4 +144,18 @@ interface ApiService {
         @Field("Harga") price: Int,
         @Field("Diskon") discount: Int
     ): AddServiceResponse
+
+    @GET("api/service/{serviceId}")
+    suspend fun getServiceById(
+        @Path("serviceId") serviceId: Int
+    ): ServiceResponse
+
+    @FormUrlEncoded
+    @PUT("api/service/updateService/{serviceId}")
+    suspend fun editService(
+        @Path("serviceId") serviceId: Int,
+        @Field("Nama") name: String,
+        @Field("Harga") price: Int,
+        @Field("Diskon") discount: Int
+    ): GeneralResponse
 }

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -43,6 +44,7 @@ class ListServiceBusinessContentFragment : Fragment() {
             emptyList(),
             object : BusinessContentServiceAdapter.OnBusinessClickListener {
                 override fun onBusinessServiceRemoveClick(serviceId: Int) {
+                    Toast.makeText(requireContext(), "HAPUS", Toast.LENGTH_SHORT).show()
                 }
 
                 override fun onBusinessServiceAddClick() {
@@ -50,6 +52,15 @@ class ListServiceBusinessContentFragment : Fragment() {
                         EditBusinessContentFragmentDirections.actionEditBusinessContentFragmentToEditBusinessServiceFragment(
                             isNewService = true,
                             businessId = businessId
+                        )
+                    findNavController().navigate(action)
+                }
+
+                override fun onBusinessServiceEditClick(serviceId: Int) {
+                    val action =
+                        EditBusinessContentFragmentDirections.actionEditBusinessContentFragmentToEditBusinessServiceFragment(
+                            isNewService = false,
+                            serviceId = serviceId
                         )
                     findNavController().navigate(action)
                 }

@@ -196,6 +196,41 @@ class BusinessRepository @Inject constructor(
         } catch (e: Exception) {
             emit(Result.Error(e.message))
         }
+    }
 
+    fun getServiceById(serviceId: Int): LiveData<Result<Service>> = liveData {
+        emit(Result.Loading)
+        try {
+            val response = apiService.getServiceById(serviceId)
+            val service = Service(
+                id = response.id,
+                name = response.name,
+                price = response.price,
+                discount = response.discount,
+            )
+            emit(Result.Success(service))
+        } catch (e: Exception) {
+            emit(Result.Error(e.message))
+        }
+    }
+
+    fun editService(
+        serviceId: Int,
+        name: String,
+        price: Int,
+        discount: Int,
+    ): LiveData<Result<Boolean>> = liveData {
+        emit(Result.Loading)
+        try {
+            apiService.editService(
+                serviceId = serviceId,
+                name = name,
+                price = price,
+                discount = discount,
+            )
+            emit(Result.Success(true))
+        } catch (e: Exception) {
+            emit(Result.Error(e.message))
+        }
     }
 }

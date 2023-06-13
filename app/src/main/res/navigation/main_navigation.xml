@@ -197,5 +197,9 @@
             android:name="businessId"
             app:argType="integer"
             android:defaultValue="0" />
+        <argument
+            android:name="serviceId"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
 </navigation>
