@@ -4,10 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.jualin.apps.R
 import com.jualin.apps.data.Result
 import com.jualin.apps.databinding.FragmentListProductBusinessContentBinding
 import com.jualin.apps.ui.adapter.BusinessContentProductAdapter
@@ -43,7 +46,27 @@ class ListProductBusinessContentFragment : Fragment() {
             emptyList(),
             object : BusinessContentProductAdapter.OnBusinessClickListener {
                 override fun onBusinessProductRemoveClick(productId: Int) {
-                    //
+                    val alertLogout = AlertDialog.Builder(requireContext())
+                    alertLogout.setIcon(R.drawable.product_logo)
+                    alertLogout.setTitle("Hapus Produk")
+                    alertLogout.setMessage("Anda yakin untuk menghapus produk ini?")
+                    alertLogout.setPositiveButton("Ya") { _, _ ->
+                        viewModel.deleteProductById(productId) {
+                            if (it) {
+                                viewModel.getProductsByBusinessId(businessId)
+                                Toast.makeText(requireContext(), "Produk Dihapus", Toast.LENGTH_SHORT)
+                                    .show()
+                            } else {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Gagal Menghapus Jasa",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
+                    }
+                    alertLogout.setNegativeButton("Tidak") { _, _ -> }
+                    alertLogout.show()
                 }
 
                 override fun onBusinessProductAddClick() {

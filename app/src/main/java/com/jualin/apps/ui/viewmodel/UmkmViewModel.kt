@@ -89,6 +89,13 @@ class UmkmViewModel @Inject constructor(
         photo: File?
     ) = businessRepository.editProduct(productId, name, price, discount, photo)
 
+    fun deleteProductById(productId: Int, callback: (Boolean) -> Unit) {
+        viewModelScope.launch {
+            val res = businessRepository.deleteProductById(productId)
+            callback(res)
+        }
+    }
+
     fun addService(businessId: Int, name: String, price: Int, discount: Int) =
         businessRepository.addService(businessId, name, price, discount)
 

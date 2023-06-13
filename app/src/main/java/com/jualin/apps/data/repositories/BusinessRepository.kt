@@ -234,6 +234,15 @@ class BusinessRepository @Inject constructor(
         }
     }
 
+    suspend fun deleteProductById(productId: Int): Boolean {
+        return try {
+            apiService.deleteProduct(productId)
+            true
+        } catch (e: Exception) {
+            false
+        }
+    }
+
     fun addService(
         businessId: Int,
         name: String,

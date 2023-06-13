@@ -152,6 +152,11 @@ interface ApiService {
         @Part photo: MultipartBody.Part? = null
     ): GeneralResponse
 
+    @DELETE("api/product/deleteProduct/{productId}")
+    suspend fun deleteProduct(
+        @Path("productId") productId: Int
+    ): GeneralResponse
+
     @FormUrlEncoded
     @POST("api/service/createService")
     suspend fun addService(
