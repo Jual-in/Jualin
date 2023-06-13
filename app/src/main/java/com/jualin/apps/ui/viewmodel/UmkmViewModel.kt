@@ -3,6 +3,7 @@ package com.jualin.apps.ui.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.jualin.apps.data.Result
 import com.jualin.apps.data.local.entity.Category
 import com.jualin.apps.data.local.entity.Product
@@ -12,6 +13,7 @@ import com.jualin.apps.data.repositories.BusinessRepository
 import com.jualin.apps.data.repositories.CategoryRepository
 import com.jualin.apps.data.repositories.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import java.io.File
 import javax.inject.Inject
 
@@ -81,10 +83,18 @@ class UmkmViewModel @Inject constructor(
         businessRepository.addService(businessId, name, price, discount)
 
     fun getServiceById(serviceId: Int) = businessRepository.getServiceById(serviceId)
+
     fun editService(
         serviceId: Int,
         name: String,
         price: Int,
         discount: Int,
     ) = businessRepository.editService(serviceId, name, price, discount)
+
+    fun deleteServiceById(serviceId: Int, callback: (Boolean) -> Unit) {
+        viewModelScope.launch {
+            val res = businessRepository.deleteServiceById(serviceId)
+            callback(res)
+        }
+    }
 }

@@ -233,4 +233,13 @@ class BusinessRepository @Inject constructor(
             emit(Result.Error(e.message))
         }
     }
+
+    suspend fun deleteServiceById(serviceId: Int): Boolean {
+        return try {
+            apiService.deleteService(serviceId)
+            true
+        } catch (e: Exception) {
+            false
+        }
+    }
 }

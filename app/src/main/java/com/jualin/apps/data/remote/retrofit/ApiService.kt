@@ -15,6 +15,7 @@ import com.jualin.apps.data.remote.response.user.UpdateUserResponse
 import com.jualin.apps.data.remote.response.user.UploadPhotoUserResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import retrofit2.http.DELETE
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
@@ -157,5 +158,10 @@ interface ApiService {
         @Field("Nama") name: String,
         @Field("Harga") price: Int,
         @Field("Diskon") discount: Int
+    ): GeneralResponse
+
+    @DELETE("api/service/deleteService/{serviceId}")
+    suspend fun deleteService(
+        @Path("serviceId") serviceId: Int
     ): GeneralResponse
 }
