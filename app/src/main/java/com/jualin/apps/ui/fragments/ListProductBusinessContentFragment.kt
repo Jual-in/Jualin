@@ -42,7 +42,7 @@ class ListProductBusinessContentFragment : Fragment() {
         val adapter = BusinessContentProductAdapter(
             emptyList(),
             object : BusinessContentProductAdapter.OnBusinessClickListener {
-                override fun onBusinessProductRemoveClick(businessId: Int) {
+                override fun onBusinessProductRemoveClick(productId: Int) {
                     //
                 }
 

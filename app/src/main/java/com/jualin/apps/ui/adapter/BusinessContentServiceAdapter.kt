@@ -101,7 +101,7 @@ class BusinessContentServiceAdapter(
 
 
     interface OnBusinessClickListener {
-        fun onBusinessServiceRemoveClick(businessId: Int)
+        fun onBusinessServiceRemoveClick(serviceId: Int)
         fun onBusinessServiceAddClick()
     }
 }

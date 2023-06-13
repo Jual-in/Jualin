@@ -42,8 +42,7 @@ class ListServiceBusinessContentFragment : Fragment() {
         val adapter = BusinessContentServiceAdapter(
             emptyList(),
             object : BusinessContentServiceAdapter.OnBusinessClickListener {
-                override fun onBusinessServiceRemoveClick(businessId: Int) {
-                    //
+                override fun onBusinessServiceRemoveClick(serviceId: Int) {
                 }
 
                 override fun onBusinessServiceAddClick() {

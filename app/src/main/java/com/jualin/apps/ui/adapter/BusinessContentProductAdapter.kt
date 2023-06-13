@@ -106,7 +106,7 @@ class BusinessContentProductAdapter(
 
 
     interface OnBusinessClickListener {
-        fun onBusinessProductRemoveClick(businessId: Int)
+        fun onBusinessProductRemoveClick(productId: Int)
         fun onBusinessProductAddClick()
     }
 }
