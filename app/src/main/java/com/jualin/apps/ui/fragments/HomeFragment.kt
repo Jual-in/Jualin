@@ -11,11 +11,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.jualin.apps.R
+import com.jualin.apps.data.Result
 import com.jualin.apps.data.local.entity.Business
 import com.jualin.apps.databinding.FragmentHomeBinding
 import com.jualin.apps.ui.adapter.RecommendedBusinessAdapter
 import com.jualin.apps.ui.viewmodel.HomeViewModel
-import com.jualin.apps.utils.FakeData
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -26,7 +26,7 @@ class HomeFragment : Fragment() {
 
     private val viewModel: HomeViewModel by viewModels()
 
-    val businesses: MutableList<Business> = mutableListOf()
+    private val businesses: MutableList<Business> = mutableListOf()
 
 
     override fun onCreateView(
@@ -44,21 +44,16 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        businesses.addAll(FakeData.business)
-        setupView()
-//        viewModel.getRecommendedBusiness().observe(viewLifecycleOwner) {
-//            when (it) {
-//                is Result.Success -> {
-//                    businesses.addAll(it.data)
-//                    setupView()
-//                }
-//
-//                is Result.Loading -> {}
-//                is Result.Error -> {
-//                    Log.d("HomeFragment", "onViewCreated: ${it.error}")
-//                }
-//            }
-//        }
+        viewModel.getRecommendedBusiness().observe(viewLifecycleOwner) {
+            when (it) {
+                is Result.Success -> {
+                    businesses.addAll(it.data)
+                    setupView()
+                }
+
+                else -> {}
+            }
+        }
     }
 
     private fun setupView() {
