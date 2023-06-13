@@ -14,6 +14,7 @@ data class Business(
     val longitude: Double? = null,
 ) : Parcelable
 
+@Parcelize
 data class Product(
     val id: Int,
     val name: String,
@@ -22,8 +23,9 @@ data class Product(
     val photoUrl: String,
 
     val businessId: Int? = 0,
-)
+) : Parcelable
 
+@Parcelize
 data class Service(
     val id: Int,
     val name: String,
@@ -31,4 +33,4 @@ data class Service(
     val discount: Int,
 
     val businessId: Int? = 0,
-)
+) : Parcelable

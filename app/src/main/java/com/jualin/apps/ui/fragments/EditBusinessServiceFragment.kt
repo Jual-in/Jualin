@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.jualin.apps.data.Result
+import com.jualin.apps.data.local.entity.Service
 import com.jualin.apps.databinding.FragmentEditBusinessServiceBinding
 import com.jualin.apps.ui.viewmodel.UmkmViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,7 +23,6 @@ class EditBusinessServiceFragment : Fragment() {
     private val viewModel: UmkmViewModel by viewModels()
 
     private var businessId: Int = 0
-    private var serviceId: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,38 +47,27 @@ class EditBusinessServiceFragment : Fragment() {
             businessId = EditBusinessServiceFragmentArgs.fromBundle(requireArguments()).businessId
             setupForAddService()
         } else {
-            serviceId = EditBusinessServiceFragmentArgs.fromBundle(requireArguments()).serviceId
-            setupForEditService()
+            val service = EditBusinessServiceFragmentArgs.fromBundle(requireArguments()).service
+            if (service!=null) {
+                setupForEditService(service)
+            }
         }
     }
 
-    private fun setupForEditService() {
+    private fun setupForEditService(service: Service) {
         binding.pageTitle.text = "Edit Jasa"
         binding.btnSubmit.text = "Ubah Jasa"
 
-        viewModel.getServiceById(serviceId).observe(viewLifecycleOwner) {
-            when (it) {
-                is Result.Success -> {
-                    val service = it.data
-                    binding.edNamaJasa.setText(service.name)
-                    binding.edPrice.setText(service.price.toString())
-                    binding.edDiscount.setText(service.discount.toString())
-                }
-
-                is Result.Loading -> {}
-                is Result.Error -> {
-                    Toast.makeText(requireContext(), it.error, Toast.LENGTH_SHORT)
-                        .show()
-                }
-            }
-        }
+        binding.edNamaJasa.setText(service.name)
+        binding.edPrice.setText(service.price.toString())
+        binding.edDiscount.setText(service.discount.toString())
 
         binding.btnSubmit.setOnClickListener {
             val name = binding.edNamaJasa.text.toString()
             val price = binding.edPrice.text.toString().toInt()
             val discount = binding.edDiscount.text.toString().toInt()
 
-            viewModel.editService(serviceId, name, price, discount).observe(viewLifecycleOwner) {
+            viewModel.editService(service.id, name, price, discount).observe(viewLifecycleOwner) {
                 when (it) {
                     is Result.Success -> {
                         Toast.makeText(

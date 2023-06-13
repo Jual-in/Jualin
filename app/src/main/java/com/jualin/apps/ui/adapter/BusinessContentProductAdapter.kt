@@ -71,7 +71,7 @@ class BusinessContentProductAdapter(
                     .into(ivProductImage)
 
                 btnDeleteProduct.setOnClickListener { listener.onBusinessProductRemoveClick(item.id) }
-                itemView.setOnClickListener { listener.onBusinessProductEditClick(item.id) }
+                itemView.setOnClickListener { listener.onBusinessProductEditClick(item) }
             }
         }
     }
@@ -109,6 +109,6 @@ class BusinessContentProductAdapter(
     interface OnBusinessClickListener {
         fun onBusinessProductRemoveClick(productId: Int)
         fun onBusinessProductAddClick()
-        fun onBusinessProductEditClick(productId: Int)
+        fun onBusinessProductEditClick(product: Product)
     }
 }

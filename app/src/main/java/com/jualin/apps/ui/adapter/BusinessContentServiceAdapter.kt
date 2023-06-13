@@ -66,7 +66,7 @@ class BusinessContentServiceAdapter(
                 tvServiceDiscount.text = item.discount.toString()
 
                 btnRemove.setOnClickListener { listener.onBusinessServiceRemoveClick(item.id) }
-                itemView.setOnClickListener { listener.onBusinessServiceEditClick(item.id) }
+                itemView.setOnClickListener { listener.onBusinessServiceEditClick(item) }
             }
         }
     }
@@ -104,6 +104,6 @@ class BusinessContentServiceAdapter(
     interface OnBusinessClickListener {
         fun onBusinessServiceRemoveClick(serviceId: Int)
         fun onBusinessServiceAddClick()
-        fun onBusinessServiceEditClick(serviceId: Int)
+        fun onBusinessServiceEditClick(service: Service)
     }
 }

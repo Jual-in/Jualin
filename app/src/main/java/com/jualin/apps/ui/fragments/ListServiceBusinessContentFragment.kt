@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jualin.apps.R
 import com.jualin.apps.data.Result
+import com.jualin.apps.data.local.entity.Service
 import com.jualin.apps.databinding.FragmentListServiceBusinessContentBinding
 import com.jualin.apps.ui.adapter.BusinessContentServiceAdapter
 import com.jualin.apps.ui.viewmodel.UmkmViewModel
@@ -78,11 +79,11 @@ class ListServiceBusinessContentFragment : Fragment() {
                     findNavController().navigate(action)
                 }
 
-                override fun onBusinessServiceEditClick(serviceId: Int) {
+                override fun onBusinessServiceEditClick(service: Service) {
                     val action =
                         EditBusinessContentFragmentDirections.actionEditBusinessContentFragmentToEditBusinessServiceFragment(
                             isNewService = false,
-                            serviceId = serviceId
+                            service = service
                         )
                     findNavController().navigate(action)
                 }

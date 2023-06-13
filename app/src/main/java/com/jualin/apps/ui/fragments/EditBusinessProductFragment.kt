@@ -14,6 +14,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.jualin.apps.data.Result
+import com.jualin.apps.data.local.entity.Product
 import com.jualin.apps.databinding.FragmentEditBusinessProductBinding
 import com.jualin.apps.ui.viewmodel.UmkmViewModel
 import com.jualin.apps.utils.uriToFile
@@ -30,7 +31,6 @@ class EditBusinessProductFragment : Fragment() {
 
     private var photo: File? = null
     private var businessId: Int = 0
-    private var productId: Int = 0
 
     private val launcherIntentGallery = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
@@ -68,8 +68,10 @@ class EditBusinessProductFragment : Fragment() {
             businessId = EditBusinessProductFragmentArgs.fromBundle(requireArguments()).businessId
             setupForAddProduct()
         } else {
-            productId = EditBusinessProductFragmentArgs.fromBundle(requireArguments()).productId
-            setupForEditProduct()
+            val product = EditBusinessProductFragmentArgs.fromBundle(requireArguments()).product
+            if (product!=null) {
+                setupForEditProduct(product)
+            }
         }
 
         binding.ivImageBarang.setOnClickListener {
@@ -81,32 +83,24 @@ class EditBusinessProductFragment : Fragment() {
         }
     }
 
-    private fun setupForEditProduct() {
+    private fun setupForEditProduct(product: Product) {
         binding.pageTitle.text = "Edit Produk"
         binding.btnSubmit.text = "Ubah Produk"
 
-        viewModel.getProductById(productId).observe(viewLifecycleOwner) {
-            when (it) {
-                is Result.Success -> {
-                    val product = it.data
-                    binding.edNamaBarang.setText(product.name)
-                    binding.edHargaBarang.setText(product.price.toString())
-                    binding.edDiskon.setText(product.discount.toString())
-                    Glide.with(requireContext())
-                        .load(product.photoUrl)
-                        .into(binding.ivImageBarang)
-                }
+        binding.edNamaBarang.setText(product.name)
+        binding.edHargaBarang.setText(product.price.toString())
+        binding.edDiskon.setText(product.discount.toString())
+        Glide.with(requireContext())
+            .load(product.photoUrl)
+            .into(binding.ivImageBarang)
 
-                else -> {}
-            }
-        }
 
         binding.btnSubmit.setOnClickListener {
             val name = binding.edNamaBarang.text.toString()
             val price = binding.edHargaBarang.text.toString().toInt()
             val discount = binding.edDiskon.text.toString().toInt()
 
-            viewModel.editProduct(productId, name, price, discount, photo)
+            viewModel.editProduct(product.id, name, price, discount, photo)
                 .observe(viewLifecycleOwner) {
                     when (it) {
                         is Result.Success -> {

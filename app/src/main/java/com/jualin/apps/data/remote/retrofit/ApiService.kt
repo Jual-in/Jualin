@@ -137,11 +137,6 @@ interface ApiService {
         @Part photo: MultipartBody.Part
     ): AddProductResponse
 
-    @GET("api/product/{productId}")
-    suspend fun getProductById(
-        @Path("productId") productId: Int
-    ): ProductResponse
-
     @Multipart
     @PUT("api/product/updateProduct/{productId}")
     suspend fun editProduct(
@@ -165,11 +160,6 @@ interface ApiService {
         @Field("Harga") price: Int,
         @Field("Diskon") discount: Int
     ): AddServiceResponse
-
-    @GET("api/service/{serviceId}")
-    suspend fun getServiceById(
-        @Path("serviceId") serviceId: Int
-    ): ServiceResponse
 
     @FormUrlEncoded
     @PUT("api/service/updateService/{serviceId}")

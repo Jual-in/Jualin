@@ -79,8 +79,6 @@ class UmkmViewModel @Inject constructor(
     fun addProduct(businessId: Int, name: String, price: Int, discount: Int, photo: File) =
         businessRepository.addProduct(businessId, name, price, discount, photo)
 
-    fun getProductById(productId: Int) = businessRepository.getProductById(productId)
-
     fun editProduct(
         productId: Int,
         name: String,
@@ -98,8 +96,6 @@ class UmkmViewModel @Inject constructor(
 
     fun addService(businessId: Int, name: String, price: Int, discount: Int) =
         businessRepository.addService(businessId, name, price, discount)
-
-    fun getServiceById(serviceId: Int) = businessRepository.getServiceById(serviceId)
 
     fun editService(
         serviceId: Int,

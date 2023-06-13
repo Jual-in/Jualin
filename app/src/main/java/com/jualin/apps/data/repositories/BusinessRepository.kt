@@ -212,23 +212,6 @@ class BusinessRepository @Inject constructor(
         }
     }
 
-    fun getProductById(productId: Int): LiveData<Result<Product>> = liveData {
-        emit(Result.Loading)
-        try {
-            val response = apiService.getProductById(productId)
-            val product = Product(
-                id = response.id,
-                name = response.name,
-                price = response.price,
-                discount = response.discount,
-                photoUrl = response.photoUrl ?: "",
-            )
-            emit(Result.Success(product))
-        } catch (e: Exception) {
-            emit(Result.Error(e.message))
-        }
-    }
-
     fun editProduct(
         productId: Int,
         name: String,
@@ -292,22 +275,6 @@ class BusinessRepository @Inject constructor(
                 discount = discount,
             )
             emit(Result.Success(true))
-        } catch (e: Exception) {
-            emit(Result.Error(e.message))
-        }
-    }
-
-    fun getServiceById(serviceId: Int): LiveData<Result<Service>> = liveData {
-        emit(Result.Loading)
-        try {
-            val response = apiService.getServiceById(serviceId)
-            val service = Service(
-                id = response.id,
-                name = response.name,
-                price = response.price,
-                discount = response.discount,
-            )
-            emit(Result.Success(service))
         } catch (e: Exception) {
             emit(Result.Error(e.message))
         }

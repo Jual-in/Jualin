@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jualin.apps.R
 import com.jualin.apps.data.Result
+import com.jualin.apps.data.local.entity.Product
 import com.jualin.apps.databinding.FragmentListProductBusinessContentBinding
 import com.jualin.apps.ui.adapter.BusinessContentProductAdapter
 import com.jualin.apps.ui.viewmodel.UmkmViewModel
@@ -54,7 +55,11 @@ class ListProductBusinessContentFragment : Fragment() {
                         viewModel.deleteProductById(productId) {
                             if (it) {
                                 viewModel.getProductsByBusinessId(businessId)
-                                Toast.makeText(requireContext(), "Produk Dihapus", Toast.LENGTH_SHORT)
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Produk Dihapus",
+                                    Toast.LENGTH_SHORT
+                                )
                                     .show()
                             } else {
                                 Toast.makeText(
@@ -78,11 +83,11 @@ class ListProductBusinessContentFragment : Fragment() {
                     findNavController().navigate(action)
                 }
 
-                override fun onBusinessProductEditClick(productId: Int) {
+                override fun onBusinessProductEditClick(product: Product) {
                     val action =
                         EditBusinessContentFragmentDirections.actionEditBusinessContentFragmentToEditBusinessProductFragment(
                             isNewProduct = false,
-                            productId = productId
+                            product = product
                         )
                     findNavController().navigate(action)
                 }
