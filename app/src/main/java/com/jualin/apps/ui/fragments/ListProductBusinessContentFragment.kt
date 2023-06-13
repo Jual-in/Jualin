@@ -49,7 +49,17 @@ class ListProductBusinessContentFragment : Fragment() {
                 override fun onBusinessProductAddClick() {
                     val action =
                         EditBusinessContentFragmentDirections.actionEditBusinessContentFragmentToEditBusinessProductFragment(
-                            true, businessId
+                            isNewProduct = true,
+                            businessId = businessId
+                        )
+                    findNavController().navigate(action)
+                }
+
+                override fun onBusinessProductEditClick(productId: Int) {
+                    val action =
+                        EditBusinessContentFragmentDirections.actionEditBusinessContentFragmentToEditBusinessProductFragment(
+                            isNewProduct = false,
+                            productId = productId
                         )
                     findNavController().navigate(action)
                 }

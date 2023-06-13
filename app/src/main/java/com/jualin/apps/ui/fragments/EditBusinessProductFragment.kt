@@ -30,6 +30,7 @@ class EditBusinessProductFragment : Fragment() {
 
     private var photo: File? = null
     private var businessId: Int = 0
+    private var productId: Int = 0
 
     private val launcherIntentGallery = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
@@ -62,10 +63,13 @@ class EditBusinessProductFragment : Fragment() {
 
         val isNewProduct =
             EditBusinessProductFragmentArgs.fromBundle(requireArguments()).isNewProduct
-        businessId = EditBusinessProductFragmentArgs.fromBundle(requireArguments()).businessId
 
         if (isNewProduct) {
+            businessId = EditBusinessProductFragmentArgs.fromBundle(requireArguments()).businessId
             setupForAddProduct()
+        } else {
+            productId = EditBusinessProductFragmentArgs.fromBundle(requireArguments()).productId
+            setupForEditProduct()
         }
 
         binding.ivImageBarang.setOnClickListener {
@@ -74,6 +78,53 @@ class EditBusinessProductFragment : Fragment() {
             intent.type = "image/*"
             val chooser = Intent.createChooser(intent, "Choose a Picture")
             launcherIntentGallery.launch(chooser)
+        }
+    }
+
+    private fun setupForEditProduct() {
+        binding.pageTitle.text = "Edit Produk"
+        binding.btnSubmit.text = "Ubah Produk"
+
+        viewModel.getProductById(productId).observe(viewLifecycleOwner) {
+            when (it) {
+                is Result.Success -> {
+                    val product = it.data
+                    binding.edNamaBarang.setText(product.name)
+                    binding.edHargaBarang.setText(product.price.toString())
+                    binding.edDiskon.setText(product.discount.toString())
+                    Glide.with(requireContext())
+                        .load(product.photoUrl)
+                        .into(binding.ivImageBarang)
+                }
+
+                else -> {}
+            }
+        }
+
+        binding.btnSubmit.setOnClickListener {
+            val name = binding.edNamaBarang.text.toString()
+            val price = binding.edHargaBarang.text.toString().toInt()
+            val discount = binding.edDiskon.text.toString().toInt()
+
+            viewModel.editProduct(productId, name, price, discount, photo)
+                .observe(viewLifecycleOwner) {
+                    when (it) {
+                        is Result.Success -> {
+                            Toast.makeText(
+                                requireContext(),
+                                "Berhasil Mengubah Produk",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            findNavController().navigateUp()
+                        }
+
+                        is Result.Loading -> {}
+                        is Result.Error -> {
+                            Toast.makeText(requireContext(), it.error, Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                    }
+                }
         }
     }
 

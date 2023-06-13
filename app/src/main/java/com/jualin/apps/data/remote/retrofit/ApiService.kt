@@ -137,6 +137,21 @@ interface ApiService {
         @Part photo: MultipartBody.Part
     ): AddProductResponse
 
+    @GET("api/product/{productId}")
+    suspend fun getProductById(
+        @Path("productId") productId: Int
+    ): ProductResponse
+
+    @Multipart
+    @PUT("api/product/updateProduct/{productId}")
+    suspend fun editProduct(
+        @Path("productId") productId: Int,
+        @Part("Nama") name: RequestBody,
+        @Part("Harga") price: Int,
+        @Part("Diskon") discount: Int,
+        @Part photo: MultipartBody.Part? = null
+    ): GeneralResponse
+
     @FormUrlEncoded
     @POST("api/service/createService")
     suspend fun addService(

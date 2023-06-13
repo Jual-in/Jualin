@@ -178,6 +178,62 @@ class BusinessRepository @Inject constructor(
         }
     }
 
+    fun getProductById(productId: Int): LiveData<Result<Product>> = liveData {
+        emit(Result.Loading)
+        try {
+            val response = apiService.getProductById(productId)
+            val product = Product(
+                id = response.id,
+                name = response.name,
+                price = response.price,
+                discount = response.discount,
+                photoUrl = response.photoUrl ?: "",
+            )
+            emit(Result.Success(product))
+        } catch (e: Exception) {
+            emit(Result.Error(e.message))
+        }
+    }
+
+    fun editProduct(
+        productId: Int,
+        name: String,
+        price: Int,
+        discount: Int,
+        photo: File?,
+    ): LiveData<Result<Boolean>> = liveData {
+        emit(Result.Loading)
+        try {
+            val rbName = name.toRequestBody("text/plain".toMediaTypeOrNull())
+
+            if (photo!=null) {
+                val requestImageFile = photo.asRequestBody("image/jpeg".toMediaTypeOrNull())
+                val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
+                    "Photo",
+                    photo.name,
+                    requestImageFile
+                )
+                apiService.editProduct(
+                    productId = productId,
+                    name = rbName,
+                    price = price,
+                    discount = discount,
+                    photo = imageMultipart,
+                )
+            } else {
+                apiService.editProduct(
+                    productId = productId,
+                    name = rbName,
+                    price = price,
+                    discount = discount,
+                )
+            }
+            emit(Result.Success(true))
+        } catch (e: Exception) {
+            emit(Result.Error(e.message))
+        }
+    }
+
     fun addService(
         businessId: Int,
         name: String,
