@@ -10,6 +10,7 @@ import com.jualin.apps.utils.StringUtils
 
 class SearchProductAdapter(
     private val list: List<Product>,
+    private val listener: (businessId: Int) -> Unit
 ) : RecyclerView.Adapter<SearchProductAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -30,11 +31,14 @@ class SearchProductAdapter(
         fun bind(product: Product) {
             binding.apply {
                 tvProductName.text = product.name
-                tvPrice.text = StringUtils.formatCurrency(product.price)
+                tvPrice.text = StringUtils.formatCurrency(product.price.toString())
 
                 Glide.with(itemView.context)
                     .load(product.photoUrl)
                     .into(ivProduct)
+            }
+            itemView.setOnClickListener {
+                listener(product.businessId ?: 0)
             }
         }
     }

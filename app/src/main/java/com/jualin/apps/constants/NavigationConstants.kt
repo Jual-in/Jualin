@@ -11,5 +11,8 @@ object NavigationConstants {
         R.id.editProfileFragment,
         R.id.editBusinessFragment,
         R.id.editBusinessContentFragment,
+        R.id.inputCategoryFragment,
+        R.id.editBusinessProductFragment,
+        R.id.editBusinessServiceFragment
     )
 }

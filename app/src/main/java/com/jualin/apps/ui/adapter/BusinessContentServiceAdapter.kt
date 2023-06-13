@@ -62,10 +62,11 @@ class BusinessContentServiceAdapter(
         fun bind(item: Service) {
             binding.apply {
                 tvServiceName.text = item.name
-                tvServicePrice.text = StringUtils.formatCurrency(item.price)
+                tvServicePrice.text = StringUtils.formatCurrency(item.price.toString())
                 tvServiceDiscount.text = item.discount.toString()
 
                 btnRemove.setOnClickListener { listener.onBusinessServiceRemoveClick(item.id) }
+                itemView.setOnClickListener { listener.onBusinessServiceEditClick(item) }
             }
         }
     }
@@ -101,7 +102,8 @@ class BusinessContentServiceAdapter(
 
 
     interface OnBusinessClickListener {
-        fun onBusinessServiceRemoveClick(businessId: Int)
+        fun onBusinessServiceRemoveClick(serviceId: Int)
         fun onBusinessServiceAddClick()
+        fun onBusinessServiceEditClick(service: Service)
     }
 }

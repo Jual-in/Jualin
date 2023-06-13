@@ -22,6 +22,12 @@
             app:launchSingleTop="true"
             app:popUpTo="@id/loginFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_loginFragment_to_inputCategoryFragment"
+            app:destination="@id/inputCategoryFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -51,7 +57,11 @@
         android:id="@+id/nearbyFragment"
         android:name="com.jualin.apps.ui.fragments.NearbyFragment"
         android:label="fragment_nearby"
-        tools:layout="@layout/fragment_nearby" />
+        tools:layout="@layout/fragment_nearby" >
+        <action
+            android:id="@+id/action_nearbyFragment_to_businessDetailFragment"
+            app:destination="@id/businessDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/scannerFragment"
         android:name="com.jualin.apps.ui.fragments.ScannerFragment"
@@ -85,9 +95,14 @@
         android:label="fragment_business_detail"
         tools:layout="@layout/fragment_business_detail">
         <argument
+            android:name="business"
+            app:argType="com.jualin.apps.data.local.entity.Business"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <argument
             android:name="businessId"
-            android:defaultValue="0"
-            app:argType="integer" />
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
@@ -102,6 +117,9 @@
             app:destination="@id/searchFragment"
             app:popUpTo="@id/searchFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_searchFragment_to_businessDetailFragment"
+            app:destination="@id/businessDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/editProfileFragment"
@@ -138,5 +156,61 @@
             android:name="businessId"
             app:argType="integer"
             android:defaultValue="0" />
+        <action
+            android:id="@+id/action_editBusinessContentFragment_to_editBusinessProductFragment"
+            app:destination="@id/editBusinessProductFragment" />
+        <action
+            android:id="@+id/action_editBusinessContentFragment_to_editBusinessServiceFragment"
+            app:destination="@id/editBusinessServiceFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/inputCategoryFragment"
+        android:name="com.jualin.apps.ui.fragments.InputCategoryFragment"
+        android:label="fragment_input_category"
+        tools:layout="@layout/fragment_input_category" >
+        <action
+            android:id="@+id/action_inputCategoryFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/inputCategoryFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/editBusinessProductFragment"
+        android:name="com.jualin.apps.ui.fragments.EditBusinessProductFragment"
+        android:label="fragment_edit_business_product"
+        tools:layout="@layout/fragment_edit_business_product" >
+        <argument
+            android:name="isNewProduct"
+            app:argType="boolean"
+            android:defaultValue="false" />
+        <argument
+            android:name="businessId"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
+            android:name="product"
+            app:argType="com.jualin.apps.data.local.entity.Product"
+            android:defaultValue="@null"
+            app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/editBusinessServiceFragment"
+        android:name="com.jualin.apps.ui.fragments.EditBusinessServiceFragment"
+        android:label="fragment_edit_business_service"
+        tools:layout="@layout/fragment_edit_business_service" >
+        <argument
+            android:name="isNewService"
+            app:argType="boolean"
+            android:defaultValue="false" />
+        <argument
+            android:name="businessId"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
+            android:name="service"
+            app:argType="com.jualin.apps.data.local.entity.Service"
+            android:defaultValue="@null"
+            app:nullable="true" />
     </fragment>
 </navigation>

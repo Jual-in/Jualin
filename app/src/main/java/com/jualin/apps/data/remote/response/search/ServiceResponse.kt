@@ -10,13 +10,13 @@ data class ServiceResponse(
     val name: String,
 
     @field:SerializedName("Harga")
-    val price: String,
+    val price: Int,
 
     @field:SerializedName("Diskon")
-    val discount: Double,
+    val discount: Int,
 
 
     @field:SerializedName("id_umkm")
-    val businessId: Int
+    val businessId: Int?
 
 )

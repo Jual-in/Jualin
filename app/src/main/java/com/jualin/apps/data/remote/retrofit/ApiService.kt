@@ -4,14 +4,18 @@ import com.jualin.apps.data.remote.response.GeneralResponse
 import com.jualin.apps.data.remote.response.auth.LoginResponse
 import com.jualin.apps.data.remote.response.auth.RegisterResponse
 import com.jualin.apps.data.remote.response.nearby.NearbyUmkmResponseItem
+import com.jualin.apps.data.remote.response.product.AddProductResponse
 import com.jualin.apps.data.remote.response.search.ProductResponse
 import com.jualin.apps.data.remote.response.search.ServiceResponse
+import com.jualin.apps.data.remote.response.service.AddServiceResponse
 import com.jualin.apps.data.remote.response.umkm.AddUMKMResponse
 import com.jualin.apps.data.remote.response.umkm.BusinessDetailResponse
 import com.jualin.apps.data.remote.response.user.DetailUserResponse
 import com.jualin.apps.data.remote.response.user.UpdateUserResponse
 import com.jualin.apps.data.remote.response.user.UploadPhotoUserResponse
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import retrofit2.http.DELETE
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
@@ -107,7 +111,7 @@ interface ApiService {
         @Field("longitude") longitude: Double?
     ): GeneralResponse
 
-    @POST("api/umkm/nearby")
+    @GET("api/umkm/nearby")
     suspend fun getNearbyUMKM(
         @Query("latitude") latitude: Double?,
         @Query("longitude") longitude: Double?
@@ -122,4 +126,57 @@ interface ApiService {
     suspend fun getServicesByBusinessId(
         @Path("businessid") businessId: Int
     ): List<ServiceResponse>
+
+    @Multipart
+    @POST("api/product/createProduct")
+    suspend fun addProduct(
+        @Part("id_umkm") businessId: Int,
+        @Part("Nama") name: RequestBody,
+        @Part("Harga") price: Int,
+        @Part("Diskon") discount: Int,
+        @Part photo: MultipartBody.Part
+    ): AddProductResponse
+
+    @Multipart
+    @PUT("api/product/updateProduct/{productId}")
+    suspend fun editProduct(
+        @Path("productId") productId: Int,
+        @Part("Nama") name: RequestBody,
+        @Part("Harga") price: Int,
+        @Part("Diskon") discount: Int,
+        @Part photo: MultipartBody.Part? = null
+    ): GeneralResponse
+
+    @DELETE("api/product/deleteProduct/{productId}")
+    suspend fun deleteProduct(
+        @Path("productId") productId: Int
+    ): GeneralResponse
+
+    @FormUrlEncoded
+    @POST("api/service/createService")
+    suspend fun addService(
+        @Field("id_umkm") businessId: Int,
+        @Field("Nama") name: String,
+        @Field("Harga") price: Int,
+        @Field("Diskon") discount: Int
+    ): AddServiceResponse
+
+    @FormUrlEncoded
+    @PUT("api/service/updateService/{serviceId}")
+    suspend fun editService(
+        @Path("serviceId") serviceId: Int,
+        @Field("Nama") name: String,
+        @Field("Harga") price: Int,
+        @Field("Diskon") discount: Int
+    ): GeneralResponse
+
+    @DELETE("api/service/deleteService/{serviceId}")
+    suspend fun deleteService(
+        @Path("serviceId") serviceId: Int
+    ): GeneralResponse
+
+    @GET("api/umkm/rekomendasi")
+    suspend fun getRecommendedBusiness(
+        @Query("category") category: String
+    ): List<BusinessDetailResponse>
 }

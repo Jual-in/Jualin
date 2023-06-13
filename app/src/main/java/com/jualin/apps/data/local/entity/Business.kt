@@ -1,5 +1,9 @@
 package com.jualin.apps.data.local.entity
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class Business(
     val id: Int,
     val name: String,
@@ -8,21 +12,25 @@ data class Business(
     val phone: String,
     val latitude: Double? = null,
     val longitude: Double? = null,
-    val products: List<Product>? = null,
-    val services: List<Service>? = null,
-)
+) : Parcelable
 
+@Parcelize
 data class Product(
     val id: Int,
     val name: String,
-    val price: String,
-    val discount: Double,
-    val photoUrl: String
-)
+    val price: Int,
+    val discount: Int,
+    val photoUrl: String,
 
+    val businessId: Int? = 0,
+) : Parcelable
+
+@Parcelize
 data class Service(
     val id: Int,
     val name: String,
-    val price: String,
-    val discount: Double,
-)
+    val price: Int,
+    val discount: Int,
+
+    val businessId: Int? = 0,
+) : Parcelable

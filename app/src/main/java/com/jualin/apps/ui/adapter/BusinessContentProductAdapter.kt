@@ -63,7 +63,7 @@ class BusinessContentProductAdapter(
         fun bind(item: Product) {
             binding.apply {
                 tvProductName.text = item.name
-                tvProductPrice.text = StringUtils.formatCurrency(item.price)
+                tvProductPrice.text = StringUtils.formatCurrency(item.price.toString())
                 tvProductDiscount.text = item.discount.toString()
 
                 Glide.with(itemView.context)
@@ -71,6 +71,7 @@ class BusinessContentProductAdapter(
                     .into(ivProductImage)
 
                 btnDeleteProduct.setOnClickListener { listener.onBusinessProductRemoveClick(item.id) }
+                itemView.setOnClickListener { listener.onBusinessProductEditClick(item) }
             }
         }
     }
@@ -106,7 +107,8 @@ class BusinessContentProductAdapter(
 
 
     interface OnBusinessClickListener {
-        fun onBusinessProductRemoveClick(businessId: Int)
+        fun onBusinessProductRemoveClick(productId: Int)
         fun onBusinessProductAddClick()
+        fun onBusinessProductEditClick(product: Product)
     }
 }

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jualin.apps.data.Result
 import com.jualin.apps.data.local.entity.Service
@@ -59,7 +60,13 @@ class SearchServiceFragment : Fragment() {
                 pageNotFound.root.visibility = View.GONE
 
                 rvNearbyService.layoutManager = LinearLayoutManager(requireContext())
-                rvNearbyService.adapter = SearchServiceAdapter(data)
+                rvNearbyService.adapter = SearchServiceAdapter(data) { businessId ->
+                    val action =
+                        SearchFragmentDirections.actionSearchFragmentToBusinessDetailFragment(
+                            businessId = businessId
+                        )
+                    findNavController().navigate(action)
+                }
             } else {
                 pageNotFound.root.visibility = View.VISIBLE
                 rvNearbyService.visibility = View.GONE

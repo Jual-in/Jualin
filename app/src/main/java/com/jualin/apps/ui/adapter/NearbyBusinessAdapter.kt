@@ -3,11 +3,12 @@ package com.jualin.apps.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.jualin.apps.data.remote.response.nearby.NearbyUmkmResponseItem
+import com.jualin.apps.data.local.entity.Business
 import com.jualin.apps.databinding.ItemNearbyBusinessBinding
 
 class NearbyBusinessAdapter(
-    private val items: List<NearbyUmkmResponseItem>
+    private val items: List<Business>,
+    private val listener: (Business) -> Unit
 ) : RecyclerView.Adapter<NearbyBusinessAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -25,13 +26,14 @@ class NearbyBusinessAdapter(
     inner class ViewHolder(
         private val binding: ItemNearbyBusinessBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: NearbyUmkmResponseItem) {
+        fun bind(item: Business) {
             binding.apply {
-                tvNamaUmkm.text = item.namaUsaha
-                tvDeskripsi.text = item.deskripsi
-                tvKategori.text = item.kategori
-                tvNoTelp.text = item.noHp
+                tvNamaUmkm.text = item.name
+                tvDeskripsi.text = item.description
+                tvKategori.text = item.category
+                tvNoTelp.text = item.phone
             }
+            itemView.setOnClickListener { listener(item) }
         }
     }
 }

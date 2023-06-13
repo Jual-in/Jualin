@@ -7,6 +7,7 @@ import com.jualin.apps.data.Result
 import com.jualin.apps.data.local.entity.User
 import com.jualin.apps.data.remote.response.user.UpdateUserResponse
 import com.jualin.apps.data.remote.response.user.UploadPhotoUserResponse
+import com.jualin.apps.data.repositories.CategoryRepository
 import com.jualin.apps.data.repositories.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,7 +18,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AuthViewModel @Inject constructor(
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val categoryRepository: CategoryRepository
 ) : ViewModel() {
 
     private val _isLoggedIn = MutableStateFlow(false)
@@ -46,14 +48,19 @@ class AuthViewModel @Inject constructor(
         return userRepository.getDetailUser()
     }
 
-    fun updateUser(name: String, email: String, password: String, alamat: String, )
-    : LiveData<Result<UpdateUserResponse>> {
+    fun updateUser(name: String, email: String, password: String, alamat: String)
+            : LiveData<Result<UpdateUserResponse>> {
         return userRepository.updaterUser(name, email, password, alamat)
     }
 
     fun uploadPhotoUser(file: MultipartBody.Part)
-    : LiveData<Result<UploadPhotoUserResponse>> {
+            : LiveData<Result<UploadPhotoUserResponse>> {
         return userRepository.addPhotoUser(file)
     }
 
+    fun checkCategorySelected(callback: (Boolean) -> Unit) {
+        viewModelScope.launch {
+            callback(categoryRepository.hasCategories())
+        }
+    }
 }

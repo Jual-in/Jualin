@@ -9,6 +9,10 @@ import javax.inject.Inject
 class BusinessDetailViewModel @Inject constructor(
     private val repository: BusinessRepository
 ) : ViewModel() {
+
     fun getBusinessById(id: Int) = repository.getBusinessById(id)
+
+    fun getProductsByBusinessId(id: Int) = repository.getProductsByBusinessId(id)
+    fun getServicesByBusinessId(id: Int) = repository.getServicesByBusinessId(id)
 
 }

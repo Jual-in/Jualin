@@ -6,25 +6,33 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.jualin.apps.R
+import com.jualin.apps.data.Result
+import com.jualin.apps.data.local.entity.Business
 import com.jualin.apps.databinding.FragmentHomeBinding
 import com.jualin.apps.ui.adapter.RecommendedBusinessAdapter
-import com.jualin.apps.utils.FakeData
+import com.jualin.apps.ui.viewmodel.HomeViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+
+    private val viewModel: HomeViewModel by viewModels()
+
+    private val businesses: MutableList<Business> = mutableListOf()
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -36,7 +44,16 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupView()
+        viewModel.getRecommendedBusiness().observe(viewLifecycleOwner) {
+            when (it) {
+                is Result.Success -> {
+                    businesses.addAll(it.data)
+                    setupView()
+                }
+
+                else -> {}
+            }
+        }
     }
 
     private fun setupView() {
@@ -50,16 +67,17 @@ class HomeFragment : Fragment() {
                 .load("https://picsum.photos/300/180")
                 .into(carouselView)
 
+            rvRecommended.visibility = View.VISIBLE
             rvRecommended.layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
             rvRecommended.adapter = RecommendedBusinessAdapter(
-                FakeData.business,
+                businesses,
                 object : RecommendedBusinessAdapter.OnBusinessClickListener {
-                    override fun onBusinessClick(businessId: Int) {
+                    override fun onBusinessClick(business: Business) {
                         val action =
                             HomeFragmentDirections.actionHomeFragmentToBusinessDetailFragment(
-                                businessId
+                                business = business
                             )
                         findNavController().navigate(action)
                     }

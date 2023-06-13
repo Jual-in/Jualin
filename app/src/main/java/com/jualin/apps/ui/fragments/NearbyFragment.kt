@@ -13,12 +13,13 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.jualin.apps.R
 import com.jualin.apps.data.Result
-import com.jualin.apps.data.remote.response.nearby.NearbyUmkmResponseItem
+import com.jualin.apps.data.local.entity.Business
 import com.jualin.apps.databinding.FragmentNearbyBinding
 import com.jualin.apps.ui.adapter.NearbyBusinessAdapter
 import com.jualin.apps.ui.viewmodel.NearbyViewModel
@@ -118,12 +119,16 @@ class NearbyFragment : Fragment() {
         }
     }
 
-    private fun setupSuccess(data: List<NearbyUmkmResponseItem>) {
+    private fun setupSuccess(data: List<Business>) {
         setLoadingState(false)
         binding.apply {
             rvNearbyUmkm.visibility = View.VISIBLE
             rvNearbyUmkm.layoutManager = LinearLayoutManager(requireContext())
-            rvNearbyUmkm.adapter = NearbyBusinessAdapter(data)
+            rvNearbyUmkm.adapter = NearbyBusinessAdapter(data) { business ->
+                findNavController().navigate(
+                    NearbyFragmentDirections.actionNearbyFragmentToBusinessDetailFragment(business)
+                )
+            }
         }
     }
 
