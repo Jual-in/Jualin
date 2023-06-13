@@ -1,7 +1,9 @@
 package com.jualin.apps.ui.fragments
 
 import android.content.Intent
+import android.location.Geocoder
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +22,7 @@ import com.jualin.apps.ui.adapter.BusinessDetailProductAdapter
 import com.jualin.apps.ui.adapter.BusinessDetailServiceAdapter
 import com.jualin.apps.ui.viewmodel.BusinessDetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.Locale
 
 @AndroidEntryPoint
 class BusinessDetailFragment : Fragment() {
@@ -48,7 +51,7 @@ class BusinessDetailFragment : Fragment() {
         val business = BusinessDetailFragmentArgs.fromBundle(requireArguments()).business
         if (business!=null) {
             setupView(business)
-        }else {
+        } else {
             val businessId = BusinessDetailFragmentArgs.fromBundle(requireArguments()).businessId
             viewModel.getBusinessById(businessId).observe(viewLifecycleOwner) {
                 when (it) {
@@ -71,6 +74,7 @@ class BusinessDetailFragment : Fragment() {
 
             tvBusinessName.text = data.name
             tvDescription.text = data.description
+            tvAddress.text = getLocation(data.latitude as Double, data.longitude as Double)
 
             Glide.with(requireContext())
                 .load(R.drawable.default_business)
@@ -125,5 +129,27 @@ class BusinessDetailFragment : Fragment() {
                 is Result.Loading -> {}
             }
         }
+    }
+
+    private fun getLocation(latitude: Double, longitude: Double): String {
+        var address = ""
+        val geocoder = Geocoder(requireContext(), Locale.getDefault())
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            geocoder.getFromLocation(latitude, longitude, 1) { list ->
+                if (list.isNotEmpty()) {
+                    address = list[0].getAddressLine(0)
+                }
+            }
+        } else {
+            try {
+                val list = geocoder.getFromLocation(latitude, longitude, 1)
+                if (list!=null && list.size!=0) {
+                    address = list[0].getAddressLine(0)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+        return address
     }
 }
