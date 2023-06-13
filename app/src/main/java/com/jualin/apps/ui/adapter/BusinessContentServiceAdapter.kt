@@ -62,7 +62,7 @@ class BusinessContentServiceAdapter(
         fun bind(item: Service) {
             binding.apply {
                 tvServiceName.text = item.name
-                tvServicePrice.text = StringUtils.formatCurrency(item.price)
+                tvServicePrice.text = StringUtils.formatCurrency(item.price.toString())
                 tvServiceDiscount.text = item.discount.toString()
 
                 btnRemove.setOnClickListener { listener.onBusinessServiceRemoveClick(item.id) }

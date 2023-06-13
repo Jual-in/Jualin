@@ -146,4 +146,32 @@ class BusinessRepository @Inject constructor(
             emit(Result.Error(e.message))
         }
     }
+
+    fun addProduct(
+        businessId: Int,
+        name: String,
+        price: Int,
+        discount: Int,
+        photo: File,
+    ): LiveData<Result<Boolean>> = liveData {
+        emit(Result.Loading)
+        try {
+            val requestImageFile = photo.asRequestBody("image/jpeg".toMediaTypeOrNull())
+            val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
+                "Photo",
+                photo.name,
+                requestImageFile
+            )
+            apiService.addProduct(
+                businessId = businessId,
+                name = name,
+                price = price,
+                discount = discount,
+                photo = imageMultipart,
+            )
+            emit(Result.Success(true))
+        } catch (e: Exception) {
+            emit(Result.Error(e.message))
+        }
+    }
 }

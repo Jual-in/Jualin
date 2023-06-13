@@ -30,7 +30,7 @@ class SearchServiceAdapter(
         fun bind(service: Service) {
             binding.apply {
                 tvNamaJasa.text = service.name
-                tvServicePrice.text = StringUtils.formatCurrency(service.price)
+                tvServicePrice.text = StringUtils.formatCurrency(service.price.toString())
                 btnLihatToko.setOnClickListener { listener(service.businessId ?: 0) }
             }
         }

@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.jualin.apps.data.Result
 import com.jualin.apps.databinding.FragmentListServiceBusinessContentBinding
 import com.jualin.apps.ui.adapter.BusinessContentServiceAdapter
-import com.jualin.apps.ui.viewmodel.BusinessContentViewModel
+import com.jualin.apps.ui.viewmodel.UmkmViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -19,7 +19,7 @@ class ListServiceBusinessContentFragment : Fragment() {
     private var _binding: FragmentListServiceBusinessContentBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: BusinessContentViewModel by viewModels()
+    private val viewModel: UmkmViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

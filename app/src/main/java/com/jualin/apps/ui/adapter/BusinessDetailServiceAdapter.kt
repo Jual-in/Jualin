@@ -33,7 +33,7 @@ class BusinessDetailServiceAdapter(
         fun bind(item: Service) {
             binding.apply {
                 tvBusinessServiceName.text = item.name
-                tvBusinessServicePrice.text = StringUtils.formatCurrency(item.price)
+                tvBusinessServicePrice.text = StringUtils.formatCurrency(item.price.toString())
             }
         }
 

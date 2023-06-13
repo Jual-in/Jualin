@@ -13,8 +13,8 @@ data class Business(
 data class Product(
     val id: Int,
     val name: String,
-    val price: String,
-    val discount: Double,
+    val price: Int,
+    val discount: Int,
     val photoUrl: String,
 
     val businessId: Int? = 0,
@@ -23,8 +23,8 @@ data class Product(
 data class Service(
     val id: Int,
     val name: String,
-    val price: String,
-    val discount: Double,
+    val price: Int,
+    val discount: Int,
 
     val businessId: Int? = 0,
 )

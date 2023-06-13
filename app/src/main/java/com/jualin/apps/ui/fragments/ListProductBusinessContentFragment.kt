@@ -6,11 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jualin.apps.data.Result
 import com.jualin.apps.databinding.FragmentListProductBusinessContentBinding
 import com.jualin.apps.ui.adapter.BusinessContentProductAdapter
-import com.jualin.apps.ui.viewmodel.BusinessContentViewModel
+import com.jualin.apps.ui.viewmodel.UmkmViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -19,7 +20,7 @@ class ListProductBusinessContentFragment : Fragment() {
     private var _binding: FragmentListProductBusinessContentBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: BusinessContentViewModel by viewModels()
+    private val viewModel: UmkmViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,6 +37,7 @@ class ListProductBusinessContentFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val businessId = arguments?.getInt("businessId") ?: 0
 
         val adapter = BusinessContentProductAdapter(
             emptyList(),
@@ -45,7 +47,11 @@ class ListProductBusinessContentFragment : Fragment() {
                 }
 
                 override fun onBusinessProductAddClick() {
-                    //
+                    val action =
+                        EditBusinessContentFragmentDirections.actionEditBusinessContentFragmentToEditBusinessProductFragment(
+                            true, businessId
+                        )
+                    findNavController().navigate(action)
                 }
             },
         )
@@ -64,7 +70,6 @@ class ListProductBusinessContentFragment : Fragment() {
             }
         }
 
-        val businessId = arguments?.getInt("businessId") ?: 0
         viewModel.getProductsByBusinessId(businessId)
     }
 }

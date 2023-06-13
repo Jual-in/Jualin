@@ -1,14 +1,18 @@
 package com.jualin.apps.ui.viewmodel
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.jualin.apps.data.Result
 import com.jualin.apps.data.local.entity.Category
+import com.jualin.apps.data.local.entity.Product
+import com.jualin.apps.data.local.entity.Service
 import com.jualin.apps.data.remote.response.umkm.AddUMKMResponse
 import com.jualin.apps.data.repositories.BusinessRepository
 import com.jualin.apps.data.repositories.CategoryRepository
 import com.jualin.apps.data.repositories.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
@@ -17,6 +21,26 @@ class UmkmViewModel @Inject constructor(
     private val businessRepository: BusinessRepository,
     private val categoryRepository: CategoryRepository
 ) : ViewModel() {
+
+    private val _products: MutableLiveData<Result<List<Product>>> = MutableLiveData()
+    val products: LiveData<Result<List<Product>>> = _products
+
+    private val _service: MutableLiveData<Result<List<Service>>> = MutableLiveData()
+    val services: LiveData<Result<List<Service>>> = _service
+
+    fun getProductsByBusinessId(businessId: Int) {
+        _products.value = Result.Loading
+        businessRepository.getProductsByBusinessId(businessId).observeForever {
+            _products.value = it
+        }
+    }
+
+    fun getServicesByBusinessId(businessId: Int) {
+        _service.value = Result.Loading
+        businessRepository.getServicesByBusinessId(businessId).observeForever {
+            _service.value = it
+        }
+    }
 
     fun addUMKM(
         nama: String,
@@ -50,4 +74,6 @@ class UmkmViewModel @Inject constructor(
         }
     }
 
+    fun addProduct(businessId: Int, name: String, price: Int, discount: Int, photo: File) =
+        businessRepository.addProduct(businessId, name, price, discount, photo)
 }

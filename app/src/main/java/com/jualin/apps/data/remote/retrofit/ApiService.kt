@@ -4,6 +4,7 @@ import com.jualin.apps.data.remote.response.GeneralResponse
 import com.jualin.apps.data.remote.response.auth.LoginResponse
 import com.jualin.apps.data.remote.response.auth.RegisterResponse
 import com.jualin.apps.data.remote.response.nearby.NearbyUmkmResponseItem
+import com.jualin.apps.data.remote.response.product.AddProductResponse
 import com.jualin.apps.data.remote.response.search.ProductResponse
 import com.jualin.apps.data.remote.response.search.ServiceResponse
 import com.jualin.apps.data.remote.response.umkm.AddUMKMResponse
@@ -122,4 +123,14 @@ interface ApiService {
     suspend fun getServicesByBusinessId(
         @Path("businessid") businessId: Int
     ): List<ServiceResponse>
+
+    @Multipart
+    @POST("api/product/createProduct")
+    suspend fun addProduct(
+        @Part("id_umkm") businessId: Int,
+        @Part("Nama") name: String,
+        @Part("Harga") price: Int,
+        @Part("Diskon") discount: Int,
+        @Part photo: MultipartBody.Part
+    ): AddProductResponse
 }

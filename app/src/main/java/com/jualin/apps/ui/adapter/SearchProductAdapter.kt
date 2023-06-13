@@ -31,7 +31,7 @@ class SearchProductAdapter(
         fun bind(product: Product) {
             binding.apply {
                 tvProductName.text = product.name
-                tvPrice.text = StringUtils.formatCurrency(product.price)
+                tvPrice.text = StringUtils.formatCurrency(product.price.toString())
 
                 Glide.with(itemView.context)
                     .load(product.photoUrl)

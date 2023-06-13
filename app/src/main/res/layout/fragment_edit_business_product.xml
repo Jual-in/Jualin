@@ -4,7 +4,7 @@
     android:id="@+id/parentLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragments.EditBusinessFragment">
+    tools:context=".ui.fragments.EditBusinessProductFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,12 +16,20 @@
             android:id="@+id/pageTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="64dp"
-            android:layout_marginBottom="32dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:text="Tambah Barang"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="32sp"
-            android:textStyle="bold"
-            tools:text="@string/tambah_umkm" />
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/iv_image_barang"
+            android:layout_width="300dp"
+            android:layout_height="370dp"
+            android:layout_marginBottom="16dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/click_to_add_image" />
 
         <TextView
             android:layout_width="match_parent"
@@ -29,12 +37,12 @@
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="8dp"
-            android:text="@string/nama_usaha"
+            android:text="Nama Barang"
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/ed_nama_usaha"
+            android:id="@+id/ed_nama_barang"
             style="@style/Theme.CustomTextField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -42,7 +50,7 @@
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="16dp"
             android:autofillHints="no"
-            android:hint="@string/nama_usaha"
+            android:hint="Nama Barang"
             android:inputType="text" />
 
         <TextView
@@ -51,29 +59,12 @@
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="8dp"
-            android:text="@string/kategori"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <Spinner
-            android:id="@+id/sp_kategori"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="32dp"
-            android:layout_marginBottom="16dp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="8dp"
-            android:text="@string/telp"
+            android:text="Harga Barang"
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/ed_no_hp"
+            android:id="@+id/ed_harga_barang"
             style="@style/Theme.CustomTextField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -81,7 +72,7 @@
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="16dp"
             android:autofillHints="no"
-            android:hint="@string/telp"
+            android:hint="Harga Barang"
             android:inputType="number" />
 
         <TextView
@@ -90,55 +81,23 @@
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="8dp"
-            android:text="@string/deskripsi"
+            android:text="Diskon Barang"
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/ed_deskripsi"
+            android:id="@+id/ed_diskon"
             style="@style/Theme.CustomTextField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="16dp"
-            android:gravity="top"
-            android:hint="@string/deskripsi"
-            android:inputType="textMultiLine"
-            android:maxLines="6"
-            android:minLines="6" />
+            android:autofillHints="no"
+            android:hint="Diskon Barang"
+            android:inputType="number"
+            android:maxLength="2" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="8dp"
-            android:text="@string/lokasi_anda"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/tv_location"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="16dp"
-            tools:text="-7.502925, 112.671497" />
-
-        <Button
-            android:id="@+id/btnEditContent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_white"
-            android:backgroundTint="@color/white"
-            android:paddingHorizontal="80dp"
-            android:paddingVertical="7dp"
-            android:visibility="gone"
-            android:text="@string/edit_etalase"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="16sp" />
 
         <Button
             android:id="@+id/btnSubmit"
@@ -148,8 +107,8 @@
             android:layout_marginBottom="24dp"
             android:paddingHorizontal="80dp"
             android:paddingVertical="7dp"
-            android:textSize="16sp"
-            tools:text="@string/buat_sekarang" />
+            android:text="@string/buat_sekarang"
+            android:textSize="16sp" />
 
     </LinearLayout>
 </ScrollView>

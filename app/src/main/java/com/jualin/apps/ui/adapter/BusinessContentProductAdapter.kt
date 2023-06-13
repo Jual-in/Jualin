@@ -63,7 +63,7 @@ class BusinessContentProductAdapter(
         fun bind(item: Product) {
             binding.apply {
                 tvProductName.text = item.name
-                tvProductPrice.text = StringUtils.formatCurrency(item.price)
+                tvProductPrice.text = StringUtils.formatCurrency(item.price.toString())
                 tvProductDiscount.text = item.discount.toString()
 
                 Glide.with(itemView.context)
