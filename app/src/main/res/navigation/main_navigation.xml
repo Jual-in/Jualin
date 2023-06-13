@@ -154,6 +154,9 @@
         <action
             android:id="@+id/action_editBusinessContentFragment_to_editBusinessProductFragment"
             app:destination="@id/editBusinessProductFragment" />
+        <action
+            android:id="@+id/action_editBusinessContentFragment_to_editBusinessServiceFragment"
+            app:destination="@id/editBusinessServiceFragment" />
     </fragment>
     <fragment
         android:id="@+id/inputCategoryFragment"
@@ -174,6 +177,20 @@
         tools:layout="@layout/fragment_edit_business_product" >
         <argument
             android:name="isNewProduct"
+            app:argType="boolean"
+            android:defaultValue="false" />
+        <argument
+            android:name="businessId"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
+    <fragment
+        android:id="@+id/editBusinessServiceFragment"
+        android:name="com.jualin.apps.ui.fragments.EditBusinessServiceFragment"
+        android:label="fragment_edit_business_service"
+        tools:layout="@layout/fragment_edit_business_service" >
+        <argument
+            android:name="isNewService"
             app:argType="boolean"
             android:defaultValue="false" />
         <argument

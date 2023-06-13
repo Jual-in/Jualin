@@ -17,6 +17,6 @@ data class ServiceResponse(
 
 
     @field:SerializedName("id_umkm")
-    val businessId: Int
+    val businessId: Int?
 
 )

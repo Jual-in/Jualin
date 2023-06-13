@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jualin.apps.data.Result
 import com.jualin.apps.databinding.FragmentListServiceBusinessContentBinding
@@ -36,6 +37,7 @@ class ListServiceBusinessContentFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val businessId = arguments?.getInt("businessId") ?: 0
 
         val adapter = BusinessContentServiceAdapter(
             emptyList(),
@@ -45,7 +47,12 @@ class ListServiceBusinessContentFragment : Fragment() {
                 }
 
                 override fun onBusinessServiceAddClick() {
-                    //
+                    val action =
+                        EditBusinessContentFragmentDirections.actionEditBusinessContentFragmentToEditBusinessServiceFragment(
+                            isNewService = true,
+                            businessId = businessId
+                        )
+                    findNavController().navigate(action)
                 }
             },
         )
@@ -64,7 +71,6 @@ class ListServiceBusinessContentFragment : Fragment() {
             }
         }
 
-        val businessId = arguments?.getInt("businessId") ?: 0
         viewModel.getServicesByBusinessId(businessId)
     }
 }

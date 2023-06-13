@@ -12,6 +12,7 @@ import com.jualin.apps.utils.reduceFileImage
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -162,9 +163,11 @@ class BusinessRepository @Inject constructor(
                 photo.name,
                 requestImageFile
             )
+            val rbName = name.toRequestBody("text/plain".toMediaTypeOrNull())
+
             apiService.addProduct(
                 businessId = businessId,
-                name = name,
+                name = rbName,
                 price = price,
                 discount = discount,
                 photo = imageMultipart,
@@ -173,5 +176,26 @@ class BusinessRepository @Inject constructor(
         } catch (e: Exception) {
             emit(Result.Error(e.message))
         }
+    }
+
+    fun addService(
+        businessId: Int,
+        name: String,
+        price: Int,
+        discount: Int,
+    ): LiveData<Result<Boolean>> = liveData {
+        emit(Result.Loading)
+        try {
+            apiService.addService(
+                businessId = businessId,
+                name = name,
+                price = price,
+                discount = discount,
+            )
+            emit(Result.Success(true))
+        } catch (e: Exception) {
+            emit(Result.Error(e.message))
+        }
+
     }
 }

@@ -76,4 +76,7 @@ class UmkmViewModel @Inject constructor(
 
     fun addProduct(businessId: Int, name: String, price: Int, discount: Int, photo: File) =
         businessRepository.addProduct(businessId, name, price, discount, photo)
+
+    fun addService(businessId: Int, name: String, price: Int, discount: Int) =
+        businessRepository.addService(businessId, name, price, discount)
 }
