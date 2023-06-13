@@ -1,5 +1,9 @@
 package com.jualin.apps.data.local.entity
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class Business(
     val id: Int,
     val name: String,
@@ -8,7 +12,7 @@ data class Business(
     val phone: String,
     val latitude: Double? = null,
     val longitude: Double? = null,
-)
+) : Parcelable
 
 data class Product(
     val id: Int,

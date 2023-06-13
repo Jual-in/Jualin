@@ -41,13 +41,13 @@ class RecommendedBusinessAdapter(
                     .into(ivBusiness)
             }
             itemView.setOnClickListener {
-                listener.onBusinessClick(item.id)
+                listener.onBusinessClick(item)
             }
         }
 
     }
 
     interface OnBusinessClickListener {
-        fun onBusinessClick(businessId: Int)
+        fun onBusinessClick(business: Business)
     }
 }

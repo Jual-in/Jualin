@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.jualin.apps.R
+import com.jualin.apps.data.local.entity.Business
 import com.jualin.apps.databinding.FragmentHomeBinding
 import com.jualin.apps.ui.adapter.RecommendedBusinessAdapter
 import com.jualin.apps.ui.viewmodel.HomeViewModel
@@ -61,10 +62,10 @@ class HomeFragment : Fragment() {
             rvRecommended.adapter = RecommendedBusinessAdapter(
                 FakeData.business,
                 object : RecommendedBusinessAdapter.OnBusinessClickListener {
-                    override fun onBusinessClick(businessId: Int) {
+                    override fun onBusinessClick(business: Business) {
                         val action =
                             HomeFragmentDirections.actionHomeFragmentToBusinessDetailFragment(
-                                businessId
+                                business = business
                             )
                         findNavController().navigate(action)
                     }

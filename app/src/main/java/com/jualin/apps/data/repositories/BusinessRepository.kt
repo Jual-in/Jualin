@@ -6,7 +6,6 @@ import com.jualin.apps.data.Result
 import com.jualin.apps.data.local.entity.Business
 import com.jualin.apps.data.local.entity.Product
 import com.jualin.apps.data.local.entity.Service
-import com.jualin.apps.data.remote.response.nearby.NearbyUmkmResponseItem
 import com.jualin.apps.data.remote.retrofit.ApiService
 import com.jualin.apps.utils.reduceFileImage
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -101,11 +100,22 @@ class BusinessRepository @Inject constructor(
     fun getUmkmNearby(
         latitude: Double?,
         longitude: Double?,
-    ): LiveData<Result<List<NearbyUmkmResponseItem>>> = liveData {
+    ): LiveData<Result<List<Business>>> = liveData {
         emit(Result.Loading)
         try {
             val response = apiService.getNearbyUMKM(latitude, longitude)
-            emit(Result.Success(response))
+            val businesses = response.map {
+                Business(
+                    id = it.id,
+                    name = it.namaUsaha,
+                    description = it.deskripsi,
+                    category = it.kategori,
+                    phone = it.noHp,
+                    latitude = it.latitude,
+                    longitude = it.longitude,
+                )
+            }
+            emit(Result.Success(businesses))
         } catch (e: Exception) {
             emit(Result.Error(e.message))
         }

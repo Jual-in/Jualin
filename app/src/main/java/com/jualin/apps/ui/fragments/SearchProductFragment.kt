@@ -64,7 +64,7 @@ class SearchProductFragment : Fragment() {
                 rvNearbyProduct.adapter = SearchProductAdapter(data) { businessId ->
                     val action =
                         SearchFragmentDirections.actionSearchFragmentToBusinessDetailFragment(
-                            businessId
+                            businessId = businessId
                         )
                     findNavController().navigate(action)
                 }

@@ -8,7 +8,7 @@ data class NearbyUmkmResponseItem(
     val kategori: String,
 
     @field:SerializedName("latitude")
-    val latitude: Any,
+    val latitude: Double?,
 
     @field:SerializedName("Nama_usaha")
     val namaUsaha: String,
@@ -23,5 +23,5 @@ data class NearbyUmkmResponseItem(
     val id: Int,
 
     @field:SerializedName("longitude")
-    val longitude: Any
+    val longitude: Double?
 )

@@ -45,16 +45,20 @@ class BusinessDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val businessId = BusinessDetailFragmentArgs.fromBundle(requireArguments()).businessId
+        val business = BusinessDetailFragmentArgs.fromBundle(requireArguments()).business
+        if (business!=null) {
+            setupView(business)
+        }else {
+            val businessId = BusinessDetailFragmentArgs.fromBundle(requireArguments()).businessId
+            viewModel.getBusinessById(businessId).observe(viewLifecycleOwner) {
+                when (it) {
+                    is Result.Success -> {
+                        setupView(it.data)
+                    }
 
-        viewModel.getBusinessById(businessId).observe(viewLifecycleOwner) {
-            when (it) {
-                is Result.Success -> {
-                    setupView(it.data)
+                    is Result.Error -> {}
+                    is Result.Loading -> {}
                 }
-
-                is Result.Error -> {}
-                is Result.Loading -> {}
             }
         }
     }
@@ -89,9 +93,10 @@ class BusinessDetailFragment : Fragment() {
                         binding.tvProductTitle.visibility = View.VISIBLE
                         binding.rvProductList.visibility = View.VISIBLE
 
-                        binding.rvProductList.layoutManager = object : GridLayoutManager(requireContext(), 2) {
-                            override fun canScrollVertically(): Boolean = false
-                        }
+                        binding.rvProductList.layoutManager =
+                            object : GridLayoutManager(requireContext(), 2) {
+                                override fun canScrollVertically(): Boolean = false
+                            }
                         binding.rvProductList.adapter = BusinessDetailProductAdapter(it.data)
                     }
                 }
@@ -108,9 +113,10 @@ class BusinessDetailFragment : Fragment() {
                         binding.tvServiceTitle.visibility = View.VISIBLE
                         binding.rvServiceList.visibility = View.VISIBLE
 
-                        binding.rvServiceList.layoutManager = object : LinearLayoutManager(requireContext()) {
-                            override fun canScrollVertically(): Boolean = false
-                        }
+                        binding.rvServiceList.layoutManager =
+                            object : LinearLayoutManager(requireContext()) {
+                                override fun canScrollVertically(): Boolean = false
+                            }
                         binding.rvServiceList.adapter = BusinessDetailServiceAdapter(it.data)
                     }
                 }
