@@ -14,16 +14,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.jualin.apps.R
+import com.jualin.apps.data.Result
 import com.jualin.apps.databinding.FragmentEditProfileBinding
 import com.jualin.apps.ui.viewmodel.AuthViewModel
-import com.jualin.apps.data.Result
-import com.jualin.apps.utils.reduceFileImage
 import com.jualin.apps.utils.rotateFile
 import com.jualin.apps.utils.uriToFile
 import dagger.hilt.android.AndroidEntryPoint
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.MultipartBody
-import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 
 
@@ -115,14 +111,7 @@ class EditProfileFragment : Fragment() {
         }
         binding.btnEditPhoto.setOnClickListener {
             if (getFile!=null) {
-                val file = reduceFileImage(getFile as File)
-                val requestImageFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
-                val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
-                    "photo",
-                    file.name,
-                    requestImageFile
-                )
-                viewModel.uploadPhotoUser(imageMultipart).observe(viewLifecycleOwner) {
+                viewModel.uploadPhotoUser(getFile!!).observe(viewLifecycleOwner) {
                     when (it) {
                         is Result.Success -> {
                             Toast.makeText(

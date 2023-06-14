@@ -9,6 +9,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.jualin.apps.R
 import com.jualin.apps.data.Result
 import com.jualin.apps.databinding.FragmentProfileBinding
@@ -50,6 +51,10 @@ class ProfileFragment : Fragment() {
                     binding.tvName.text = it.data.name
                     binding.tvEmail.text = it.data.email
                     binding.tvAddress.text = it.data.alamat ?: "-"
+
+                    Glide.with(requireContext())
+                        .load(R.drawable.product_logo)
+                        .into(binding.civProfile)
 
                     if (it.data.role=="Customers") {
                         binding.btnEditBussinessProfile.visibility = View.GONE

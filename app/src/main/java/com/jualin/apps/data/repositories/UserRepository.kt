@@ -12,9 +12,12 @@ import com.jualin.apps.data.remote.response.umkm.AddUMKMResponse
 import com.jualin.apps.data.remote.response.user.UpdateUserResponse
 import com.jualin.apps.data.remote.response.user.UploadPhotoUserResponse
 import com.jualin.apps.data.remote.retrofit.ApiService
+import com.jualin.apps.utils.reduceFileImage
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import java.io.File
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -98,12 +101,18 @@ class UserRepository @Inject constructor(
     }
 
     fun addPhotoUser(
-        photoUrl: MultipartBody.Part
+        photo: File
     ): LiveData<Result<UploadPhotoUserResponse>> {
         return liveData {
             val currentUser = userPreferences.getUser().first()
             emit(Result.Loading)
             try {
+                val reducedImage = reduceFileImage(photo)
+                val photoUrl = MultipartBody.Part.createFormData(
+                    "photo",
+                    reducedImage.name,
+                    reducedImage.asRequestBody()
+                )
                 val response = apiService.uploadPhoto(currentUser.id, photoUrl)
                 emit(Result.Success(response))
             } catch (e: Exception) {

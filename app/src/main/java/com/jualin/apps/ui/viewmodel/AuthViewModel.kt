@@ -13,7 +13,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import okhttp3.MultipartBody
+import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
@@ -53,7 +53,7 @@ class AuthViewModel @Inject constructor(
         return userRepository.updaterUser(name, email, password, alamat)
     }
 
-    fun uploadPhotoUser(file: MultipartBody.Part)
+    fun uploadPhotoUser(file: File)
             : LiveData<Result<UploadPhotoUserResponse>> {
         return userRepository.addPhotoUser(file)
     }

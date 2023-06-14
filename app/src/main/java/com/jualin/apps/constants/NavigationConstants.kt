@@ -13,6 +13,7 @@ object NavigationConstants {
         R.id.editBusinessContentFragment,
         R.id.inputCategoryFragment,
         R.id.editBusinessProductFragment,
-        R.id.editBusinessServiceFragment
+        R.id.editBusinessServiceFragment,
+        R.id.newsViewerFragment
     )
 }
