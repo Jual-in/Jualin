@@ -64,8 +64,11 @@ class HomeFragment : Fragment() {
             include4.tvDiscount.text = getString(R.string.discount_up_to, 20)
 
             Glide.with(requireContext())
-                .load("https://picsum.photos/300/180")
+                .load("https://images.bisnis.com/posts/2023/05/30/1660600/Namaste_21_Handmade.jpeg")
                 .into(carouselView)
+            carouselView.setOnClickListener {
+                findNavController().navigate(R.id.action_homeFragment_to_newsViewerFragment)
+            }
 
             rvRecommended.visibility = View.VISIBLE
             rvRecommended.layoutManager =
