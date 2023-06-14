@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragments.NewsViewerFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="12dp">
+
+        <ImageButton
+            android:id="@+id/back_button"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/back_button" />
+
+        <TextView
+            android:id="@+id/tvNewsDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:textColor="@color/defaultGrey"
+            android:textSize="11sp"
+            tools:text="segoSambel - May 16, 2023" />
+
+        <TextView
+            android:id="@+id/tvNewsTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit" />
+
+        <ImageView
+            android:id="@+id/ivNewsImage"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:layout_marginTop="12dp"
+            android:scaleType="centerCrop"
+            tools:src="@tools:sample/backgrounds/scenic" />
+
+        <TextView
+            android:id="@+id/tvNewsAuthor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:gravity="center"
+            android:textColor="@color/defaultGrey"
+            android:textSize="11sp"
+            tools:text="Photo by segoSambel" />
+
+        <TextView
+            android:id="@+id/tvNewsContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:text="Penjualan secara elektronik atau dagang-el telah banyak membantu pelaku UMKM di Bali untuk bangkit dari keterpurukan akibat pandemi.\n\nSalah satunya dirasakan oleh Wesley Simanjuntak, owner Namaste 21 Handmade. Karena mengadopsi digitalisasi, kini omzet usahanya mulai mengalami peningkatan meskipun belum sangat besar. Saat ini omzetnya rata-rata mencapai Rp10 juta-Rp13 juta per bulan.\n\nKendati demikian, tidak semua penjualan dari dagang-el. Ada beberapa yang terjual berkat pameran konsinyasi di hotel. Wesley yang akrab dipanggil Novi menekankan, digitalisasi akan menjadi salah satu kunci bisnisnya untuk semakin berkembang. Karena itu dirinya bertekad terus memperbaiki foto produk, caption hingga story telling produknya.\n\nDiakuinya digitalisasi telah membantu langkah awal Namaste 21 Handmade. Itu dibuktikan tidak hanya tingkat penjualan, tetapi dari inovasi produk. Sekarang ini, lini produksi tas yang dihasilkan mencapai 42 jenis produk yang terbagi dalam enam seri, yakni etnic, jute, hampers, lukis, printed, dan rajut.\n\n“Sekarang belum full digital mungkin baru 50 persen, contohnya pembayaran bisa menggunakan QRIS. Walaupun belum maksimal tapi kedepan mau tidak mau saya harus adaptif dengan digitalisasi,” ujarnya kepada Bisnis, Selasa (30/5/2023).\n\nNamaste 21 Handmade didirikan oleh Novi pada awal 2020. Ide awal usahanya karena ketidaksengajaan. Saat Covid-19 merebak di Bali pada awal 2020, dia memproduksi masker. Ketika itu hasil karyanya diminati oleh beberapa orang karena dinilai bagus. Pada saat bersamaan, dia kehilangan pekerjaannya sebagai salah satu tempat wisata.\n\n“Akhirnya saya mulai jahit menjahit dan berkreaasi dengan kain dan tas,” ujarnya.\n\nDari ide memproduksi masker, produksinya kemudian berkembang menjadi tas fesyen. Tas ini terbuat dari bahan karung goni yang dipadukan dengan kain perca endek, kulit asli, rajutan, hingga lukisan tangan. Sesuai nama usahanya, semua hasil karya murni buatan tangan. Saat ini, hasil karyanya dijual senilai Rp300 ribu per biji hingga Rp1,2 juta per biji tergantung tingkat kesulitan pembuatannya.\n\nNovi menekankan sengaja memilih produk ramah lingkungan karena ingin berkontribusi terhadap bumi. Tas produksinya diklaim menggunakan ramah lingkungan termasuk endek yang dipilih menggunakan pewarna alam dan bukan sablon. Begitu pula pemanfatan kain perca untuk membantu mengurangi limbah kain. Dia juga memberdayakan pelukis untuk memberdayakan seniman.\n\nDia mengungkapkan usahanya mengalami peningkatan kapasitas sejak mengikuti pelatihan di Rumah BUMN Gianyar BRI Bali. Di sini dirinya mendapatkan pelatihan digitalisasi pemasaran, hingga literasi keuangan. Modal pengetahuan tersebut membantunya mengupgrade sekaligus menekuni bisnis di era pandemi. Pelatihan dari Rumah BUMN binaan BRI tersebut juga membantunya menembus pasar karena didorong untuk adaptif dengan digitalisasi.\n\n“Awalnya jualan posting di facebook dan Instagram serta marketplace tapi belum maksimal. Begitu dapat pelatihan, pelan-pelan dapat literasi dan saya mulai melengkapi kekurangan,” tuturnya.\n\nHingga saat ini, Rumah BUMN di seluruh Indonesia mencapai 250 unit. Sebanyak 54 unit dimiliki oleh BRI dan salah satunya adalah Rumah BUMN Gianyar. BRI berharap fasilitas ini mampu membangun embrio UMKM digital di berbagai daerah di nusantara.\n\nAdapun fasilitas Rumah BUMN BRI di Gianyar terdapat 4 ruang utama yang disediakan untuk pendampingan para pelaku UMKM yaitu ruang registrasi, ruang konsultasi, ruang pelatihan, dan ruang displai. Ruang registrasi dapat dimanfaatkan untuk melakukan profiling pelaku dan produk UMKM dengan mengelompokkan produk serta pelaku dalam kategori yang berbeda-beda.\n\n“BRI Group senantiasa menjalankan kewajiban sosial, memperkuat peran sebagai salah satu pilar ekonomi nasional, dan memberikan manfaat positif bagi lingkungan atau masyarakat sekitar,” ujar Regional CEO BRI Denpasar Recky Plangiten." />
+
+    </LinearLayout>
+
+</ScrollView>

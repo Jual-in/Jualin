@@ -52,6 +52,9 @@
         <action
             android:id="@+id/action_homeFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_newsViewerFragment"
+            app:destination="@id/newsViewerFragment" />
     </fragment>
     <fragment
         android:id="@+id/nearbyFragment"
@@ -213,4 +216,9 @@
             android:defaultValue="@null"
             app:nullable="true" />
     </fragment>
+    <fragment
+        android:id="@+id/newsViewerFragment"
+        android:name="com.jualin.apps.ui.fragments.NewsViewerFragment"
+        android:label="fragment_news_viewer"
+        tools:layout="@layout/fragment_news_viewer" />
 </navigation>
