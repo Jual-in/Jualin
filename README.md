@@ -1,42 +1,55 @@
 
-<h1 align="center">
-  <br>
-  <!-- <a href="http://www.amitmerchant.com/electron-markdownify"><img src="https://raw.githubusercontent.com/amitmerchant1990/electron-markdownify/master/app/img/markdownify.png" alt="Markdownify" width="200"></a> -->
-  <br>
-  Jualin
-  <br>
-</h1>
+# MOBILE APPS Jual.In
 
-<h4 align="center">A mobile application designed for connecting SMEs through the Android platform</h4>
 
-<p align="center">
-  <a href="#key-features">Key Features</a> •
-  <a href="#download">Download</a>
-</p>
+This is a mobile Android app developed using Kotlin that designed for connecting SMEs through the Android platform and allows users to search for nearby Small and Medium Enterprises (SMEs), view their products and services, and make recommendations. The app also includes features such as user authentication, image recognition, and profile editing.
 
-<!-- ![screenshot](https://raw.githubusercontent.com/amitmerchant1990/electron-markdownify/master/app/img/markdownify.gif) -->
+## Contributors
+- Habib Husain Amirullah
+- Baharudin Nur Hidayat
 
-## Key Features
 
-* Working
-<!-- * LivePreview - Make changes, See changes
-  - Instantly see what your Markdown documents look like in HTML as you create them.
-* Sync Scrolling
-  - While you type, LivePreview will automatically scroll to the current location you're editing.
-* GitHub Flavored Markdown  
-* Syntax highlighting
-* [KaTeX](https://khan.github.io/KaTeX/) Support
-* Dark/Light mode
-* Toolbar for basic Markdown formatting
-* Supports multiple cursors
-* Save the Markdown preview as PDF
-* Emoji support in preview :tada:
-* App will keep alive in tray for quick usage
-* Full screen mode
-  - Write distraction free.
-* Cross platform
-  - Windows, macOS and Linux ready. -->
+## Features
+- User Authentication
+The app requires users to register and log in before they can access its features. Users can create an account using their email address and password. Once logged in, users can view their profile and edit their account details.
+
+- SME Recommendations
+Users can recommend SMEs that they have visited and enjoyed. They can rate SMEs based on their experience and leave a review. Other users can view these recommendations and decide whether to visit the SME themselves.
+
+- Nearby SMEs
+The app uses the device's location to display a list of nearby SMEs. Users can filter the list by category and distance.
+
+- Image Recognition
+The app includes an image recognition feature that allows users to take a picture of a product and search for similar products at nearby SMEs.
+
+- Profile Editing
+Users can edit their profile information, including their name, profile picture, and contact information.
+
+- Add SME Data
+Users can add new SME data to the app's database, including the SME's name, category, location, and contact information.
+
+- Edit SME Data
+Users can edit existing SME data in the app's database, including the SME's name, category, location, and contact information.
+
+- Add Product for SMEs
+Users can add new products to an existing SME's profile, including the product name, description, and image.
+
+- Add Service for SMEs
+Users can add new services to an existing SME's profile, including the service name, description, and image.
+
+- Search Product or Service
+Users can search for products or services by name or category, and the app will display a list of matching results.
+
+
+## Technologies Used
+
+- Kotlin
+- Android Studio
+- Retrofit
+- Google Maps API
+
 
 ## Download
 
 You can [download](https://github.com/Jual-in/Jualin/releases) the latest build of this app for Android.
+
